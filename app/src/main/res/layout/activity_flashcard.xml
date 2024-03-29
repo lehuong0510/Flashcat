@@ -5,5 +5,67 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activity.Desk.FlashcardActivity">
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="0dp">
 
+        <ImageButton
+            android:id="@+id/btn_back_card"
+            android:layout_width="50dp"
+            android:layout_height="58dp"
+            android:layout_marginLeft="10px"
+            android:backgroundTint="@color/gray"
+            android:contentDescription="@string/back"
+            android:src="@drawable/back" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="58dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/white"
+            android:fontFamily="@font/inter_semibold"
+            android:gravity="center"
+            android:text="1/16"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/list_item_flashcard"
+        android:layout_width="410dp"
+        android:layout_height="609dp"
+        android:layout_marginTop="70dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btn_flash_back"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="740dp"
+        android:background="@color/transparent"
+        android:contentDescription="@string/return_flashcard"
+        android:src="@drawable/return_flashcard"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btn_flash_star"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="328dp"
+        android:layout_marginTop="740dp"
+        android:background="@color/transparent"
+        android:contentDescription="@string/add_to_favorites"
+        android:src="@drawable/star_nocolor"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

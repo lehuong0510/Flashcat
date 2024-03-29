@@ -5,5 +5,122 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activity.Desk.EditDeskActivity">
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.005"
+        tools:layout_editor_absoluteX="132dp">
 
+        <ImageButton
+            android:id="@+id/btn_back_edit_desk"
+            android:layout_width="50dp"
+            android:layout_height="58dp"
+            android:layout_marginLeft="10px"
+            android:backgroundTint="@color/white"
+            android:contentDescription="@string/back"
+            android:src="@drawable/back" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="58dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/white"
+            android:fontFamily="@font/inter_semibold"
+            android:gravity="center"
+            android:text="@string/edit_desk"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btn_clear_storage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:fontFamily="@font/inter_semibold"
+            android:gravity="end"
+            android:text="@string/save"
+            android:textColor="@color/color_font"
+            android:textSize="20sp"
+            />
+
+    </LinearLayout>
+
+    <!--    <LinearLayout-->
+    <!--        android:layout_width="342dp"-->
+    <!--        android:layout_height="80dp"-->
+    <!--        android:layout_marginStart="25dp"-->
+    <!--        android:layout_marginTop="136dp"-->
+    <!--        android:orientation="vertical"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintHorizontal_bias="0.204"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent">-->
+
+    <!--        <TextView-->
+    <!--            android:layout_width="130dp"-->
+    <!--            android:layout_height="18dp"-->
+    <!--            android:layout_marginBottom="8dp"-->
+    <!--            android:fontFamily="@font/poppins_medium"-->
+    <!--            android:text="@string/desk_name"-->
+    <!--            android:textColor="@color/black"-->
+    <!--            android:textSize="15sp" />-->
+
+    <!--        <EditText-->
+    <!--            android:id="@+id/ed_profile_first_name"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="50dp"-->
+    <!--            android:layout_gravity="left|top"-->
+    <!--            android:background="@drawable/background_editprofile"-->
+    <!--            android:fontFamily="@font/open_sans_semibold"-->
+    <!--            android:hint="@string/first_name"-->
+    <!--            android:textColor="@color/white"-->
+    <!--            android:textSize="14sp" />-->
+    <!--    </LinearLayout>-->
+    <com.google.android.material.textfield.TextInputLayout
+        style="?attr/textInputFilledStyle"
+        android:id="@+id/filledTextField"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="136dp"
+        app:endIconMode="clear_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.204"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/desk_name">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/ed_name_desk_edit"
+            android:layout_width="342dp"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <ListView
+        android:id="@+id/list_flashcard"
+        android:layout_width="342dp"
+        android:layout_height="350dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="216dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floating_action_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:contentDescription="Add"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.96"
+        app:srcCompat="@drawable/add" />
 </androidx.constraintlayout.widget.ConstraintLayout>
