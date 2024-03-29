@@ -45,5 +45,5 @@ dependencies {
     //button
     implementation("com.github.traex.rippleeffect:library:1.3")
     //SwipeSelector
-    implementation("com.roughike:swipe-selector:1.0.6")
+    //implementation("com.roughike:swipe-selector:1.0.6")
 }

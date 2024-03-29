@@ -4,6 +4,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".Activity.Practice.MatchActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_margin="20px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/btn_end_match"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10px"
+            android:backgroundTint="@color/white"
+            android:contentDescription="close"
+            android:src="@drawable/close" />
+
+        <TextView
+            android:id="@+id/txt_time_Match"
+            android:layout_width="260dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:inputType="time"
+            android:text="01:15"
+            android:textSize="27sp" />
+
+        <ImageButton
+            android:id="@+id/btn_am_thanh"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/white"
+            android:contentDescription="volume"
+            android:src="@drawable/volume" />
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
