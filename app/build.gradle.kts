@@ -36,4 +36,14 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    //add avt circle
+    implementation ("de.hdodenhof:circleimageview:3.1.0")
+    //add flip card
+    implementation("com.wajahatkarim:EasyFlipView:3.0.3")
+    //zoom layout
+    implementation("com.github.skydoves:transformationlayout:1.1.3")
+    //button
+    implementation("com.github.traex.rippleeffect:library:1.3")
+    //SwipeSelector
+    implementation("com.roughike:swipe-selector:1.0.6")
 }
