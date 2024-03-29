@@ -1,5 +1,6 @@
 package com.example.flashcat.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,7 +8,12 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 
+import com.example.flashcat.Activity.Login.LoginActivity;
+import com.example.flashcat.Activity.SettingUser.SettingActivity;
+import com.example.flashcat.Activity.SyncActivity;
 import com.example.flashcat.R;
 
 /**
@@ -16,6 +22,10 @@ import com.example.flashcat.R;
  * create an instance of this fragment.
  */
 public class UserFragment extends Fragment {
+    private ImageView btnSetting;
+    private Button btnSync;
+    private Button btnLogin;
+    private Button btnLogout;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -61,6 +71,41 @@ public class UserFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_user, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_user, container, true);
+        btnSetting = rootView.findViewById(R.id.btn_setting);
+        btnSync = rootView.findViewById(R.id.btn_sync);
+        btnLogin = rootView.findViewById(R.id.btn_Login);
+        btnLogout = rootView.findViewById(R.id.btn_Logout);
+
+        btnSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(), SettingActivity.class);
+                startActivity(i);
+            }
+        });
+        btnSync.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(), SyncActivity.class);
+                startActivity(i);
+            }
+        });
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(), LoginActivity.class);
+                startActivity(i);
+            }
+        });
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(), LoginActivity.class);
+                startActivity(i);
+            }
+        });
+        return rootView;
     }
+
 }

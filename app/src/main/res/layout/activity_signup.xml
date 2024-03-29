@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.Login.SignUpActivity"
+    tools:context=".Activity.Login.SignupActivity"
     android:background="@drawable/linear_color_signup">
 
     <TextView
@@ -169,7 +169,7 @@
         android:hint="@string/email">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/ed_email"
+            android:id="@+id/ed_email_singup"
             android:layout_width="match_parent"
             android:layout_height="65dp"
             android:backgroundTint="@color/transparent"
@@ -275,7 +275,7 @@
         android:hint="@string/password">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/ed_password"
+            android:id="@+id/ed_password_signup"
             android:layout_width="match_parent"
             android:layout_height="65dp"
             android:backgroundTint="@color/transparent"
