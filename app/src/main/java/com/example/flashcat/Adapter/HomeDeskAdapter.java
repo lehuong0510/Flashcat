@@ -1,6 +1,7 @@
 package com.example.flashcat.Adapter;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.flashcat.Model.Desk;
 import com.example.flashcat.R;
 
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.format.DateTimeFormatter;
+
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -42,11 +45,10 @@ public class HomeDeskAdapter extends RecyclerView.Adapter<HomeDeskAdapter.DeskVi
         if(desk == null)
             return;
         holder.txtDeskName.setText(desk.getName_deck());
-        holder.txtNumberCard.setText(desk.getNumber_flashcard());
-
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        holder.txtNumberCard.setText(String.valueOf(desk.getNumber_flashcard()));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime createDay = desk.getCreate_day();
-        String formattedDateTime = formatter.format(createDay);
+        String formattedDateTime = createDay.format(formatter);
         holder.txtCreateDay.setText(formattedDateTime);
     }
 
@@ -64,6 +66,7 @@ public class HomeDeskAdapter extends RecyclerView.Adapter<HomeDeskAdapter.DeskVi
         public DeskViewHolder(@NonNull View itemView) {
             super(itemView);
             txtDeskName = itemView.findViewById(R.id.txt_DeskName);
+            txtDeskName.setPaintFlags(txtDeskName.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
             txtNumberCard = itemView.findViewById(R.id.txt_NumberCard);
             txtCreateDay = itemView.findViewById(R.id.txt_create_day);
         }

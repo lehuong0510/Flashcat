@@ -43,13 +43,13 @@
                 android:textSize="26sp" />
 
             <ImageButton
-                android:id="@+id/imgbtn_Notification"
+                android:id="@+id/btn_Notification_Home"
                 android:layout_width="64dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="170dp"
                 android:backgroundTint="@color/white"
-                android:contentDescription="Notification"
+                android:contentDescription="@string/notification"
                 android:src="@drawable/notification" />
         </LinearLayout>
 
@@ -75,12 +75,10 @@
             android:layout_width="wrap_content"
             android:layout_height="60dp"
             android:layout_marginStart="300dp"
-            android:layout_marginTop="240dp"
-            android:clickable="true"
+            android:layout_marginTop="232dp"
             android:fontFamily="@font/inter"
-            android:onClick="onSeeAllClicked"
-            android:text="@string/see_all"
             android:gravity="bottom"
+            android:text="@string/see_all"
             android:textColor="@color/see_all"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
