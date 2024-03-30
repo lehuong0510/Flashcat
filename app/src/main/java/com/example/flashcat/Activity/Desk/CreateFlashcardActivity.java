@@ -7,6 +7,8 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -18,7 +20,7 @@ public class CreateFlashcardActivity extends AppCompatActivity {
     private Spinner spSelectDesk;
     private EditText edFront;
     private EditText edBack;
-
+    private Button btnDoneNewFlashcard;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +28,12 @@ public class CreateFlashcardActivity extends AppCompatActivity {
         findID();
         setSupportActionBar(toolbarNewFlashcard);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        btnDoneNewFlashcard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
     //event toolbar
 
@@ -36,11 +44,7 @@ public class CreateFlashcardActivity extends AppCompatActivity {
             onBackPressed();
             return true;
         }
-        else if(it == R.id.action_done_new_flashcard){
-            Intent i = new Intent(CreateFlashcardActivity.this, DeskActivity.class);
-            startActivity(i);
-            return true;
-        }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -49,6 +53,7 @@ public class CreateFlashcardActivity extends AppCompatActivity {
         spSelectDesk = findViewById(R.id.sp_select_desk);
         edFront = findViewById(R.id.ed_front_flashcard);
         edBack = findViewById(R.id.ed_back_flashcard);
+        btnDoneNewFlashcard = findViewById(R.id.action_done_new_flashcard);
 
     }
 }

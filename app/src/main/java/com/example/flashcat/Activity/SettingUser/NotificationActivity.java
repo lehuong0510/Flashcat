@@ -22,6 +22,7 @@ public class NotificationActivity extends AppCompatActivity {
     private Spinner spDeskRemind;
     private Button btnTimeStart;
     private Button btnTimeFinish;
+    private Button btnSaveNotification;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +57,12 @@ public class NotificationActivity extends AppCompatActivity {
 
             }
         });
+        btnSaveNotification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
     public void findID(){
         toolbarNotification = findViewById(R.id.toolbar_Notification);
@@ -64,6 +71,7 @@ public class NotificationActivity extends AppCompatActivity {
         spDeskRemind = findViewById(R.id.sp_select_desk_remind);
         btnTimeStart = findViewById(R.id.btn_select_timeStart);
         btnTimeFinish = findViewById(R.id.btn_select_timeFinish);
+        btnSaveNotification = findViewById(R.id.btn_change_password);
     }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -72,9 +80,7 @@ public class NotificationActivity extends AppCompatActivity {
             onBackPressed();
             return true;
         }
-        else if(it == R.id.btn_notification_save){
-            return true;
-        }
+
         return super.onOptionsItemSelected(item);
     }
 }

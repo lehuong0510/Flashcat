@@ -6,9 +6,11 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.PopupMenu;
 
 import com.example.flashcat.R;
@@ -16,6 +18,7 @@ import com.example.flashcat.R;
 public class DeskActivity extends AppCompatActivity {
     private Toolbar toolbarDesk ;
     private Button btnStudy;
+    private ImageButton btnMore;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,10 +33,17 @@ public class DeskActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+        btnMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPopupMenu();
+            }
+        });
     }
     public void findID(){
         toolbarDesk = findViewById(R.id.toolbar_Desk);
         btnStudy = findViewById(R.id.btn_Study);
+        btnMore = findViewById(R.id.action_more_desk);
 
     }
     @Override
@@ -41,10 +51,6 @@ public class DeskActivity extends AppCompatActivity {
         int it = item.getItemId();
         if(it == android.R.id.home){
             onBackPressed();
-            return true;
-        }
-        else if(it == R.id.action_more_desk){
-            showPopupMenu();
             return true;
         }
         return super.onOptionsItemSelected(item);

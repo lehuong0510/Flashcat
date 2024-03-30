@@ -21,6 +21,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
     private EditText edNewPassword;
     private ImageButton btnNewPassword;
     private EditText edConfirmPassword;
+    private Button btnChangePassword;
     private ImageButton btnConfirmPassword;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +49,12 @@ public class ChangePasswordActivity extends AppCompatActivity {
 
             }
         });
+        btnChangePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
     public void findID()
     {
@@ -58,6 +65,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
         btnNewPassword = findViewById(R.id.btn_new_password);
         edConfirmPassword =  findViewById(R.id.ed_confirm_password);
         btnConfirmPassword = findViewById(R.id.btn_confirm_password);
+        btnChangePassword = findViewById(R.id.btn_change_password);
     }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -66,9 +74,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
             onBackPressed();
             return true;
         }
-        else if(it == R.id.action_changepassword){
-            return true;
-        }
+
         return super.onOptionsItemSelected(item);
     }
 }

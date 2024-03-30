@@ -25,9 +25,10 @@
 
         <ImageButton
             android:id="@+id/action_more_desk"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:backgroundTint="@color/white"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:showAsAction="always"
+            android:background="@color/transparent"
             android:fontFamily="@font/inter_semibold"
             android:contentDescription="@string/more"
             android:src="@drawable/more"

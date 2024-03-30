@@ -86,6 +86,8 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 dialog.dismiss();
+                View overlay = findViewById(R.id.overlay);
+                overlay.setVisibility(View.GONE);
                 Intent intent = new Intent(HomeActivity.this, PracticeActivity.class);
                 startActivity(intent);
 
@@ -96,6 +98,8 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 dialog.dismiss();
+                View overlay = findViewById(R.id.overlay);
+                overlay.setVisibility(View.GONE);
                 Intent intent = new Intent(HomeActivity.this, PracticeActivity.class);
                 startActivity(intent);
 
@@ -109,6 +113,8 @@ public class HomeActivity extends AppCompatActivity {
                     replaceFragment(new HomeFragment());
                     currentPage = CurrentPage.HOME;
                     bottomNavigationView.setSelectedItemId(R.id.menu_Home);
+                    View overlay = findViewById(R.id.overlay);
+                    overlay.setVisibility(View.GONE);
                 }
             }
         });
@@ -118,6 +124,8 @@ public class HomeActivity extends AppCompatActivity {
         dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
         dialog.getWindow().setGravity(Gravity.BOTTOM);
         dialog.show();
+        View overlay = findViewById(R.id.overlay);
+        overlay.setVisibility(View.VISIBLE);
 
     }
     private  void openDialogNewDesk(int gravity ){
@@ -157,10 +165,14 @@ public class HomeActivity extends AppCompatActivity {
 
         dialogDesk.setCanceledOnTouchOutside(false);
         dialogDesk.show();
+        View overlay = findViewById(R.id.overlay);
+        overlay.setVisibility(View.VISIBLE);
     }
     private void closeDialog(Dialog dialog) {
         if (dialog != null && dialog.isShowing()) {
             dialog.dismiss();
+            View overlay = findViewById(R.id.overlay);
+            overlay.setVisibility(View.GONE);
         }
     }
     private void closeDialogAndReturnToHome() {

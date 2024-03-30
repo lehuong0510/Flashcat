@@ -15,13 +15,6 @@
         app:layout_constraintVertical_bias="0.005"
         tools:layout_editor_absoluteX="132dp">
 
-        <ImageButton
-            android:id="@+id/btn_back_edit_desk"
-            android:layout_width="58dp"
-            android:layout_height="match_parent"
-            android:backgroundTint="@color/white"
-            android:contentDescription="@string/back"
-            android:src="@drawable/back" />
 
         <TextView
             android:layout_width="240dp"

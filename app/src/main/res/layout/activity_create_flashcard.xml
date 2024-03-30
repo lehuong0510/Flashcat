@@ -17,13 +17,6 @@
         app:layout_constraintVertical_bias="0.0"
         tools:layout_editor_absoluteX="0dp">
 
-        <ImageButton
-            android:id="@+id/btn_back_new_flashcard"
-            android:layout_width="50dp"
-            android:layout_height="58dp"
-            android:backgroundTint="@color/white"
-            android:contentDescription="@string/back"
-            android:src="@drawable/back" />
 
         <TextView
             android:layout_width="240dp"

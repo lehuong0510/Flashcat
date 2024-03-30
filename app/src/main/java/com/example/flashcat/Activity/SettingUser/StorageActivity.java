@@ -22,6 +22,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class StorageActivity extends AppCompatActivity {
     private Toolbar toolbarSrorage;
+    private Button btnClear;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,19 +31,23 @@ public class StorageActivity extends AppCompatActivity {
         findID();
         setSupportActionBar(toolbarSrorage);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        btnClear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialogClear();
+            }
+        });
     }
     public void findID(){
+
         toolbarSrorage = findViewById(R.id.toolbar_Storage);
+        btnClear = findViewById(R.id.action_clear);
     }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int it = item.getItemId();
         if(it == android.R.id.home){
             onBackPressed();
-            return true;
-        }
-        else if(it == R.id.action_clear){
-            showDialogClear();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -61,6 +66,8 @@ public class StorageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
+                View overlay = findViewById(R.id.overlay);
+                overlay.setVisibility(View.VISIBLE);
                 new MaterialAlertDialogBuilder(StorageActivity.this) // Chú ý cần thêm "this" hoặc tên Activity
                         .setTitle(getResources().getString(R.string.title_dialog))
                         .setMessage(getResources().getString(R.string.supporting_text))
@@ -68,6 +75,8 @@ public class StorageActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 // Xử lý khi nhấn nút neutral
+                                overlay.setVisibility(View.GONE);
+
                             }
                         })
 
@@ -75,6 +84,8 @@ public class StorageActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 // Xử lý khi nhấn nút positive
+                                overlay.setVisibility(View.GONE);
+
                             }
                         })
                         .show();
@@ -87,7 +98,8 @@ public class StorageActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 dialog.dismiss();
-
+                View overlay = findViewById(R.id.overlay);
+                overlay.setVisibility(View.VISIBLE);
                 new MaterialAlertDialogBuilder(StorageActivity.this) // Chú ý cần thêm "this" hoặc tên Activity
                         .setTitle(getResources().getString(R.string.title_dialog))
                         .setMessage(getResources().getString(R.string.supporting_text))
@@ -95,6 +107,8 @@ public class StorageActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 // Xử lý khi nhấn nút neutral
+                                overlay.setVisibility(View.GONE);
+
                             }
                         })
 
@@ -102,6 +116,8 @@ public class StorageActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 // Xử lý khi nhấn nút positive
+                                overlay.setVisibility(View.GONE);
+
                             }
                         })
                         .show();
@@ -114,6 +130,8 @@ public class StorageActivity extends AppCompatActivity {
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
         dialog.getWindow().setGravity(Gravity.BOTTOM);
+        View overlay = findViewById(R.id.overlay);
+        overlay.setVisibility(View.VISIBLE);
 
     }
 }
