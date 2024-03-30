@@ -37,7 +37,16 @@
             android:textSize="20sp"
             />
     </LinearLayout>
-
+    <TextView
+        android:id="@+id/txt_create_day"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:fontFamily="@font/inter"
+        android:text="18/10/2023"
+        android:textSize="20sp"
+        android:inputType="date"
+        android:layout_margin="20dp"
+        />
 
 
 </LinearLayout>

@@ -55,7 +55,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
         edOldPassword = findViewById(R.id.ed_old_password);
         btnOldPassword = findViewById(R.id.btn_old_password);
         edNewPassword = findViewById(R.id.ed_new_password);
-        btnOldPassword = findViewById(R.id.btn_old_password);
+        btnNewPassword = findViewById(R.id.btn_new_password);
         edConfirmPassword =  findViewById(R.id.ed_confirm_password);
         btnConfirmPassword = findViewById(R.id.btn_confirm_password);
     }
