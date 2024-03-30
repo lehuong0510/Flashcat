@@ -14,7 +14,10 @@ public class Flashcard {
 
     public Flashcard() {
     }
-
+    public Flashcard(String term, String definition){
+        this.term = term;
+        this.definition = definition;
+    }
     public Flashcard(int ID_Flashcard, String term, String definition, String example, String sound, boolean status, LocalDateTime update_day, int ID_Deck) {
         this.ID_Flashcard = ID_Flashcard;
         this.term = term;

@@ -46,4 +46,6 @@ dependencies {
     implementation("com.github.traex.rippleeffect:library:1.3")
     //SwipeSelector
     //implementation("com.roughike:swipe-selector:1.0.6")
+    //time
+    implementation ("com.jakewharton.threetenabp:threetenabp:1.3.1")
 }
