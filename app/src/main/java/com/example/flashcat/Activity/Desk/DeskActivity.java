@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.PopupMenu;
 
@@ -22,6 +23,13 @@ public class DeskActivity extends AppCompatActivity {
         findID();
         setSupportActionBar(toolbarDesk);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        btnStudy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(DeskActivity.this, FlashcardActivity.class);
+                startActivity(i);
+            }
+        });
     }
     public void findID(){
         toolbarDesk = findViewById(R.id.toolbar_Desk);

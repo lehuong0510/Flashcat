@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.example.flashcat.Activity.Login.LoginActivity;
@@ -22,7 +23,6 @@ import com.example.flashcat.R;
  * create an instance of this fragment.
  */
 public class UserFragment extends Fragment {
-    private ImageView btnSetting;
     private Button btnSync;
     private Button btnLogin;
     private Button btnLogout;
@@ -71,8 +71,8 @@ public class UserFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_user, container, true);
-        btnSetting = rootView.findViewById(R.id.btn_setting);
+        View rootView = inflater.inflate(R.layout.fragment_user, container, false);
+        ImageButton btnSetting = rootView.findViewById(R.id.btn_setting);
         btnSync = rootView.findViewById(R.id.btn_sync);
         btnLogin = rootView.findViewById(R.id.btn_Login);
         btnLogout = rootView.findViewById(R.id.btn_Logout);

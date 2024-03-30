@@ -12,13 +12,6 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-        <ImageButton
-            android:id="@+id/action_back_desk"
-            android:layout_width="50dp"
-            android:layout_height="58dp"
-            android:backgroundTint="@color/white"
-            android:contentDescription="@string/back"
-            android:src="@drawable/back" />
 
         <TextView
             android:layout_width="285dp"

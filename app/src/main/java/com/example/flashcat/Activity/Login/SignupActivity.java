@@ -25,6 +25,7 @@ public class SignupActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+        findID();
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -40,7 +41,7 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
     }
-    public void finID(){
+    public void findID(){
         edFirstName = findViewById(R.id.ed_first_name);
         edLastName = findViewById(R.id.ed_last_name);
         edEmailSignup = findViewById(R.id.ed_email_singup);

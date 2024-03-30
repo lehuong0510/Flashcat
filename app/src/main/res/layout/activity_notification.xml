@@ -7,7 +7,7 @@
     tools:context=".Activity.SettingUser.NotificationActivity">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/linearLayout"
+        android:id="@+id/toolbar_Notification"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:orientation="horizontal"
@@ -16,13 +16,6 @@
         app:layout_constraintVertical_bias="0.005"
         tools:layout_editor_absoluteX="132dp">
 
-        <ImageButton
-            android:id="@+id/btn_back_notification"
-            android:layout_width="50dp"
-            android:layout_height="58dp"
-            android:backgroundTint="@color/white"
-            android:contentDescription="@string/back"
-            android:src="@drawable/back" />
 
         <TextView
             android:layout_width="250dp"
@@ -80,7 +73,7 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/linearLayout"
+        app:layout_constraintTop_toTopOf="@+id/toolbar_Notification"
         app:layout_constraintVertical_bias="0.496"
         tools:layout_editor_absoluteX="0dp" />
 

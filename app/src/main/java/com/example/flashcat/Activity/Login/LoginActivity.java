@@ -20,18 +20,13 @@ public class LoginActivity extends AppCompatActivity {
     private CheckBox cbRemember;
     private TextView btnForgot;
     private Button btnLogin;
+    private Button btnLocal;
     private TextView btnSignup;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         findID();
-        btnForgot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -39,13 +34,13 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-        btnSignup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(LoginActivity.this, SignupActivity.class);
-                startActivityForResult(i,100);
-            }
-        });
+       btnSignup.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               Intent i = new Intent(LoginActivity.this, SignupActivity.class);
+               startActivity(i);
+           }
+       });
     }
     public void findID()
     {
@@ -54,6 +49,7 @@ public class LoginActivity extends AppCompatActivity {
         cbRemember = findViewById(R.id.cb_Remember);
         btnForgot = findViewById(R.id.btn_Forgot);
         btnLogin = findViewById(R.id.btn_Login);
-        btnSignup = findViewById(R.id.btn_signup);
+        btnLocal = findViewById(R.id.btn_Local);
+        btnSignup = findViewById(R.id.btn_signup_login);
     }
 }

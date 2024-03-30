@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".Activity.SettingUser.StorageActivity">
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/linearLayout"
+        android:id="@+id/toolbar_Storage"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:orientation="horizontal"
@@ -15,13 +15,7 @@
         app:layout_constraintVertical_bias="0.005"
         tools:layout_editor_absoluteX="132dp">
 
-        <ImageButton
-            android:id="@+id/btn_back_storage"
-            android:layout_width="55dp"
-            android:layout_height="58dp"
-            android:background="@drawable/background_btnback"
-            android:contentDescription="@string/back"
-            android:src="@drawable/back" />
+
 
         <TextView
             android:layout_width="240dp"
@@ -35,7 +29,7 @@
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/btn_clear_storage"
+            android:id="@+id/action_clear"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:backgroundTint="@color/white"
