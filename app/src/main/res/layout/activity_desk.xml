@@ -7,12 +7,13 @@
     tools:context=".Activity.Desk.DeskActivity">
 
     <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_Desk"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
         <ImageButton
-            android:id="@+id/btn_back_desk"
+            android:id="@+id/action_back_desk"
             android:layout_width="50dp"
             android:layout_height="58dp"
             android:backgroundTint="@color/white"
@@ -30,7 +31,7 @@
             android:textStyle="bold" />
 
         <ImageButton
-            android:id="@+id/btn_more_desk"
+            android:id="@+id/action_more_desk"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:backgroundTint="@color/white"

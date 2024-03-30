@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activity.Desk.FlashcardActivity">
-    <LinearLayout
-        android:id="@+id/linearLayout"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_Flashcard"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:orientation="horizontal"
@@ -17,14 +17,14 @@
 
         <ImageButton
             android:id="@+id/btn_back_card"
-            android:layout_width="50dp"
+            android:layout_width="55dp"
             android:layout_height="58dp"
-            android:layout_marginLeft="10px"
-            android:backgroundTint="@color/gray"
+            android:background="@drawable/background_btnback"
             android:contentDescription="@string/back"
             android:src="@drawable/back" />
 
         <TextView
+            android:id="@+id/txt_number_flashcard"
             android:layout_width="match_parent"
             android:layout_height="58dp"
             android:layout_weight="1"
@@ -35,7 +35,7 @@
             android:textSize="25sp"
             android:textStyle="bold" />
 
-    </LinearLayout>
+    </androidx.appcompat.widget.Toolbar>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list_item_flashcard"
@@ -46,7 +46,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/btn_flash_back"
+        android:id="@+id/btn_return_flashcard"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="36dp"
