@@ -101,9 +101,17 @@ public class Account {
         return matcher.matches();
     }
     public boolean validate_password(String password){
-        String PASSWORD_PATTERN = "((?=.*d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!.#$@_+,?-]).{8,50})";
+        String PASSWORD_PATTERN = "^\\d{8,50}";
         Pattern pattern = Pattern.compile(PASSWORD_PATTERN);
         Matcher matcher = pattern.matcher(password);
         return matcher.matches();
+    }
+
+    public Account(String username, String first_name, String last_name, String password, String email) {
+        this.username = username;
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.password = password;
+        this.email = email;
     }
 }

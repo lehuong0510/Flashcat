@@ -1,15 +1,25 @@
 package com.example.flashcat.Activity.Login;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.flashcat.Activity.HomeActivity;
+import com.example.flashcat.Model.Account;
 import com.example.flashcat.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.Firebase;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class SignupActivity extends AppCompatActivity {
 
@@ -21,6 +31,8 @@ public class SignupActivity extends AppCompatActivity {
     private TextInputEditText edRetypePassword;
     private Button btnRegister;
     private TextView btnSignin;
+    private FirebaseAuth mAuth;
+    private Account acc;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,8 +41,7 @@ public class SignupActivity extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(SignupActivity.this, LoginActivity.class);
-                startActivity(i);
+                register();
             }
         });
         btnSignin.setOnClickListener(new View.OnClickListener() {
@@ -50,5 +61,67 @@ public class SignupActivity extends AppCompatActivity {
         edRetypePassword = findViewById(R.id.ed_retype_password);
         btnRegister = findViewById(R.id.btn_Register);
         btnSignin = findViewById(R.id.btn_signin);
+        mAuth = FirebaseAuth.getInstance();
+    }
+    public void register(){
+        String fname,lname,uname,email, pass,repass;
+        fname = edFirstName.getText().toString();
+        lname = edLastName.getText().toString();
+        email = edEmailSignup.getText().toString();
+        uname = edUsername.getText().toString();
+        pass = edPasswordSignup.getText().toString();
+        repass = edRetypePassword.getText().toString();
+        acc = new Account(uname,fname,lname,pass,email);
+        if(TextUtils.isEmpty(fname)){
+            Toast.makeText(this, "Please enter first name!",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(TextUtils.isEmpty(lname)){
+            Toast.makeText(this, "Please enter last name!",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(TextUtils.isEmpty(email)){
+            Toast.makeText(this, "Please enter email!",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(TextUtils.isEmpty(uname)){
+            Toast.makeText(this, "Please enter user name!",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(TextUtils.isEmpty(pass)){
+            Toast.makeText(this, "Please enter password!",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(TextUtils.isEmpty(repass)){
+            Toast.makeText(this, "Please re-enter password!",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(!acc.validate_first_name(acc.getFirst_name())){
+            Toast.makeText(this, "Noooo",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(!acc.validate_last_name(acc.getLast_name())){
+            Toast.makeText(this, "Noooo2",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(!acc.validate_password(acc.getPassword())){
+            Toast.makeText(this, "Noooo3",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        mAuth.createUserWithEmailAndPassword(email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()){
+
+                    Toast.makeText(getApplicationContext(),"Register successful",Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(SignupActivity.this, LoginActivity.class);
+                    i.putExtra("email", email);
+                    i.putExtra("password", pass);
+                    startActivity(i);
+                }else{
+                    Toast.makeText(getApplicationContext(),"Register failed",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }

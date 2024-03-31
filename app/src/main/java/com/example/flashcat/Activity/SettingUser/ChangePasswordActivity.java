@@ -65,7 +65,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
         btnNewPassword = findViewById(R.id.btn_new_password);
         edConfirmPassword =  findViewById(R.id.ed_confirm_password);
         btnConfirmPassword = findViewById(R.id.btn_confirm_password);
-        btnChangePassword = findViewById(R.id.btn_change_password);
+        btnChangePassword = findViewById(R.id.action_changepassword);
     }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
