@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -70,12 +71,16 @@ public class FlashcatAdapter extends RecyclerView.Adapter<FlashcatAdapter.Flashc
         private TextView txtWordUnLearned;
         private TextView txtTerm;
         private TextView txtDefinition;
+        private ImageButton btnVolumeTerm;
+        private ImageButton btnVolumeDefinition;
         public FlashcardViewHolder(@NonNull View itemView) {
             super(itemView);
             txtWordLearned = itemView.findViewById(R.id.txt_win);
             txtWordUnLearned = itemView.findViewById(R.id.txt_lose);
             txtDefinition = itemView.findViewById(R.id.definition_flashcard);
             txtTerm = itemView.findViewById(R.id.term_flashcard);
+            btnVolumeDefinition = itemView.findViewById(R.id.btn_volume_definition);
+            btnVolumeTerm = itemView.findViewById(R.id.btn_volume_term);
         }
     }
 }

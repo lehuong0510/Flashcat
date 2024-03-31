@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 
+import com.example.flashcat.Fragment.DeskFragment;
 import com.example.flashcat.R;
 
 public class DeskActivity extends AppCompatActivity {
@@ -24,6 +25,12 @@ public class DeskActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_desk);
         findID();
+
+        // Thêm Fragment vào framelayout container
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_layout_desk, new DeskFragment())
+                .commit();
+
         setSupportActionBar(toolbarDesk);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         btnStudy.setOnClickListener(new View.OnClickListener() {
