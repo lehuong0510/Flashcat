@@ -4,7 +4,7 @@
     android:layout_height="160dp"
     android:layout_margin="10dp"
     android:orientation="vertical"
-    android:background="@drawable/border_desk">
+    style="@style/DESK">
 
     <TextView
         android:id="@+id/txt_DeskName"
@@ -13,7 +13,8 @@
         android:layout_margin="20dp"
         android:fontFamily="@font/inter_semibold"
         android:text="@string/desk_name"
-        android:textSize="25sp" />
+        android:textSize="25sp"
+        style="@style/TEXT"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,13 +29,15 @@
             android:fontFamily="@font/inter"
             android:text="2"
             android:paddingRight="10dp"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            style="@style/TEXT"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="25dp"
             android:fontFamily="@font/inter"
             android:text="cards"
             android:textSize="20sp"
+            style="@style/TEXT"
             />
     </LinearLayout>
     <TextView
@@ -46,6 +49,7 @@
         android:textSize="20sp"
         android:inputType="date"
         android:layout_margin="20dp"
+        style="@style/TEXT"
         />
 
 

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.WordActivity">
+    tools:context=".Activity.WordActivity"
+    style="@style/SCREEN">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarWord"
         android:layout_width="match_parent"
@@ -39,7 +40,6 @@
                 android:layout_height="50dp"
                 android:text="@string/card"
                 android:fontFamily="@font/inter_semibold"
-                android:textColor="@color/black"
                 android:textSize="36sp"
                 android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"
@@ -51,7 +51,7 @@
                 android:text="@string/minus_card"
                 android:fontFamily="@font/inter_medium"
                 android:textSize="15sp"
-                android:textColor="@color/color_font"
+                style="@style/WORD"
                 android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
@@ -83,7 +83,6 @@
             android:layout_height="wrap_content"
             android:text="@string/definition"
             android:fontFamily="@font/inter_medium"
-            android:textColor="@color/black"
             android:textSize="18sp"
             android:paddingTop="10dp"
 
@@ -106,7 +105,8 @@
             android:background="@color/transparent"
             android:contentDescription="@string/save"
             android:src="@drawable/save"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            style="@style/ICON"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -121,7 +121,7 @@
         android:id="@+id/btn_create_word"
         android:layout_width="301dp"
         android:layout_height="65dp"
-        android:background="@drawable/border_desk"
+        style="@style/BUTTON_BIG"
         android:text="@string/create"
         app:backgroundTint="@color/color_button"
         android:fontFamily="@font/inter_semibold"

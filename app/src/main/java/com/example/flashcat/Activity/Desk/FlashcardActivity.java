@@ -35,10 +35,10 @@ public class FlashcardActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int it = item.getItemId();
         if(it == android.R.id.home){
+            setResult(RESULT_OK);
             onBackPressed();
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
-
 }

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    style="@style/SCREEN"
     tools:context=".Activity.Practice.TrueFalseActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -16,9 +16,10 @@
             android:id="@+id/btn_end_true"
             android:layout_width="50dp"
             android:layout_height="match_parent"
-            android:backgroundTint="@color/white"
+            android:backgroundTint="@color/transparent"
             android:contentDescription="@string/clear"
-            android:src="@drawable/close" />
+            android:src="@drawable/close"
+            style="@style/ICON"/>
 
         <TextView
             android:id="@+id/txt_number_true_false"
@@ -37,6 +38,7 @@
         android:layout_marginTop="185dp"
         android:gravity="center"
         android:orientation="vertical"
+        style="@style/SCREEN"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -46,8 +48,8 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/inter_semibold"
             android:text="@string/term"
-            android:textColor="@color/black"
-            android:textSize="40sp" />
+            android:textSize="40sp"
+            style="@style/SCREEN"/>
 
         <TextView
             android:id="@+id/txt_definition"
@@ -56,7 +58,8 @@
             android:layout_marginTop="60dp"
             android:fontFamily="@font/inter_medium"
             android:text="@string/definition"
-            android:textSize="25sp" />
+            android:textSize="25sp"
+            style="@style/SCREEN"/>
 
     </androidx.cardview.widget.CardView>
 
@@ -66,7 +69,7 @@
         android:layout_height="60dp"
         android:layout_marginStart="110dp"
         android:layout_marginTop="560dp"
-        android:backgroundTint="@color/color_button"
+        style="@style/BUTTON_BIG"
         android:fontFamily="@font/inter_semibold"
         android:text="@string/true_"
         android:textSize="25sp"
@@ -79,7 +82,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="110dp"
         android:layout_marginTop="632dp"
-        android:backgroundTint="@color/color_button"
+        style="@style/BUTTON_BIG"
         android:fontFamily="@font/inter_semibold"
         android:text="@string/false_"
         android:textSize="25sp"

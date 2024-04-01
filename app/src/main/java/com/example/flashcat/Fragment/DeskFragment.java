@@ -34,6 +34,9 @@ public class DeskFragment extends Fragment {
     private int totalPages;
     private int currentPage = 0;
     private LinearLayout dotLayout;
+    public DeskFlashcardTopAdapter getFlashcardTopAdapter() {
+        return flashcardTopAdapter;
+    }
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

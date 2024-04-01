@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    style="@style/SCREEN"
     tools:context=".Activity.Desk.EditDeskActivity">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_EditDesk"
@@ -30,11 +31,10 @@
             android:id="@+id/action_save_edit_desk"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:backgroundTint="@color/white"
+            style="@style/SAVE"
             android:fontFamily="@font/inter_semibold"
             android:gravity="center"
             android:text="@string/save"
-            android:textColor="@color/color_font"
             android:textSize="20sp"
             />
 

@@ -3,9 +3,12 @@ package com.example.flashcat.Activity.SettingUser;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -27,6 +30,9 @@ public class SettingActivity extends AppCompatActivity {
     private MaterialSwitch swDarkMode;
     private Button btnAboutUs;
     private Button btnPrivacyPolicy;
+    private boolean nightMODE;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +48,7 @@ public class SettingActivity extends AppCompatActivity {
             actionBar.setHomeAsUpIndicator(backArrow);
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+
         btnEditProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,10 +83,30 @@ public class SettingActivity extends AppCompatActivity {
 
             }
         });
+
+        //Xu ly dark mode
+        //Lưu mode khi tắt app và quay trở lại vẫn giữ mode đã chọn
+        sharedPreferences = getSharedPreferences("MODE", Context.MODE_PRIVATE);
+        nightMODE = sharedPreferences.getBoolean("night",false);
+        if(nightMODE){
+            swDarkMode.setChecked(true);
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+
+        }
         swDarkMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
+                if(nightMODE){
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    editor = sharedPreferences.edit();
+                    editor.putBoolean("night",false);
+                }
+                else
+                {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    editor = sharedPreferences.edit();
+                    editor.putBoolean("night",true);
+                }
             }
         });
         btnAboutUs.setOnClickListener(new View.OnClickListener() {

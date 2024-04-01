@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    style="@style/SCREEN"
     tools:context=".Activity.Desk.DeskActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -33,7 +34,8 @@
             android:contentDescription="@string/more"
             android:src="@drawable/more"
             android:textColor="@color/color_font"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            style="@style/ICON"/>
     </androidx.appcompat.widget.Toolbar>
 
     <FrameLayout
@@ -59,7 +61,7 @@
 
     <ScrollView
         android:layout_width="345dp"
-        android:layout_height="410dp"
+        android:layout_height="350dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="412dp"
         android:layout_weight="1"
@@ -83,5 +85,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.929" />
+        app:layout_constraintVertical_bias="0.929"
+        style="@style/BUTTON"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

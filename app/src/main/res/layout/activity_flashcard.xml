@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.Desk.FlashcardActivity">
+    tools:context=".Activity.Desk.FlashcardActivity"
+    style="@style/SCREEN">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_Flashcard"
         android:layout_width="match_parent"
@@ -48,7 +49,8 @@
         android:contentDescription="@string/return_flashcard"
         android:src="@drawable/return_flashcard"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/ICON"/>
 
     <ImageButton
         android:id="@+id/btn_flash_star"
@@ -60,5 +62,6 @@
         android:contentDescription="@string/add_to_favorites"
         android:src="@drawable/star_nocolor"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/ICON"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
