@@ -4,7 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Account {
-    private int ID_Account;
+    private String ID_Account;
     private String username;
     private String first_name;
     private String last_name;
@@ -15,7 +15,7 @@ public class Account {
     public Account() {
     }
 
-    public Account(int ID_Account, String username, String first_name, String last_name, String password, String image, String email) {
+    public Account(String ID_Account, String username, String first_name, String last_name, String password, String image, String email) {
         this.ID_Account = ID_Account;
         this.username = username;
         this.first_name = first_name;
@@ -25,11 +25,11 @@ public class Account {
         this.email = email;
     }
 
-    public int getID_Account() {
+    public String getID_Account() {
         return ID_Account;
     }
 
-    public void setID_Account(int ID_Account) {
+    public void setID_Account(String ID_Account) {
         this.ID_Account = ID_Account;
     }
 
@@ -113,5 +113,10 @@ public class Account {
         this.last_name = last_name;
         this.password = password;
         this.email = email;
+    }
+    public Account(String first_name,String last_name,String username){
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.username =username;
     }
 }

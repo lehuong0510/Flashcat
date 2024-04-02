@@ -86,7 +86,7 @@
             android:background="@drawable/bord_flashcard"
             android:fontFamily="@font/open_sans_semibold"
             android:hint="@string/first_name"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="14sp" />
     </LinearLayout>
 

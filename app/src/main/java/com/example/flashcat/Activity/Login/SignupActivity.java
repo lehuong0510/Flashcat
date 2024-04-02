@@ -11,15 +11,15 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.flashcat.Activity.HomeActivity;
 import com.example.flashcat.Model.Account;
 import com.example.flashcat.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.Firebase;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SignupActivity extends AppCompatActivity {
 
@@ -71,6 +71,7 @@ public class SignupActivity extends AppCompatActivity {
         uname = edUsername.getText().toString();
         pass = edPasswordSignup.getText().toString();
         repass = edRetypePassword.getText().toString();
+        String userId = email.replace("@gmail.com", "");
         acc = new Account(uname,fname,lname,pass,email);
         if(TextUtils.isEmpty(fname)){
             Toast.makeText(this, "Please enter first name!",Toast.LENGTH_SHORT).show();
@@ -97,30 +98,44 @@ public class SignupActivity extends AppCompatActivity {
             return;
         }
         if(!acc.validate_first_name(acc.getFirst_name())){
-            Toast.makeText(this, "Noooo",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "First name is not in the correct format",Toast.LENGTH_SHORT).show();
             return;
         }
         if(!acc.validate_last_name(acc.getLast_name())){
-            Toast.makeText(this, "Noooo2",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Last name is not in the correct format",Toast.LENGTH_SHORT).show();
             return;
         }
         if(!acc.validate_password(acc.getPassword())){
-            Toast.makeText(this, "Noooo3",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "User name is not in the correct format",Toast.LENGTH_SHORT).show();
             return;
         }
         mAuth.createUserWithEmailAndPassword(email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-
-                    Toast.makeText(getApplicationContext(),"Register successful",Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(SignupActivity.this, LoginActivity.class);
-                    i.putExtra("email", email);
-                    i.putExtra("password", pass);
-                    startActivity(i);
-                }else{
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference databaseRef = database.getReference("accounts");
+                    Account account = new Account(uname,fname, lname,pass, email);
+                    databaseRef.child(userId).setValue(account)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if(task.isSuccessful()){
+                                        Toast.makeText(getApplicationContext(),"Register successful",Toast.LENGTH_SHORT).show();
+                                        Intent i = new Intent(SignupActivity.this, LoginActivity.class);
+                                        i.putExtra("email", email);
+                                        i.putExtra("password", pass);
+                                        startActivity(i);
+                                    } else {
+                                        Toast.makeText(getApplicationContext(),"Failed to save user data",Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+                } else {
                     Toast.makeText(getApplicationContext(),"Register failed",Toast.LENGTH_SHORT).show();
                 }
+
+
             }
         });
     }
