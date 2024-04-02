@@ -4,7 +4,7 @@
     android:layout_width="300dp"
     android:layout_height="200dp"
     android:layout_gravity="center"
-    android:background="@drawable/background_dialog_desk">
+    style="@style/DESK_DIALOG">
 
     <LinearLayout
         android:layout_width="300dp"
@@ -16,10 +16,11 @@
             android:id="@+id/btn_back_dialog_desk"
             android:layout_width="50dp"
             android:layout_height="58dp"
-            android:background="@drawable/background_btnback"
+            android:backgroundTint="@color/transparent"
             android:contentDescription="@string/back"
             android:layout_weight="1"
-            android:src="@drawable/back" />
+            android:src="@drawable/back"
+            style="@style/ICON"/>
         <View
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -31,7 +32,7 @@
             android:fontFamily="sans-serif"
             android:text="Done"
             android:layout_weight="1"
-            android:textColor="@color/color_font"
+            style="@style/SAVE"
             android:backgroundTint="@color/transparent"
             android:textSize="24sp"
             />
@@ -44,7 +45,6 @@
         android:fontFamily="@font/balsamiq_sans_bold"
         android:gravity="center"
         android:text="@string/desk_name"
-        android:textColor="@color/black"
         android:textSize="27sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -55,10 +55,10 @@
         android:layout_height="60dp"
         android:layout_marginStart="50dp"
         android:layout_marginTop="117dp"
-        android:background="@drawable/border"
         android:gravity="center"
         android:hint="@string/desk_name"
         android:textSize="20sp"
+        style="@style/BORDER_DESK_DIALOG"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

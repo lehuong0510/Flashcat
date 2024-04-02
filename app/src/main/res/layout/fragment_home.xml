@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    style="@style/SCREEN"
     tools:context=".Fragment.HomeFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -30,7 +30,8 @@
                 android:fontFamily="@font/inter_bold"
                 android:gravity="center_vertical"
                 android:text="@string/Hi"
-                android:textSize="26sp" />
+                android:textSize="26sp"
+                style="@style/TEXT"/>
 
             <TextView
                 android:id="@+id/txtName"
@@ -40,7 +41,8 @@
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
                 android:text="@string/name"
-                android:textSize="26sp" />
+                android:textSize="26sp"
+                style="@style/TEXT"/>
 
             <ImageButton
                 android:id="@+id/btn_Notification_Home"
@@ -48,9 +50,10 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="170dp"
-                android:backgroundTint="@color/white"
+                android:backgroundTint="@color/transparent"
                 android:contentDescription="@string/notification"
-                android:src="@drawable/notification" />
+                android:src="@drawable/notification"
+                style="@style/ICON"/>
         </LinearLayout>
 
 
@@ -82,7 +85,8 @@
             android:textColor="@color/see_all"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            style="@style/TEXT"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/lst_desk"

@@ -42,6 +42,12 @@ public class DeskFlashcatAdapter extends RecyclerView.Adapter<DeskFlashcatAdapte
             return;
         holder.txtDefinitionDesk.setText(flashcard.getDefinition());
         holder.txtTearmDesk.setText(flashcard.getTerm());
+        holder.btnVolumeDesk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     @Override

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    style="@style/SCREEN"
     tools:context=".Activity.SettingUser.SettingActivity">
 
     <ScrollView
@@ -28,7 +28,7 @@
                     android:layout_height="wrap_content"
                     android:minHeight="?attr/actionBarSize"
                     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                    android:background="@color/white"
+                    style="@style/SCREEN"
                     app:titleTextColor="@color/black"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -57,10 +57,9 @@
                         android:layout_height="wrap_content"
                         android:text="@string/edit_profile"
                         android:gravity="start|center_vertical"
-                        android:backgroundTint="@color/white"
-                        android:textColor="@color/black"
+                        style="@style/BUTTON_SETTING"
                         android:textSize="20sp"
-                        android:drawableEnd="@drawable/ic_chevron_right_24"
+
                         />
                     <Button
                         android:id="@+id/btn_change_password"
@@ -68,10 +67,8 @@
                         android:layout_height="wrap_content"
                         android:text="@string/change_password"
                         android:gravity="start|center_vertical"
-                        android:backgroundTint="@color/white"
-                        android:textColor="@color/black"
+                        style="@style/BUTTON_SETTING"
                         android:textSize="20sp"
-                        android:drawableEnd="@drawable/ic_chevron_right_24"
                         />
 
                 </LinearLayout>
@@ -101,11 +98,9 @@
                         android:layout_height="wrap_content"
                         android:text="@string/notification_settings"
                         android:gravity="start|center_vertical"
-                        android:backgroundTint="@color/white"
-                        android:textColor="@color/black"
+                        style="@style/BUTTON_SETTING"
                         android:textSize="20sp"
                         android:layout_marginBottom="15px"
-                        android:drawableEnd="@drawable/ic_chevron_right_24"
 
                         />
                     <Button
@@ -114,11 +109,9 @@
                         android:layout_height="wrap_content"
                         android:text="@string/manage_storage"
                         android:gravity="start|center_vertical"
-                        android:backgroundTint="@color/white"
-                        android:textColor="@color/black"
+                        style="@style/BUTTON_SETTING"
                         android:textSize="20sp"
                         android:layout_marginBottom="15px"
-                        android:drawableEnd="@drawable/ic_chevron_right_24"
 
                         />
 
@@ -128,6 +121,7 @@
                         android:layout_height="64dp"
                         android:layout_weight="1"
                         android:text="@string/sound_effect"
+                        style="@style/TEXT_SETTING"
                         android:textSize="20sp"
                         android:layout_marginLeft="60px"
                         android:textStyle="bold"
@@ -140,6 +134,7 @@
                         android:layout_height="64dp"
                         android:layout_weight="1"
                         android:text="@string/dark_mode"
+                        style="@style/TEXT_SETTING"
                         android:layout_marginLeft="60px"
                         android:textStyle="bold"
                         android:textSize="20sp"
@@ -172,10 +167,9 @@
                         android:layout_height="wrap_content"
                         android:text="About us"
                         android:gravity="start|center_vertical"
-                        android:backgroundTint="@color/white"
-                        android:textColor="@color/black"
+                        style="@style/BUTTON_SETTING"
                         android:textSize="20sp"
-                        android:drawableEnd="@drawable/ic_chevron_right_24"
+
 
                         />
                     <Button
@@ -184,10 +178,8 @@
                         android:layout_height="wrap_content"
                         android:text="Manage storage"
                         android:gravity="start|center_vertical"
-                        android:backgroundTint="@color/white"
-                        android:textColor="@color/black"
+                        style="@style/BUTTON_SETTING"
                         android:textSize="20sp"
-                        android:drawableEnd="@drawable/ic_chevron_right_24"
                         />
                 </LinearLayout>
             </LinearLayout>
