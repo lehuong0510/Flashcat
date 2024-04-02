@@ -71,7 +71,8 @@ public class DeskFlashcardTopAdapter extends RecyclerView.Adapter<DeskFlashcardT
                     setStatus(false);
                     // Xử lý sự kiện khi btnZoomFront được click
                     Intent i = new Intent(holder.itemView.getContext(),FlashcardActivity.class);
-                    ((Activity)context).startActivityForResult(i,1);
+                    context.startActivity(i);
+                    setStatus(true);
                     Log.d("DeskFlashcardAdapter", "Button Zoom Front clicked!");
                 }
             });
@@ -82,6 +83,7 @@ public class DeskFlashcardTopAdapter extends RecyclerView.Adapter<DeskFlashcardT
                     setStatus(false);
                     Intent i = new Intent(holder.itemView.getContext(),FlashcardActivity.class);
                     context.startActivity(i);
+                    setStatus(true);
                     Log.d("DeskFlashcardAdapter", "Button Zoom Back clicked!");
                 }
             });
