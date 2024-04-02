@@ -1,5 +1,6 @@
 package com.example.flashcat.Fragment;
 
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,9 +17,15 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
+import com.example.flashcat.Activity.Desk.DataFlashcard;
 import com.example.flashcat.Adapter.DeskFlashcardTopAdapter;
+import com.example.flashcat.Database.DeskDatabase;
+import com.example.flashcat.Database.FlashDatabase;
 import com.example.flashcat.Model.Flashcard;
 import com.example.flashcat.R;
+
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.format.DateTimeFormatter;
 
 import java.util.ArrayList;
 
@@ -30,13 +38,17 @@ public class DeskFragment extends Fragment {
     private RecyclerView rvFlashcard;
     private ImageButton btnCreateNew;
     private ArrayList<Flashcard> listFlashCard;
+    private ArrayList<Flashcard> listFlashCardSelected;
     private DeskFlashcardTopAdapter flashcardTopAdapter;
     private int totalPages;
     private int currentPage = 0;
+    private int idDeskSeclected;
     private LinearLayout dotLayout;
+    public FlashDatabase dbFlashCard;
     public DeskFlashcardTopAdapter getFlashcardTopAdapter() {
         return flashcardTopAdapter;
     }
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -76,11 +88,38 @@ public class DeskFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        listFlashCard = new ArrayList<>();
+        listFlashCard = new ArrayList<Flashcard>();
         //
-        listFlashCard.add(new Flashcard("one", "mot"));
-        // Thêm phần tử đặc biệt để đại diện cho layout tương tác
-        listFlashCard.add(new Flashcard()); // Phần tử đặc biệt
+//        listFlashCard.add(new Flashcard("one", "mot"));
+//        // Thêm phần tử đặc biệt để đại diện cho layout tương tác
+//        listFlashCard.add(new Flashcard()); // Phần tử đặc biệt
+        //nhan du lieu activity
+
+        listFlashCard = new ArrayList<>();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            dbFlashCard = new FlashDatabase(getContext(),"Database6",null,1);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            String dateTimeString1 = "2024-03-31 15:30:00";
+            String dateTimeString2 = "2024-04-01 10:00:00";
+            String dateTimeString3 = "2024-04-02 14:45:00";
+            dbFlashCard.addFlashcard(new Flashcard(18, "Son", "Con trai", "This is my son", "a", false, LocalDateTime.parse(dateTimeString2, formatter), 1));
+            dbFlashCard.addFlashcard(new Flashcard(19, "Mother", "Mẹ", "She is my mother", "b", false, LocalDateTime.parse(dateTimeString1, formatter), 1));
+            dbFlashCard.addFlashcard(new Flashcard(20, "Father", "Ba", "This is my father", "c", false, LocalDateTime.parse(dateTimeString3, formatter), 1));
+            dbFlashCard.addFlashcard(new Flashcard(22, "Book", "Sách", "This is my book", "d", false, LocalDateTime.parse(dateTimeString1, formatter), 3));
+            dbFlashCard.addFlashcard(new Flashcard(23, "Mom", "Má", "This is my mom", "e", false, LocalDateTime.parse(dateTimeString2, formatter), 1));
+            dbFlashCard.addFlashcard(new Flashcard(25, "Pen", "Bút", "This is my pen", "f", false, LocalDateTime.parse(dateTimeString3, formatter), 3));
+
+            Bundle bundle = getArguments();
+            int data = 0;
+            if (bundle != null) {
+                data = bundle.getInt("idDesk");
+                Log.d("data", "onCreate: " + data);
+                listFlashCard = dbFlashCard.getAllContactDesk(data);
+
+            }
+            listFlashCard.add(new Flashcard());
+
+        }
     }
 
     @Override

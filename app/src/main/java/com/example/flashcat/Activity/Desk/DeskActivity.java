@@ -6,6 +6,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -52,29 +53,22 @@ public class DeskActivity extends AppCompatActivity {
             if (extras != null) {
                 nameDesk = extras.getString("Name_Desk");
                 idDesk = extras.getInt("ID_Desk");
+                Bundle b = new Bundle();
+                b.putInt("idDesk",idDesk);
+                DeskFragment fragment = new DeskFragment();
+                fragment.setArguments(b);
+
+                // Thêm fragment vào activity
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_layout_desk, fragment)
+                        .commit();
             }
         }
         if (nameDesk != null) {
             txtNameDeskSelected.setText(nameDesk);
         }
 
-        listCard = new ArrayList<>();
-        listCardSelected = new ArrayList<>();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String dateTimeString1 = "2024-03-31 15:30:00";
-        String dateTimeString2 = "2024-04-01 10:00:00";
-        String dateTimeString3 = "2024-04-02 14:45:00";
-        listCard.add(new Flashcard(18, "Son", "Con trai", "This is my son",null,false,LocalDateTime.parse(dateTimeString2, formatter),1));
-        listCard.add(new Flashcard(19, "Mother", "Mẹ", "She is my mother",null,false,LocalDateTime.parse(dateTimeString1, formatter),1));
-        listCard.add(new Flashcard(20, "Father", "Ba", "This is my father",null,false,LocalDateTime.parse(dateTimeString3, formatter),1));
-        listCard.add(new Flashcard(22, "Book", "Sách", "This is my book",null,false,LocalDateTime.parse(dateTimeString1, formatter),3));
-        listCard.add(new Flashcard(23, "Mom", "Má", "This is my mom",null,false,LocalDateTime.parse(dateTimeString2, formatter),1));
-        listCard.add(new Flashcard(25, "Pen", "Bút", "This is my pen",null,false,LocalDateTime.parse(dateTimeString3, formatter),3));
-        for(Flashcard i : listCard){
-            if(i.getID_Deck() == idDesk){
-                listCardSelected.add(i);
-            }
-        }
+
         btnStudy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -125,5 +119,6 @@ public class DeskActivity extends AppCompatActivity {
         });
         popupMenu.show();
     }
+
 
 }
