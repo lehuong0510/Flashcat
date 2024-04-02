@@ -1,15 +1,16 @@
 package com.example.flashcat.Model;
 
-import java.time.LocalDateTime;
+import org.threeten.bp.LocalDate;
+import org.threeten.bp.LocalDateTime;
 
 public class Flashcard {
     private int ID_Flashcard;
     private String term;
     private String definition;
     private String example;
-    private String sound;
+    private String sound =null;
     private boolean status;
-    private LocalDateTime update_day;
+    private org.threeten.bp.LocalDateTime update_day;
     private int ID_Deck;
 
     public Flashcard() {
@@ -18,7 +19,7 @@ public class Flashcard {
         this.term = term;
         this.definition = definition;
     }
-    public Flashcard(int ID_Flashcard, String term, String definition, String example, String sound, boolean status, LocalDateTime update_day, int ID_Deck) {
+    public Flashcard(int ID_Flashcard, String term, String definition, String example, String sound, boolean status, org.threeten.bp.LocalDateTime update_day, int ID_Deck) {
         this.ID_Flashcard = ID_Flashcard;
         this.term = term;
         this.definition = definition;
@@ -77,11 +78,11 @@ public class Flashcard {
         this.status = status;
     }
 
-    public LocalDateTime getUpdate_day() {
+    public org.threeten.bp.LocalDateTime getUpdate_day() {
         return update_day;
     }
 
-    public void setUpdate_day(LocalDateTime update_day) {
+    public void setUpdate_day(org.threeten.bp.LocalDateTime update_day) {
         this.update_day = update_day;
     }
 
