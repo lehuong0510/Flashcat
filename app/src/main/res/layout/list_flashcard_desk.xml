@@ -3,8 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/bord_flashcard">
+    android:layout_height="100dp"
+    android:layout_marginBottom="10dp"
+    style="@style/BORDER">
 
     <TextView
         android:id="@+id/txt_term_desk"
@@ -52,6 +53,7 @@
         android:background="@color/transparent"
         android:contentDescription="@string/term"
         android:src="@drawable/star24"
+        style="@style/ICON"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.916"

@@ -1,6 +1,10 @@
 package com.example.flashcat.Adapter;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,10 +13,14 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.flashcat.Activity.Desk.DeskActivity;
+import com.example.flashcat.Activity.Desk.FlashcardActivity;
 import com.example.flashcat.Model.Flashcard;
 import com.example.flashcat.R;
+import com.wajahatkarim3.easyflipview.EasyFlipView;
 
 import java.util.ArrayList;
 
@@ -21,7 +29,15 @@ public class DeskFlashcardTopAdapter extends RecyclerView.Adapter<DeskFlashcardT
     private Context context;
     private static final int TYPE_FLASHCARD = 1;
     private static final int TYPE_INTERACTIVE_LAYOUT = 2;
+    private boolean status = true;
 
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
 
     public DeskFlashcardTopAdapter(ArrayList<Flashcard> flashcardArrayList, Context context) {
         this.flashcardArrayList = flashcardArrayList;
@@ -48,6 +64,38 @@ public class DeskFlashcardTopAdapter extends RecyclerView.Adapter<DeskFlashcardT
                 return;
             holder.txtTerm.setText(flashcard.getTerm());
             holder.txtDefinition.setText(flashcard.getDefinition());
+
+            holder.btnZoomFront.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    setStatus(false);
+                    // Xử lý sự kiện khi btnZoomFront được click
+                    Intent i = new Intent(holder.itemView.getContext(),FlashcardActivity.class);
+                    ((Activity)context).startActivityForResult(i,1);
+                    Log.d("DeskFlashcardAdapter", "Button Zoom Front clicked!");
+                }
+            });
+            holder.btnZoomBack.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Xử lý sự kiện khi btnZoomBack được click
+                    setStatus(false);
+                    Intent i = new Intent(holder.itemView.getContext(),FlashcardActivity.class);
+                    context.startActivity(i);
+                    Log.d("DeskFlashcardAdapter", "Button Zoom Back clicked!");
+                }
+            });
+            // Bắt sự kiện click cho EasyFlipView
+            holder.easyFlipView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Xử lý sự kiện khi EasyFlipView được click
+                    // kiểm tra điều kiện trước khi lật EasyFlipView
+                    if (isStatus()) {
+                        holder.easyFlipView.flipTheView();
+                    }
+                }
+            });
         }
         else{
             holder.btnCreate.setOnClickListener(new View.OnClickListener() {
@@ -56,6 +104,7 @@ public class DeskFlashcardTopAdapter extends RecyclerView.Adapter<DeskFlashcardT
                     Log.d("DeskFlashcardAdapter", "Button Create clicked!");
                 }
             });
+
         }
     }
 
@@ -81,6 +130,7 @@ public class DeskFlashcardTopAdapter extends RecyclerView.Adapter<DeskFlashcardT
         private TextView txtTerm;
         private TextView txtDefinition;
         private ImageButton btnCreate;
+        private EasyFlipView easyFlipView;
         public DeskTopViewHolder(@NonNull View itemView) {
             super(itemView);
             btnZoomFront = itemView.findViewById(R.id.btn_zoom_front);
@@ -88,7 +138,7 @@ public class DeskFlashcardTopAdapter extends RecyclerView.Adapter<DeskFlashcardT
             txtTerm = itemView.findViewById(R.id.txt_term_flashcard);
             txtDefinition = itemView.findViewById(R.id.txt_definition_flashcard);
             btnCreate = itemView.findViewById(R.id.btn_create_new);
-
+            easyFlipView = itemView.findViewById(R.id.easyFlipFlashcard);
         }
     }
 }

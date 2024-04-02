@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/term"
-        android:textSize="20sp"
+        android:textSize="30sp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="110dp"
         android:fontFamily="@font/inter"/>
@@ -19,11 +19,12 @@
         android:id="@+id/btn_zoom_front"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginTop="55dp"
+        android:layout_marginTop="40dp"
         android:layout_marginLeft="310dp"
         android:src="@drawable/maximize"
         android:background="@color/transparent"
-        android:contentDescription="Zoom"
+        android:contentDescription="zoom"
+        style="@style/ICON"
         />
 
 </LinearLayout>

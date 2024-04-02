@@ -1,7 +1,11 @@
 package com.example.flashcat.Adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Paint;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.flashcat.Activity.Desk.DeskActivity;
 import com.example.flashcat.Model.Desk;
 import com.example.flashcat.R;
 
@@ -63,12 +68,27 @@ public class HomeDeskAdapter extends RecyclerView.Adapter<HomeDeskAdapter.DeskVi
         private TextView txtDeskName;
         private TextView txtNumberCard;
         private TextView txtCreateDay;
+        int REQUEST_CODE =100;
         public DeskViewHolder(@NonNull View itemView) {
             super(itemView);
             txtDeskName = itemView.findViewById(R.id.txt_DeskName);
             txtDeskName.setPaintFlags(txtDeskName.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
             txtNumberCard = itemView.findViewById(R.id.txt_NumberCard);
             txtCreateDay = itemView.findViewById(R.id.txt_create_day);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(context, DeskActivity.class);
+                    Bundle b = new Bundle();
+                    int ID= deskArrayList.get(getAdapterPosition()).getID_Deck();
+                    b.putInt("ID_Desk",ID);
+                    Log.d("ID", "onClick: "+String.valueOf(ID));
+                    b.putString("Name_Desk" , txtDeskName.getText().toString());
+                    Log.d("Name", "onClick: "+txtDeskName);
+                    i.putExtras(b);
+
+                    ((Activity) context).startActivityForResult(i, REQUEST_CODE);                }
+            });
         }
     }
 }

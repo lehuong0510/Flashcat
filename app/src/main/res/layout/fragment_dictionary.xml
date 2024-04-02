@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragment.DictionaryFragment">
+    tools:context=".Fragment.DictionaryFragment"
+    style="@style/SCREEN">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
@@ -21,7 +22,7 @@
         android:layout_marginStart="30dp"
         android:layout_marginTop="120dp"
         android:iconifiedByDefault="false"
-        android:background="@drawable/border"
+        style="@style/BORDER"
         android:queryHint="Search..."         />
 
     <ListView

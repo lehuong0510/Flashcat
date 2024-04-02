@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    style="@style/SCREEN">
 
     <TextView
         android:id="@+id/txt_lose"
@@ -39,7 +40,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="70dp"
         android:layout_marginEnd="20dp"
-        android:background="@drawable/bord_flashcard"
+        style="@style/BORDER"
         app:flipDuration="400"
         app:flipEnabled="true"
         app:flipFrom="front"

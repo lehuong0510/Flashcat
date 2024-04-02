@@ -34,6 +34,9 @@ public class DeskFragment extends Fragment {
     private int totalPages;
     private int currentPage = 0;
     private LinearLayout dotLayout;
+    public DeskFlashcardTopAdapter getFlashcardTopAdapter() {
+        return flashcardTopAdapter;
+    }
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -74,8 +77,7 @@ public class DeskFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
         listFlashCard = new ArrayList<>();
-        listFlashCard.add(new Flashcard("one","mot"));
-        listFlashCard.add(new Flashcard("two","hai"));
+
         // Thêm phần tử đặc biệt để đại diện cho layout tương tác
         listFlashCard.add(new Flashcard()); // Phần tử đặc biệt
     }
