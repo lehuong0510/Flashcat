@@ -8,12 +8,12 @@ public class Desk {
     private String name_deck;
     private boolean status_deck;
     private org.threeten.bp.LocalDateTime create_day;
-    private int ID_Account;
+    private String ID_Account;
     private int number_flashcard;
     public Desk() {
     }
 
-    public Desk(int ID_Deck, String name_deck, boolean status_deck, org.threeten.bp.LocalDateTime create_day, int ID_Account, int number_flashcard) {
+    public Desk(int ID_Deck, String name_deck, boolean status_deck, org.threeten.bp.LocalDateTime create_day, String ID_Account, int number_flashcard) {
         this.ID_Deck = ID_Deck;
         this.name_deck = name_deck;
         this.status_deck = status_deck;
@@ -54,11 +54,11 @@ public class Desk {
         this.create_day = create_day;
     }
 
-    public int getID_Account() {
+    public String getID_Account() {
         return ID_Account;
     }
 
-    public void setID_Account(int ID_Account) {
+    public void setID_Account(String ID_Account) {
         this.ID_Account = ID_Account;
     }
 
