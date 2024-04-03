@@ -11,13 +11,14 @@
 
     <ImageButton
         android:id="@+id/btn_create_new"
+        style="@style/ICON"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="100dp"
         android:background="@color/transparent"
         app:srcCompat="@drawable/add"
-        style="@style/ICON" />
+        android:contentDescription="@string/create_new"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="50dp"

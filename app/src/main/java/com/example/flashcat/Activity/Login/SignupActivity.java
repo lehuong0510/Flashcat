@@ -99,14 +99,17 @@ public class SignupActivity extends AppCompatActivity {
         }
         if(!acc.validate_first_name(acc.getFirst_name())){
             Toast.makeText(this, "First name is not in the correct format",Toast.LENGTH_SHORT).show();
+            edFirstName.getError() ;
             return;
         }
         if(!acc.validate_last_name(acc.getLast_name())){
             Toast.makeText(this, "Last name is not in the correct format",Toast.LENGTH_SHORT).show();
+            edLastName.getError();
             return;
         }
         if(!acc.validate_password(acc.getPassword())){
             Toast.makeText(this, "User name is not in the correct format",Toast.LENGTH_SHORT).show();
+            edPasswordSignup.getError();
             return;
         }
         mAuth.createUserWithEmailAndPassword(email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {

@@ -24,7 +24,6 @@ public class FlashcatAdapter extends RecyclerView.Adapter<FlashcatAdapter.Flashc
     public FlashcatAdapter(ArrayList<Flashcard> flashcardArrayList, Context context) {
         this.flashcardArrayList = flashcardArrayList;
         this.context = context;
-        this.wordLearned = 0;
     }
 
     @NonNull
@@ -39,8 +38,8 @@ public class FlashcatAdapter extends RecyclerView.Adapter<FlashcatAdapter.Flashc
         Flashcard flashcard = flashcardArrayList.get(position);
         holder.txtTerm.setText(flashcard.getTerm());
         holder.txtDefinition.setText(flashcard.getDefinition());
-        holder.txtWordLearned.setText(getNumberOfWordsLearned());
-        holder.txtWordUnLearned.setText(flashcardArrayList.size()-getNumberOfWordsLearned());
+//        holder.txtWordLearned.setText(getNumberOfWordsLearned());
+//        holder.txtWordUnLearned.setText(flashcardArrayList.size()-getNumberOfWordsLearned());
     }
     private void updateNumberOfWordsLearned() {
         wordLearned = 0;

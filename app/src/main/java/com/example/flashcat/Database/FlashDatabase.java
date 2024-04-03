@@ -5,8 +5,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Build;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 
 import com.example.flashcat.Model.Flashcard;
 
@@ -26,10 +28,13 @@ public class FlashDatabase extends SQLiteOpenHelper {
     public static final String status = "status";
     public static final String updateDay = "updateDay";
     public static final String idDesk = "idDesk";
+    private Context mContext;
+
 
 
     public FlashDatabase(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
+        mContext = context;
     }
 
     @Override
@@ -56,6 +61,7 @@ public class FlashDatabase extends SQLiteOpenHelper {
         //tao lai
         onCreate(db);
     }
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void addFlashcard(Flashcard flashcard) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -69,6 +75,8 @@ public class FlashDatabase extends SQLiteOpenHelper {
         values.put(updateDay, updateDayText);
         values.put(idDesk, flashcard.getID_Deck());
         db.insert(TableName, null, values);
+//        DeskDatabase deskDatabase = new DeskDatabase(mContext,"Database6", null, 1);
+//        deskDatabase.updateNumberFlashcard(flashcard.getID_Deck());
         db.close();
     }
     public ArrayList<Flashcard> getAllContact() {

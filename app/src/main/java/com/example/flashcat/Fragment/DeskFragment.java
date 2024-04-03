@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 
 import com.example.flashcat.Activity.Desk.DataFlashcard;
 import com.example.flashcat.Adapter.DeskFlashcardTopAdapter;
+import com.example.flashcat.Database.DatabaseApp;
 import com.example.flashcat.Database.DeskDatabase;
 import com.example.flashcat.Database.FlashDatabase;
 import com.example.flashcat.Model.Flashcard;
@@ -44,7 +45,7 @@ public class DeskFragment extends Fragment {
     private int currentPage = 0;
     private int idDeskSeclected;
     private LinearLayout dotLayout;
-    public FlashDatabase dbFlashCard;
+    public DatabaseApp db;
     public DeskFlashcardTopAdapter getFlashcardTopAdapter() {
         return flashcardTopAdapter;
     }
@@ -89,32 +90,18 @@ public class DeskFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
         listFlashCard = new ArrayList<Flashcard>();
-        //
-//        listFlashCard.add(new Flashcard("one", "mot"));
-//        // Thêm phần tử đặc biệt để đại diện cho layout tương tác
-//        listFlashCard.add(new Flashcard()); // Phần tử đặc biệt
-        //nhan du lieu activity
 
         listFlashCard = new ArrayList<>();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            dbFlashCard = new FlashDatabase(getContext(),"Database6",null,1);
+            db = new DatabaseApp(getContext());
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             String dateTimeString1 = "2024-03-31 15:30:00";
-            String dateTimeString2 = "2024-04-01 10:00:00";
-            String dateTimeString3 = "2024-04-02 14:45:00";
-            dbFlashCard.addFlashcard(new Flashcard(18, "Son", "Con trai", "This is my son", "a", false, LocalDateTime.parse(dateTimeString2, formatter), 1));
-            dbFlashCard.addFlashcard(new Flashcard(19, "Mother", "Mẹ", "She is my mother", "b", false, LocalDateTime.parse(dateTimeString1, formatter), 1));
-            dbFlashCard.addFlashcard(new Flashcard(20, "Father", "Ba", "This is my father", "c", false, LocalDateTime.parse(dateTimeString3, formatter), 1));
-            dbFlashCard.addFlashcard(new Flashcard(22, "Book", "Sách", "This is my book", "d", false, LocalDateTime.parse(dateTimeString1, formatter), 3));
-            dbFlashCard.addFlashcard(new Flashcard(23, "Mom", "Má", "This is my mom", "e", false, LocalDateTime.parse(dateTimeString2, formatter), 1));
-            dbFlashCard.addFlashcard(new Flashcard(25, "Pen", "Bút", "This is my pen", "f", false, LocalDateTime.parse(dateTimeString3, formatter), 3));
-
             Bundle bundle = getArguments();
             int data = 0;
             if (bundle != null) {
                 data = bundle.getInt("idDesk");
                 Log.d("data", "onCreate: " + data);
-                listFlashCard = dbFlashCard.getAllContactDesk(data);
+                listFlashCard = db.getAllContactDesk(data);
 
             }
             listFlashCard.add(new Flashcard());
@@ -129,7 +116,7 @@ public class DeskFragment extends Fragment {
         View rootview = inflater.inflate(R.layout.fragment_desk, container, false);
         rvFlashcard = rootview.findViewById(R.id.lst_flashcard);
         dotLayout = rootview.findViewById(R.id.dot_layout);
-        //btnCreateNew = rootview.findViewById(R.id.btn_create_new);
+
 
         flashcardTopAdapter = new DeskFlashcardTopAdapter(listFlashCard,getContext());
         rvFlashcard.setAdapter(flashcardTopAdapter);

@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.example.flashcat.Activity.SearchActivity;
 import com.example.flashcat.Adapter.HomeDeskAdapter;
+import com.example.flashcat.Database.DatabaseApp;
 import com.example.flashcat.Database.DeskDatabase;
 import com.example.flashcat.Model.Desk;
 import com.example.flashcat.R;
@@ -53,7 +54,7 @@ public class HomeFragment extends Fragment {
     private Button btnNotification;
     private TextView btnSeeAll;
     public boolean isVertical = true;
-    public DeskDatabase dbDesk;
+    public DatabaseApp db;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -91,14 +92,11 @@ public class HomeFragment extends Fragment {
         String dateTimeString1 = "2024-03-31 15:30:00";
         String dateTimeString2 = "2024-04-01 10:00:00";
         String dateTimeString3 = "2024-04-02 14:45:00";
-//        listDesk.add(new Desk(1, "Family", false, LocalDateTime.parse(dateTimeString1, formatter), "11", 4));
-//        listDesk.add(new Desk(2, "Office", true, LocalDateTime.parse(dateTimeString2, formatter), "12", 3));
-//        listDesk.add(new Desk(3, "Study", false, LocalDateTime.parse(dateTimeString3, formatter), "13", 5));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            dbDesk = new DeskDatabase(getContext(),"Database", null, 1);
-            dbDesk.addDesk(new Desk(1, "Family", false, LocalDateTime.parse(dateTimeString1, formatter), "11", 4));
-            dbDesk.addDesk(new Desk(2, "Office", true, LocalDateTime.parse(dateTimeString2, formatter), "12", 3));
-            listDesk = dbDesk.getAllContact();
+            db = new DatabaseApp(getContext());
+           // db.addDesk(new Desk(1, "Family", false, LocalDateTime.parse(dateTimeString1, formatter), "11", 4));
+//            db.addDesk(new Desk(2, "Office", true, LocalDateTime.parse(dateTimeString2, formatter), "12", 3));
+            listDesk = db.getAllDesk();
         }
 
     }
