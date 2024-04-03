@@ -66,6 +66,7 @@
             android:id="@+id/ed_first_name"
             android:layout_width="match_parent"
             android:layout_height="65dp"
+            app:errorEnabled="true"
             android:backgroundTint="@color/transparent"
             />
 
@@ -119,6 +120,7 @@
             android:id="@+id/ed_last_name"
             android:layout_width="match_parent"
             android:layout_height="65dp"
+            app:errorEnabled="true"
             android:backgroundTint="@color/transparent"
             />
 
@@ -172,6 +174,7 @@
             android:id="@+id/ed_email_singup"
             android:layout_width="match_parent"
             android:layout_height="65dp"
+            app:errorEnabled="true"
             android:backgroundTint="@color/transparent"
             />
 
@@ -224,6 +227,7 @@
             android:id="@+id/ed_username"
             android:layout_width="match_parent"
             android:layout_height="65dp"
+            app:errorEnabled="true"
             android:backgroundTint="@color/transparent"
             />
 
@@ -278,6 +282,7 @@
             android:id="@+id/ed_password_signup"
             android:layout_width="match_parent"
             android:layout_height="65dp"
+            app:errorEnabled="true"
             android:backgroundTint="@color/transparent"
             />
 
@@ -333,6 +338,7 @@
             android:id="@+id/ed_retype_password"
             android:layout_width="match_parent"
             android:layout_height="65dp"
+            app:errorEnabled="true"
             android:backgroundTint="@color/transparent"
             />
 

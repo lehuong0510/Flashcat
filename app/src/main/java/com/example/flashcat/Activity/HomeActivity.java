@@ -11,24 +11,31 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.example.flashcat.Activity.Desk.DeskActivity;
 import com.example.flashcat.Activity.Practice.PracticeActivity;
+import com.example.flashcat.Database.DatabaseApp;
 import com.example.flashcat.Fragment.DictionaryFragment;
 import com.example.flashcat.Fragment.HomeFragment;
 import com.example.flashcat.Fragment.UserFragment;
 import com.example.flashcat.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.jakewharton.threetenabp.AndroidThreeTen;
+
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.format.DateTimeFormatter;
 
 public class HomeActivity extends AppCompatActivity {
-
+    private DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     private BottomNavigationView bottomNavigationView;
     private Dialog dialogDesk;
     private enum CurrentPage {
@@ -39,6 +46,7 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AndroidThreeTen.init(this);
         setContentView(R.layout.activity_home);
         replaceFragment(new HomeFragment());
         bottomNavigationView=  findViewById(R.id.bottomNavigationView);
@@ -141,7 +149,7 @@ public class HomeActivity extends AppCompatActivity {
         WindowManager.LayoutParams windowAttributes = window.getAttributes();
         windowAttributes.gravity = gravity;
         window.setAttributes(windowAttributes);
-
+        EditText editNameDesk = dialogDesk.findViewById(R.id.ed_name_desk);
         // Find ImageButton inside the dialog layout
         ImageButton closeButton = dialogDesk.findViewById(R.id.btn_back_dialog_desk);
         if (closeButton != null) {
@@ -156,7 +164,12 @@ public class HomeActivity extends AppCompatActivity {
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                LocalDateTime currentDateTime = LocalDateTime.now();
+                String currentDateTimeString = currentDateTime.format(DATE_TIME_FORMATTER);
                 Intent i = new Intent(HomeActivity.this, DeskActivity.class);
+                i.putExtra("NameDesk",editNameDesk.getText().toString());
+                i.putExtra("CreatedDay", currentDateTimeString);
+                Log.d("name", "onClick: " +editNameDesk.getText().toString() );
                 startActivity(i);
 
             }

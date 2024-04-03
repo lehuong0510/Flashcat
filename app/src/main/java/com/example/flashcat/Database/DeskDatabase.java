@@ -33,17 +33,40 @@ public class DeskDatabase extends SQLiteOpenHelper {
     public static final String createDay = "createDay";
     public static final String idAccount = "idAccount";
     public static final String numberFlashcard = "numberFlashcard";
+    public static final String TableNameF = "FlashcardTable";
+    public static final String idF = "idFlashcard";
+    public static final String term = "term";
+    public static final String definition = "definition";
+    public static final String example = "example";
+    public static final String sound = "sound";
+    public static final String statusF = "status";
+    public static final String updateDay = "updateDay";
+    public static final String idDesk = "idDesk";
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         String sqlCreate = "Create table if not exists " + TableName + "(" +
-                id + " Integer Primary key, "
+                id + " Integer Primary key AUTOINCREMENT, "
                 + name + " Text, "
                 + status + " Integer, "
                 + createDay + " Text, "
                 + idAccount + " Text, "
                 + numberFlashcard + " Integer)";
             db.execSQL(sqlCreate);
+        String sqlCreateFlashCard = "Create table if not exists " + TableNameF + "(" +
+                idF + " Integer Primary key, "
+                + term + " Text, "
+                + definition+ " Text, "
+                + example+ " Text, "
+                + sound+ " Text, "
+                + statusF + " Integer, "
+                + updateDay + " Text, "
+                + idDesk + " Integer)";
+        try {
+            db.execSQL(sqlCreateFlashCard);
+        }catch (Exception e){
+            System.out.println(e);
+        }
     }
 
     @Override
@@ -55,7 +78,6 @@ public class DeskDatabase extends SQLiteOpenHelper {
     public void addDesk(Desk desk) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(id, desk.getID_Deck());
         values.put(name, desk.getName_deck());
         values.put(status, desk.isStatus_deck()==true?1:0);
         String createDayText = desk.getCreate_day().format(DATE_TIME_FORMATTER);
@@ -89,6 +111,19 @@ public class DeskDatabase extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return list;
+    }
+    public void updateNumberFlashcard(int deskId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql = "SELECT COUNT(*) FROM " + FlashDatabase.TableName + " WHERE " + FlashDatabase.idDesk + " = ?";
+        Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(deskId)});
+        if (cursor != null && cursor.moveToFirst()) {
+            int count = cursor.getInt(0);
+            cursor.close();
+            ContentValues values = new ContentValues();
+            values.put(numberFlashcard, count);
+            db.update(TableName, values, id + " = ?", new String[]{String.valueOf(deskId)});
+        }
+        db.close();
     }
 
 }
