@@ -69,4 +69,8 @@ public class Desk {
     public void setNumber_flashcard(int number_flashcard) {
         this.number_flashcard = number_flashcard;
     }
+    public Desk (String name_deck, org.threeten.bp.LocalDateTime create_day ){
+        this.name_deck = name_deck;
+        this.create_day = create_day;
+    }
 }

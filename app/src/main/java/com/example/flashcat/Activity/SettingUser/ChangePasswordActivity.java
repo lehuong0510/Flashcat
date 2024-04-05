@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -14,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.example.flashcat.Activity.Login.LoginActivity;
 import com.example.flashcat.Model.Account;
 import com.example.flashcat.R;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -38,6 +41,9 @@ public class ChangePasswordActivity extends AppCompatActivity {
     private Button btnChangePassword;
     private ImageButton btnConfirmPassword;
     private Account acc;
+    private SharedPreferences sharedPreferences;
+    private static final String PASSWORD_KEY = "password";
+    private static final String SHARED_PREFS = "sharedPrefs";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -127,7 +133,28 @@ public class ChangePasswordActivity extends AppCompatActivity {
                                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                             @Override
                                                             public void onSuccess(Void aVoid) {
-                                                                Toast.makeText(ChangePasswordActivity.this, "Password was successfully changed", Toast.LENGTH_SHORT).show();
+                                                                FirebaseAuth.getInstance().getCurrentUser().updatePassword(newPassword)
+                                                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                            @Override
+                                                                            public void onSuccess(Void aVoid) {
+                                                                                Toast.makeText(ChangePasswordActivity.this, "Password was successfully changed", Toast.LENGTH_SHORT).show();
+                                                                                SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+                                                                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                                                                editor.putString(PASSWORD_KEY, newPassword);
+                                                                                editor.apply();
+                                                                                FirebaseAuth.getInstance().signOut();
+                                                                                Intent intent = new Intent(ChangePasswordActivity.this, LoginActivity.class);
+                                                                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                                                startActivity(intent);
+                                                                                finish();
+                                                                            }
+                                                                        })
+                                                                        .addOnFailureListener(new OnFailureListener() {
+                                                                            @Override
+                                                                            public void onFailure(@NonNull Exception e) {
+                                                                                Toast.makeText(ChangePasswordActivity.this, "Unable to update new password", Toast.LENGTH_SHORT).show();
+                                                                            }
+                                                                        });
                                                             }
                                                         })
                                                         .addOnFailureListener(new OnFailureListener() {
@@ -155,6 +182,8 @@ public class ChangePasswordActivity extends AppCompatActivity {
                         });
             }
         });
+
+
 
     }
     public void findID()
