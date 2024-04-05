@@ -92,7 +92,13 @@
             android:name=".Activity.SearchActivity"
             android:theme="@style/Theme.Material3.DayNight.NoActionBar"
             android:label="@string/search_name"
-            android:exported="false" />
+            android:exported="false">
+                <intent-filter>
+                    <action android:name="android.intent.action.MAIN" />
+                    <category android:name="android.intent.category.ALTERNATIVE">
+                    </category>
+                </intent-filter>
+        </activity>
         <activity
             android:name=".Activity.HomeActivity"
             android:label="@string/title_activity_start_screen"
