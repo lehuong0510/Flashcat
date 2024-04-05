@@ -15,10 +15,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.example.flashcat.Database.DatabaseApp;
-import com.example.flashcat.Database.DeskDatabase;
 import com.example.flashcat.Model.Desk;
 import com.example.flashcat.Model.Flashcard;
 import com.example.flashcat.R;
