@@ -1,5 +1,6 @@
 package com.example.flashcat.Fragment;
 
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,8 +18,11 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import com.example.flashcat.Adapter.DeskFlashcardTopAdapter;
+import com.example.flashcat.Database.DatabaseApp;
 import com.example.flashcat.Model.Flashcard;
 import com.example.flashcat.R;
+
+import org.threeten.bp.format.DateTimeFormatter;
 
 import java.util.ArrayList;
 
@@ -30,13 +35,17 @@ public class DeskFragment extends Fragment {
     private RecyclerView rvFlashcard;
     private ImageButton btnCreateNew;
     private ArrayList<Flashcard> listFlashCard;
+    private ArrayList<Flashcard> listFlashCardSelected;
     private DeskFlashcardTopAdapter flashcardTopAdapter;
     private int totalPages;
     private int currentPage = 0;
+    private int idDeskSeclected;
     private LinearLayout dotLayout;
+    public DatabaseApp db;
     public DeskFlashcardTopAdapter getFlashcardTopAdapter() {
         return flashcardTopAdapter;
     }
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -76,10 +85,24 @@ public class DeskFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        listFlashCard = new ArrayList<>();
+        listFlashCard = new ArrayList<Flashcard>();
 
-        // Thêm phần tử đặc biệt để đại diện cho layout tương tác
-        listFlashCard.add(new Flashcard()); // Phần tử đặc biệt
+        listFlashCard = new ArrayList<>();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            db = new DatabaseApp(getContext());
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            String dateTimeString1 = "2024-03-31 15:30:00";
+            Bundle bundle = getArguments();
+            int data = 0;
+            if (bundle != null) {
+                data = bundle.getInt("idDesk");
+                Log.d("data", "onCreate: " + data);
+                listFlashCard = db.getAllContactDesk(data);
+
+            }
+            listFlashCard.add(new Flashcard());
+
+        }
     }
 
     @Override
@@ -89,7 +112,7 @@ public class DeskFragment extends Fragment {
         View rootview = inflater.inflate(R.layout.fragment_desk, container, false);
         rvFlashcard = rootview.findViewById(R.id.lst_flashcard);
         dotLayout = rootview.findViewById(R.id.dot_layout);
-        //btnCreateNew = rootview.findViewById(R.id.btn_create_new);
+
 
         flashcardTopAdapter = new DeskFlashcardTopAdapter(listFlashCard,getContext());
         rvFlashcard.setAdapter(flashcardTopAdapter);

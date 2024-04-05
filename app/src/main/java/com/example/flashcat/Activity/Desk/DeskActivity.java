@@ -6,33 +6,82 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 
+import com.example.flashcat.Database.DatabaseApp;
 import com.example.flashcat.Fragment.DeskFragment;
+import com.example.flashcat.Model.Desk;
+import com.example.flashcat.Model.Flashcard;
 import com.example.flashcat.R;
 
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.format.DateTimeFormatter;
+
+import java.util.ArrayList;
+
 public class DeskActivity extends AppCompatActivity {
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     private Toolbar toolbarDesk ;
     private Button btnStudy;
     private ImageButton btnMore;
+    private TextView txtNameDeskSelected;
+    private int idDesk;
+    private String nameDesk;
+    private String nameDeskCreate;
+    private String createdDay;
+
+    private ArrayList<Flashcard> listCard;
+    private ArrayList<Flashcard> listCardSelected;
+    private DatabaseApp db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_desk);
         findID();
-
+        db= new DatabaseApp(DeskActivity.this);
         // Thêm Fragment vào framelayout container
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_layout_desk, new DeskFragment())
                 .commit();
-
         setSupportActionBar(toolbarDesk);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //Truyen du lieu khi chon desk
+        Intent intent = getIntent();
+        if (intent != null) {
+            Bundle extras = intent.getExtras();
+            if (extras != null) {
+                nameDesk = extras.getString("Name_Desk");
+                nameDeskCreate = extras.getString("NameDesk");
+                idDesk = extras.getInt("ID_Desk");
+                createdDay = extras.getString("CreatedDay");
+                Log.d("name", "onClick: " +nameDesk );
+                Bundle b = new Bundle();
+                b.putInt("idDesk",idDesk);
+                DeskFragment fragment = new DeskFragment();
+                fragment.setArguments(b);
+
+                // Thêm fragment vào activity
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_layout_desk, fragment)
+                        .commit();
+            }
+        }
+        if (nameDesk != null) {
+            txtNameDeskSelected.setText(nameDesk);
+        }
+        if(nameDeskCreate!=null)
+        {
+            db.addDesk(new Desk(1,nameDeskCreate,false,LocalDateTime.parse(createdDay,formatter),"12",0));
+        }
+
+
         btnStudy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,6 +100,7 @@ public class DeskActivity extends AppCompatActivity {
         toolbarDesk = findViewById(R.id.toolbar_Desk);
         btnStudy = findViewById(R.id.btn_Study);
         btnMore = findViewById(R.id.action_more_desk);
+        txtNameDeskSelected = findViewById(R.id.txt_NameDesk_selected);
 
     }
     @Override
@@ -82,5 +132,6 @@ public class DeskActivity extends AppCompatActivity {
         });
         popupMenu.show();
     }
+
 
 }

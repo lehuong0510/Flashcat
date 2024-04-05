@@ -1,15 +1,21 @@
 package com.example.flashcat.Model;
 
-import java.time.LocalDateTime;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class Flashcard {
+import androidx.annotation.NonNull;
+
+import org.threeten.bp.LocalDate;
+import org.threeten.bp.LocalDateTime;
+
+public class Flashcard implements Parcelable {
     private int ID_Flashcard;
     private String term;
     private String definition;
     private String example;
-    private String sound;
+    private String sound =null;
     private boolean status;
-    private LocalDateTime update_day;
+    private org.threeten.bp.LocalDateTime update_day;
     private int ID_Deck;
 
     public Flashcard() {
@@ -18,7 +24,7 @@ public class Flashcard {
         this.term = term;
         this.definition = definition;
     }
-    public Flashcard(int ID_Flashcard, String term, String definition, String example, String sound, boolean status, LocalDateTime update_day, int ID_Deck) {
+    public Flashcard(int ID_Flashcard, String term, String definition, String example, String sound, boolean status, org.threeten.bp.LocalDateTime update_day, int ID_Deck) {
         this.ID_Flashcard = ID_Flashcard;
         this.term = term;
         this.definition = definition;
@@ -28,6 +34,28 @@ public class Flashcard {
         this.update_day = update_day;
         this.ID_Deck = ID_Deck;
     }
+
+    protected Flashcard(Parcel in) {
+        ID_Flashcard = in.readInt();
+        term = in.readString();
+        definition = in.readString();
+        example = in.readString();
+        sound = in.readString();
+        status = in.readByte() != 0;
+        ID_Deck = in.readInt();
+    }
+
+    public static final Creator<Flashcard> CREATOR = new Creator<Flashcard>() {
+        @Override
+        public Flashcard createFromParcel(Parcel in) {
+            return new Flashcard(in);
+        }
+
+        @Override
+        public Flashcard[] newArray(int size) {
+            return new Flashcard[size];
+        }
+    };
 
     public int getID_Flashcard() {
         return ID_Flashcard;
@@ -77,11 +105,11 @@ public class Flashcard {
         this.status = status;
     }
 
-    public LocalDateTime getUpdate_day() {
+    public org.threeten.bp.LocalDateTime getUpdate_day() {
         return update_day;
     }
 
-    public void setUpdate_day(LocalDateTime update_day) {
+    public void setUpdate_day(org.threeten.bp.LocalDateTime update_day) {
         this.update_day = update_day;
     }
 
@@ -91,5 +119,21 @@ public class Flashcard {
 
     public void setID_Deck(int ID_Deck) {
         this.ID_Deck = ID_Deck;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeString(String.valueOf(ID_Deck));
+        dest.writeString(String.valueOf(ID_Flashcard));
+        dest.writeString(term);
+        dest.writeString(definition);
+        dest.writeString(String.valueOf(update_day));
+        dest.writeString(String.valueOf(status));
+        dest.writeString(example);
     }
 }

@@ -2,28 +2,25 @@ package com.example.flashcat.Fragment;
 
 import android.content.Intent;
 import android.graphics.Paint;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.text.TextPaint;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.flashcat.Activity.SearchActivity;
 import com.example.flashcat.Adapter.HomeDeskAdapter;
+import com.example.flashcat.Database.DatabaseApp;
 import com.example.flashcat.Model.Desk;
 import com.example.flashcat.R;
 
-import org.threeten.bp.LocalDate;
-import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
 
 import java.util.ArrayList;
@@ -51,6 +48,7 @@ public class HomeFragment extends Fragment {
     private Button btnNotification;
     private TextView btnSeeAll;
     public boolean isVertical = true;
+    public DatabaseApp db;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -82,14 +80,19 @@ public class HomeFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
 
         }
+
         listDesk = new ArrayList<>();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String dateTimeString1 = "2024-03-31 15:30:00";
         String dateTimeString2 = "2024-04-01 10:00:00";
         String dateTimeString3 = "2024-04-02 14:45:00";
-        listDesk.add(new Desk(1, "Family", false, LocalDateTime.parse(dateTimeString1, formatter), 11, 4));
-        listDesk.add(new Desk(2, "Office", true, LocalDateTime.parse(dateTimeString2, formatter), 12, 3));
-        listDesk.add(new Desk(3, "Study", false, LocalDateTime.parse(dateTimeString3, formatter), 10, 5));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            db = new DatabaseApp(getContext());
+           // db.addDesk(new Desk(1, "Family", false, LocalDateTime.parse(dateTimeString1, formatter), "11", 4));
+//            db.addDesk(new Desk(2, "Office", true, LocalDateTime.parse(dateTimeString2, formatter), "12", 3));
+            listDesk = db.getAllDesk();
+        }
+
     }
 
     @Override

@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.flashcat.Activity.Desk.CreateFlashcardActivity;
 import com.example.flashcat.Activity.Desk.DeskActivity;
 import com.example.flashcat.Activity.Desk.FlashcardActivity;
 import com.example.flashcat.Model.Flashcard;
@@ -71,8 +72,11 @@ public class DeskFlashcardTopAdapter extends RecyclerView.Adapter<DeskFlashcardT
                     setStatus(false);
                     // Xử lý sự kiện khi btnZoomFront được click
                     Intent i = new Intent(holder.itemView.getContext(),FlashcardActivity.class);
-                    ((Activity)context).startActivityForResult(i,1);
-                    Log.d("DeskFlashcardAdapter", "Button Zoom Front clicked!");
+                    i.putExtra("idFlashcard", flashcard.getID_Flashcard());
+                    i.putExtra("idDesk",flashcard.getID_Deck());
+                    i.putExtra("flipFrom","front");
+                    context.startActivity(i);
+                    setStatus(true);
                 }
             });
             holder.btnZoomBack.setOnClickListener(new View.OnClickListener() {
@@ -81,8 +85,11 @@ public class DeskFlashcardTopAdapter extends RecyclerView.Adapter<DeskFlashcardT
                     // Xử lý sự kiện khi btnZoomBack được click
                     setStatus(false);
                     Intent i = new Intent(holder.itemView.getContext(),FlashcardActivity.class);
+                    i.putExtra("idFlashcard", flashcard.getID_Flashcard());
+                    i.putExtra("idDesk",flashcard.getID_Deck());
+                    i.putExtra("flipFrom","back");
                     context.startActivity(i);
-                    Log.d("DeskFlashcardAdapter", "Button Zoom Back clicked!");
+                    setStatus(true);
                 }
             });
             // Bắt sự kiện click cho EasyFlipView
@@ -101,7 +108,8 @@ public class DeskFlashcardTopAdapter extends RecyclerView.Adapter<DeskFlashcardT
             holder.btnCreate.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.d("DeskFlashcardAdapter", "Button Create clicked!");
+                    Intent i = new Intent(context, CreateFlashcardActivity.class);
+                    ((Activity) context).startActivity(i);
                 }
             });
 
