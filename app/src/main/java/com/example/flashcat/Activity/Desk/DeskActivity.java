@@ -1,9 +1,13 @@
 package com.example.flashcat.Activity.Desk;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentManager;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -15,8 +19,10 @@ import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import com.example.flashcat.Activity.HomeActivity;
 import com.example.flashcat.Database.DatabaseApp;
 import com.example.flashcat.Fragment.DeskFragment;
+import com.example.flashcat.Fragment.HomeFragment;
 import com.example.flashcat.Model.Desk;
 import com.example.flashcat.Model.Flashcard;
 import com.example.flashcat.R;
@@ -78,6 +84,7 @@ public class DeskActivity extends AppCompatActivity {
         }
         if(nameDeskCreate!=null)
         {
+            txtNameDeskSelected.setText(nameDeskCreate);
             db.addDesk(new Desk(1,nameDeskCreate,false,LocalDateTime.parse(createdDay,formatter),"12",0));
         }
 
@@ -107,8 +114,12 @@ public class DeskActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int it = item.getItemId();
         if(it == android.R.id.home){
-            onBackPressed();
-            return true;
+            Intent intent = new Intent(DeskActivity.this, HomeActivity.class);
+
+            startActivity(intent);
+            finish();
+
+            return true; // Xử lý sự kiện thành công
         }
         return super.onOptionsItemSelected(item);
     }
@@ -122,10 +133,32 @@ public class DeskActivity extends AppCompatActivity {
                 int it= item.getItemId();
                 if(it == R.id.menu_Edit){
                     Intent i = new Intent(DeskActivity.this, EditDeskActivity.class);
-                    startActivity(i);
+                    i.putExtra("ID_Desk",idDesk);
+                    i.putExtra("NameDesk", nameDesk);
+                    startActivityForResult(i,200);
                 }
                 else if(it == R.id.menu_Delete){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(DeskActivity.this);
+                    builder.setMessage("Are you sure you want to delete this item?");
+                    builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Intent intent = new Intent(DeskActivity.this, HomeActivity.class);
+                                    db.deleteDesk(idDesk);
 
+                                    startActivity(intent);
+                                    finish();
+
+                                }
+                            });
+                            builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
                 }
                 return true;
             }
@@ -133,5 +166,12 @@ public class DeskActivity extends AppCompatActivity {
         popupMenu.show();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 200 && resultCode == 210)
+        {
 
+        }
+    }
 }

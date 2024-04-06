@@ -170,7 +170,7 @@ public class HomeActivity extends AppCompatActivity {
                 i.putExtra("NameDesk",editNameDesk.getText().toString());
                 i.putExtra("CreatedDay", currentDateTimeString);
                 Log.d("name", "onClick: " +editNameDesk.getText().toString() );
-                startActivity(i);
+                startActivityForResult(i,110);
 
             }
         });
