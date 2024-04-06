@@ -17,15 +17,11 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
-import com.example.flashcat.Activity.Desk.DataFlashcard;
 import com.example.flashcat.Adapter.DeskFlashcardTopAdapter;
 import com.example.flashcat.Database.DatabaseApp;
-import com.example.flashcat.Database.DeskDatabase;
-import com.example.flashcat.Database.FlashDatabase;
 import com.example.flashcat.Model.Flashcard;
 import com.example.flashcat.R;
 
-import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
 
 import java.util.ArrayList;

@@ -9,24 +9,18 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.text.TextPaint;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.flashcat.Activity.SearchActivity;
 import com.example.flashcat.Adapter.HomeDeskAdapter;
 import com.example.flashcat.Database.DatabaseApp;
-import com.example.flashcat.Database.DeskDatabase;
 import com.example.flashcat.Model.Desk;
 import com.example.flashcat.R;
 
-import org.threeten.bp.LocalDate;
-import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
 
 import java.util.ArrayList;
