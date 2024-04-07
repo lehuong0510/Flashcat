@@ -25,7 +25,7 @@ public class DatabaseApp extends SQLiteOpenHelper {
     }
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-    public  static final  String Databasename = "DatabaseFC";
+    public  static final  String Databasename = "DatabaseFCa";
     public static final int DATABASE_VERSION = 1;
     public static final String TableName = "DeskTable";
     public static final String id = "idDesk";
@@ -119,6 +119,34 @@ public class DatabaseApp extends SQLiteOpenHelper {
         db.close();
         return list;
     }
+    //update Desk
+    public void updateDesk(int IdDesk, Desk desk){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(name, desk.getName_deck());
+        values.put(status, desk.isStatus_deck()==true?1:0);
+        String createDayText = desk.getCreate_day().format(DATE_TIME_FORMATTER);
+        values.put(createDay, createDayText);
+        values.put(idAccount, desk.getID_Account());
+        values.put(numberFlashcard, desk.getNumber_flashcard());
+        db.update(TableName, values, id + "=?", new String[]{String.valueOf(IdDesk)});
+        db.close();
+        Log.d("k", "updateDesk: "+id);
+
+    }
+    //xoa desk theo id
+    public void deleteDesk(int idDesk){
+        SQLiteDatabase db = getWritableDatabase();
+        String sql ="Delete from " + TableName+ " Where idDesk = " + idDesk;
+        db.execSQL(sql);
+        db.close();
+    }
+    //xoa tat cac desk trong data
+    public void deleteAllDesk() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TableName, null, null);
+        db.close();
+    }
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void addFlashcard(Flashcard flashcard) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -160,6 +188,7 @@ public class DatabaseApp extends SQLiteOpenHelper {
         db.close();
         return list;
     }
+    //select all flashcard theo desk
     public ArrayList<Flashcard> getAllContactDesk(int id_desk) {
         ArrayList<Flashcard> list = new ArrayList<>();
         // cau truy van
@@ -184,6 +213,7 @@ public class DatabaseApp extends SQLiteOpenHelper {
         db.close();
         return list;
     }
+    //select flashcard theo iD
     public Flashcard getFlashcardID(int id_flashcard) {
         Flashcard flashcard = new Flashcard() ;
         // cau truy van
@@ -206,5 +236,36 @@ public class DatabaseApp extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return flashcard;
+    }
+    //cap nhat flashcard
+    public void updateFlashcard(int IdFlashcard, Flashcard flashcard){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(term, flashcard.getTerm());
+        values.put(definition, flashcard.getDefinition());
+        values.put(example, flashcard.getExample());
+        values.put(sound, flashcard.getSound());
+        values.put(status, flashcard.isStatus()==true?1:0);
+        String updateDayText = flashcard.getUpdate_day().format(DATE_TIME_FORMATTER);
+        values.put(updateDay, updateDayText);
+        values.put(idDesk, flashcard.getID_Deck());
+        db.update(TableNameF, values, idF + "=?", new String[]{String.valueOf(IdFlashcard)});
+        db.close();
+        Log.d("k", "updateDesk: "+IdFlashcard);
+
+    }
+    //xoa flashcard theo id
+    public void deleteFlashcard(int idFlashcard){
+        SQLiteDatabase db = getWritableDatabase();
+        String sql ="Delete from " + TableNameF+ " Where idFlashcard = " + idFlashcard;
+        db.execSQL(sql);
+        db.close();
+    }
+    //xoa tat cac flashcard trong desk
+    public void deleteFlashcardDesk(int IdDesk){
+        SQLiteDatabase db = getWritableDatabase();
+        String sql ="Delete from " + TableNameF+ " Where idDesk = " + IdDesk;
+        db.execSQL(sql);
+        db.close();
     }
 }
