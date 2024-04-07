@@ -6,9 +6,12 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
@@ -20,6 +23,7 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.example.flashcat.Activity.HomeActivity;
+import com.example.flashcat.Adapter.DeskFlashcatAdapter;
 import com.example.flashcat.Database.DatabaseApp;
 import com.example.flashcat.Fragment.DeskFragment;
 import com.example.flashcat.Fragment.HomeFragment;
@@ -46,6 +50,8 @@ public class DeskActivity extends AppCompatActivity {
     private ArrayList<Flashcard> listCard;
     private ArrayList<Flashcard> listCardSelected;
     private DatabaseApp db;
+    private DeskFlashcatAdapter deskFlashcatAdapter;
+    private RecyclerView rcflashcard;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +85,15 @@ public class DeskActivity extends AppCompatActivity {
                         .commit();
             }
         }
+        listCard = new ArrayList<Flashcard>();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            listCard = db.getAllContactDesk(idDesk);
+        }
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        rcflashcard.setLayoutManager(layoutManager);
+        deskFlashcatAdapter = new DeskFlashcatAdapter(listCard,this);
+        rcflashcard.setAdapter(deskFlashcatAdapter);
+
         if (nameDesk != null) {
             txtNameDeskSelected.setText(nameDesk);
         }
@@ -108,7 +123,7 @@ public class DeskActivity extends AppCompatActivity {
         btnStudy = findViewById(R.id.btn_Study);
         btnMore = findViewById(R.id.action_more_desk);
         txtNameDeskSelected = findViewById(R.id.txt_NameDesk_selected);
-
+        rcflashcard = findViewById(R.id.list_flashcard_desk);
     }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -171,7 +186,6 @@ public class DeskActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 200 && resultCode == 210)
         {
-            //Truyen du lieu khi chon desk
             if (data != null) {
                 Bundle extras = data.getExtras();
                 if (extras != null) {
@@ -189,8 +203,17 @@ public class DeskActivity extends AppCompatActivity {
                     getSupportFragmentManager().beginTransaction()
                             .replace(R.id.fragment_layout_desk, fragment)
                             .commit();
+                    listCard = new ArrayList<Flashcard>();
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        listCard = db.getAllContactDesk(idDesk);
+                    }
+                    LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+                    rcflashcard.setLayoutManager(layoutManager);
+                    deskFlashcatAdapter = new DeskFlashcatAdapter(listCard,this);
+                    rcflashcard.setAdapter(deskFlashcatAdapter);
                 }
             }
+
         }
     }
 }
