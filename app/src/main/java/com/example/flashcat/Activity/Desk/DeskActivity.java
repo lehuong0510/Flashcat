@@ -171,7 +171,26 @@ public class DeskActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 200 && resultCode == 210)
         {
+            //Truyen du lieu khi chon desk
+            if (data != null) {
+                Bundle extras = data.getExtras();
+                if (extras != null) {
+                    nameDesk = extras.getString("NameDesk");
+                    //nameDeskCreate = extras.getString("NameDesk");
+                    idDesk = extras.getInt("ID_Desk");
+                    createdDay = extras.getString("CreatedDay");
+                    Log.d("name", "onClick: " +nameDesk );
+                    Bundle b = new Bundle();
+                    b.putInt("idDesk",idDesk);
+                    DeskFragment fragment = new DeskFragment();
+                    fragment.setArguments(b);
 
+                    // Thêm fragment vào activity
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.fragment_layout_desk, fragment)
+                            .commit();
+                }
+            }
         }
     }
 }
