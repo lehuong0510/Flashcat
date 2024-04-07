@@ -52,7 +52,7 @@ public class EditDeskActivity extends AppCompatActivity {
                 idDesk = extras.getInt("ID_Desk");
                 nameDesk = extras.getString("NameDesk");
             }}
-        Log.d("edit", "onCreate: "+ idDesk+ nameDesk);
+        Log.d("edit", "onCreate: "+ idDesk +" "+ nameDesk);
         edDesk.setText(nameDesk);
         listFlashcard = db.getAllContactDesk(idDesk);
         adapter = new EditDeskAdapter(listFlashcard,EditDeskActivity.this);
@@ -69,11 +69,15 @@ public class EditDeskActivity extends AppCompatActivity {
         btnSaveEditDesk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent();
+
                 for(Flashcard list: listFlashcard )
                 {
                     db.updateFlashcard(list.getID_Flashcard(),list);
+                    Log.d("update", "id flashcard: " + list.getID_Flashcard() +" iddesk: " + list.getTerm());
                 }
+                Intent i = new Intent(EditDeskActivity.this,DeskActivity.class);
+                i.putExtra("ID_Desk",idDesk);
+                i.putExtra("NameDesk", nameDesk);
                 setResult(210,i);
                 finish();
             }

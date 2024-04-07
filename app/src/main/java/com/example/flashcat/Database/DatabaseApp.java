@@ -26,7 +26,7 @@ public class DatabaseApp extends SQLiteOpenHelper {
     }
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-    public  static final  String Databasename = "DatabaseFCardR";
+    public  static final  String Databasename = "DatabaseFCa";
     public static final int DATABASE_VERSION = 1;
     //Desk
     public static final String TableName = "DeskTable";
@@ -94,7 +94,6 @@ public class DatabaseApp extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("Drop table if exists " + TableName);
         db.execSQL("Drop table if exists " + TableNameF);
-        db.execSQL("Drop table if exists " + TableNameDic);
         //tao lai
         onCreate(db);
     }
@@ -127,6 +126,7 @@ public class DatabaseApp extends SQLiteOpenHelper {
                 Desk desk = new Desk(cursor.getInt(0),
                         cursor.getString(1), cursor.getInt(2)==1?true:false,
                         createDay, cursor.getString(4), cursor.getInt(5));
+                Log.d("number", "getAllContact: " + String.valueOf(cursor.getInt(5)));
                 list.add(desk);
             }
         }
@@ -146,6 +146,7 @@ public class DatabaseApp extends SQLiteOpenHelper {
         values.put(numberFlashcard, desk.getNumber_flashcard());
         db.update(TableName, values, id + "=?", new String[]{String.valueOf(IdDesk)});
         db.close();
+        Log.d("k", "updateDesk: "+id);
 
     }
     //xoa desk theo id
@@ -265,6 +266,7 @@ public class DatabaseApp extends SQLiteOpenHelper {
         values.put(idDesk, flashcard.getID_Deck());
         db.update(TableNameF, values, idF + "=?", new String[]{String.valueOf(IdFlashcard)});
         db.close();
+        Log.d("k", "updateDesk: "+IdFlashcard);
 
     }
     //xoa flashcard theo id
