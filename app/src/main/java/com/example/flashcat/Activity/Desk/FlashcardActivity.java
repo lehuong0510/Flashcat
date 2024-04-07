@@ -122,4 +122,5 @@ public class FlashcardActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 }

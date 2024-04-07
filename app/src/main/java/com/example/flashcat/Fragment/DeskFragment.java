@@ -100,7 +100,6 @@ public class DeskFragment extends Fragment {
                 data = bundle.getInt("idDesk");
                 Log.d("data", "onCreate: " + data);
                 listFlashCard = db.getAllContactDesk(data);
-
             }
             listFlashCard.add(new Flashcard());
 
