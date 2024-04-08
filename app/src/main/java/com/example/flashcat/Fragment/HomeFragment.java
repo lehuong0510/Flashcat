@@ -5,6 +5,7 @@ import android.graphics.Paint;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -171,4 +172,18 @@ public class HomeFragment extends Fragment {
         });
         return rootView;
     }
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Làm mới dữ liệu của fragment khi nó tiếp tục
+        refreshData();
+    }
+
+    private void refreshData() {
+        // Tải lại hoặc làm mới dữ liệu của fragment ở đây
+        listDesk.clear();
+        listDesk.addAll(db.getAllDesk());
+        adapterDesk.notifyDataSetChanged();
+    }
+
 }

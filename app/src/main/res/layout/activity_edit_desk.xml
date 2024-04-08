@@ -94,8 +94,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list_flashcard"
-        android:layout_width="342dp"
-        android:layout_height="350dp"
+        android:layout_width="369dp"
+        android:layout_height="397dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="216dp"
         app:layout_constraintStart_toStartOf="parent"
