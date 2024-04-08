@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -75,6 +77,8 @@ public class EditDeskActivity extends AppCompatActivity {
                     db.updateFlashcard(list.getID_Flashcard(),list);
                     Log.d("update", "id flashcard: " + list.getID_Flashcard() +" iddesk: " + list.getTerm());
                 }
+                nameDesk = edDesk.getText().toString();
+                Log.d("name", "name desk: " + nameDesk);
                 Intent i = new Intent(EditDeskActivity.this,DeskActivity.class);
                 i.putExtra("ID_Desk",idDesk);
                 i.putExtra("NameDesk", nameDesk);
