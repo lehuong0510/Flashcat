@@ -190,10 +190,12 @@ public class DeskActivity extends AppCompatActivity {
                 Bundle extras = data.getExtras();
                 if (extras != null) {
                     nameDesk = extras.getString("NameDesk");
+                    Log.d("desk", "onActivityResult: " + nameDesk);
                     //nameDeskCreate = extras.getString("NameDesk");
                     idDesk = extras.getInt("ID_Desk");
                     createdDay = extras.getString("CreatedDay");
                     Log.d("name", "onClick: " +nameDesk );
+                    txtNameDeskSelected.setText(nameDesk);
                     Bundle b = new Bundle();
                     b.putInt("idDesk",idDesk);
                     DeskFragment fragment = new DeskFragment();
