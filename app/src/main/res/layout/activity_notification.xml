@@ -77,7 +77,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="@+id/toolbar_Notification"
         app:layout_constraintVertical_bias="0.496"
-        tools:layout_editor_absoluteX="0dp" />
+        tools:layout_editor_absoluteX="171dp" />
 
     <LinearLayout
         android:layout_width="339dp"

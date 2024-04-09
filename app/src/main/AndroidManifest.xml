@@ -33,6 +33,9 @@
             android:name=".Activity.SettingUser.NotificationActivity"
             android:theme="@style/Theme.Material3.DayNight.NoActionBar"
             android:exported="false" />
+        <activity android:name=".Activity.SettingUser.TimePickerActivity"
+            android:theme="@style/Theme.Material3.DayNight.NoActionBar"
+            android:exported="false" />
         <activity
             android:name=".Activity.SettingUser.ChangePasswordActivity"
             android:theme="@style/Theme.Material3.DayNight.NoActionBar"

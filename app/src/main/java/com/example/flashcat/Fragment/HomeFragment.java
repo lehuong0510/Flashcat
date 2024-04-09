@@ -122,7 +122,6 @@ public class HomeFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    // Get the value from dataSnapshot and set it to TextView
                     String name = dataSnapshot.child("first_name").getValue(String.class);
                     txtName.setText(name);
                 }
