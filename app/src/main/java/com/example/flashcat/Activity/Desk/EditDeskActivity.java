@@ -17,6 +17,7 @@ import android.widget.Button;
 
 import com.example.flashcat.Adapter.EditDeskAdapter;
 import com.example.flashcat.Database.DatabaseApp;
+import com.example.flashcat.Model.Desk;
 import com.example.flashcat.Model.Flashcard;
 import com.example.flashcat.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -78,6 +79,9 @@ public class EditDeskActivity extends AppCompatActivity {
                     Log.d("update", "id flashcard: " + list.getID_Flashcard() +" iddesk: " + list.getTerm());
                 }
                 nameDesk = edDesk.getText().toString();
+                Desk desk = db.getDesk(idDesk);
+                desk.setName_deck(nameDesk);
+                db.updateDesk(idDesk,desk);
                 Log.d("name", "name desk: " + nameDesk);
                 Intent i = new Intent(EditDeskActivity.this,DeskActivity.class);
                 i.putExtra("ID_Desk",idDesk);

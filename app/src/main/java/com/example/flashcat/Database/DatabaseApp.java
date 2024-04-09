@@ -119,6 +119,26 @@ public class DatabaseApp extends SQLiteOpenHelper {
         db.close();
         return list;
     }
+    //get 1 desk
+    public Desk getDesk(int idDesk){
+        // cau truy van
+        String sql = "Select * from " + TableName + " Where idDesk = " + idDesk;
+        //Lay doi tuong csdl sqlLite
+        SQLiteDatabase db = this.getReadableDatabase();
+        // Chay cau truy van tra ve cursor
+        Cursor cursor = db.rawQuery(sql, null);
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+                String createDayText = cursor.getString(3);
+                LocalDateTime createDay = LocalDateTime.parse(createDayText,DATE_TIME_FORMATTER);
+                Desk desk = new Desk(cursor.getInt(0),
+                        cursor.getString(1), cursor.getInt(2)==1?true:false,
+                        createDay, cursor.getString(4), cursor.getInt(5));
+                return desk;
+            }
+        }
+        return null;
+    }
     //update Desk
     public void updateDesk(int IdDesk, Desk desk){
         SQLiteDatabase db = getWritableDatabase();

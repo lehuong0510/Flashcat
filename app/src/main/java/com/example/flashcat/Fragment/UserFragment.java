@@ -11,11 +11,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.flashcat.Activity.Login.LoginActivity;
 import com.example.flashcat.Activity.SettingUser.SettingActivity;
 import com.example.flashcat.Activity.SyncActivity;
+import com.example.flashcat.Database.DatabaseApp;
+import com.example.flashcat.Model.Desk;
 import com.example.flashcat.R;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,6 +31,11 @@ public class UserFragment extends Fragment {
     private Button btnSync;
     private Button btnLogin;
     private Button btnLogout;
+    private TextView txtComplete;
+    private TextView txtOnProgress;
+    private TextView txtDesk;
+    private DatabaseApp db;
+    private ArrayList<Desk> deskArrayList;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -35,6 +45,8 @@ public class UserFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private int complete = 0;
+    private int onprogress = 0;
 
     public UserFragment() {
         // Required empty public constructor
@@ -76,7 +88,26 @@ public class UserFragment extends Fragment {
         btnSync = rootView.findViewById(R.id.btn_sync);
         btnLogin = rootView.findViewById(R.id.btn_Login);
         btnLogout = rootView.findViewById(R.id.btn_Logout);
+        txtComplete = rootView.findViewById(R.id.txt_number_complete);
+        txtOnProgress = rootView.findViewById(R.id.txt_number_onProgress);
+        txtDesk = rootView.findViewById(R.id.txt_number_desk);
 
+        //tao đb
+        db = new DatabaseApp(getContext());
+        deskArrayList = new ArrayList<>();
+        deskArrayList = db.getAllDesk();
+
+        txtDesk.setText(String.valueOf(deskArrayList.size()));
+        for (Desk desk:deskArrayList){
+            if(desk.isStatus_deck()==true){
+                complete++;
+            }
+            else if(desk.isStatus_deck()==false){
+                onprogress++;
+            }
+        }
+        txtComplete.setText(String.valueOf(complete));
+        txtOnProgress.setText(String.valueOf(onprogress));
         btnSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
