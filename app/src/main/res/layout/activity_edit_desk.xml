@@ -6,19 +6,25 @@
     android:layout_height="match_parent"
     style="@style/SCREEN"
     tools:context=".Activity.Desk.EditDeskActivity">
-    <androidx.appcompat.widget.Toolbar
+    <LinearLayout
         android:id="@+id/toolbar_EditDesk"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="50dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.005"
         tools:layout_editor_absoluteX="132dp">
-
+        <ImageButton
+            android:id="@+id/back_editDesk"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:backgroundTint="@color/white"
+            android:src="@drawable/back"
+            android:contentDescription="@string/back"/>
 
         <TextView
-            android:layout_width="240dp"
+            android:layout_width="260dp"
             android:layout_height="match_parent"
             android:backgroundTint="@color/white"
             android:fontFamily="@font/inter_semibold"
@@ -38,7 +44,7 @@
             android:textSize="20sp"
             />
 
-    </androidx.appcompat.widget.Toolbar>
+    </LinearLayout>
 
     <!--    <LinearLayout-->
     <!--        android:layout_width="342dp"-->
@@ -94,8 +100,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list_flashcard"
-        android:layout_width="342dp"
-        android:layout_height="350dp"
+        android:layout_width="369dp"
+        android:layout_height="397dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="216dp"
         app:layout_constraintStart_toStartOf="parent"

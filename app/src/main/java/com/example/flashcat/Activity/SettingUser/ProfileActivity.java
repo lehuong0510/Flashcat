@@ -4,18 +4,28 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+//import com.bumptech.glide.Glide;
 import com.example.flashcat.Model.Account;
 import com.example.flashcat.R;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -29,6 +39,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,6 +49,10 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileActivity extends AppCompatActivity {
 
+    private ImageButton btnBack;
+    private static final int PICK_IMAGE_REQUEST = 1; // Mã yêu cầu cho việc chọn ảnh
+    private static final String KEY_IMAGE_URI = "image_uri";
+    private Uri newImageUri;
     private Toolbar toolbarProfile;
     private TextView btnChangeImage;
     private CircleImageView edProfileImage;
@@ -53,15 +69,8 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         findID();
-        toolbarProfile = findViewById(R.id.toolbarProfile);
-        setSupportActionBar(toolbarProfile);
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            Drawable backArrow = getResources().getDrawable(R.drawable.back);
-            backArrow.setColorFilter(getResources().getColor(R.color.black), PorterDuff.Mode.SRC_ATOP);
-            actionBar.setHomeAsUpIndicator(backArrow);
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
+
+
         loadProfileData();
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,13 +81,31 @@ public class ProfileActivity extends AppCompatActivity {
         btnChangeImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                openImagePicker();
             }
         });
     }
+    private void openImagePicker() {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("image/*");
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+    }
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(KEY_IMAGE_URI, newImageUri);
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            newImageUri = data.getData();
+            edProfileImage.setImageURI(newImageUri);
+        }
+    }
 
     public void findID(){
-        toolbarProfile = findViewById(R.id.toolbarProfile);
+        btnBack = findViewById(R.id.back_editProfile);
         btnChangeImage = findViewById(R.id.btn_change_image);
         edProfileImage = findViewById(R.id.ed_profile_image);
         edProfileFirstname = findViewById(R.id.ed_profile_first_name);
@@ -102,11 +129,14 @@ public class ProfileActivity extends AppCompatActivity {
                         String firstname = dataSnapshot.child("first_name").getValue(String.class);
                         String lastname = dataSnapshot.child("last_name").getValue(String.class);
                         String username = dataSnapshot.child("username").getValue(String.class);
-
+                        String imageUri = dataSnapshot.child("image").getValue(String.class);
                         edProfileFirstname.setText(firstname);
                         edProfileLastname.setText(lastname);
                         edProfileUsername.setText(username);
                         edProfileEmail.setText(userEmail);
+
+                       // Glide.with(ProfileActivity.this).load(Uri.parse("content://media/picker/0/com.android.providers.media.photopicker/media/1000000037")).into(edProfileImage);
+
                     }
                 }
 
@@ -124,7 +154,8 @@ public class ProfileActivity extends AppCompatActivity {
             String firstname = edProfileFirstname.getText().toString().trim();
             String lastname = edProfileLastname.getText().toString().trim();
             String username = edProfileUsername.getText().toString().trim();
-            acc = new Account(firstname,lastname,username);
+            String image = newImageUri != null ? newImageUri.toString() : "";
+           // acc = new Account(firstname,lastname,username,image);
 
             if (TextUtils.isEmpty(firstname) || TextUtils.isEmpty(lastname) || TextUtils.isEmpty(username)) {
                 Toast.makeText(ProfileActivity.this, "Please enter complete information", Toast.LENGTH_SHORT).show();
@@ -153,6 +184,10 @@ public class ProfileActivity extends AppCompatActivity {
             updateData.put("first_name", firstname);
             updateData.put("last_name", lastname);
             updateData.put("username", username);
+            if (newImageUri != null) {
+                updateData.put("image", newImageUri.toString());
+                profilesRef.child("image").setValue(newImageUri.toString());
+            }
 
             profilesRef.updateChildren(updateData)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -167,17 +202,9 @@ public class ProfileActivity extends AppCompatActivity {
                             Toast.makeText(ProfileActivity.this, "Failed to update profile", Toast.LENGTH_SHORT).show();
                         }
                     });
+
         }
     }
 
 
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        if (id == android.R.id.home) {
-            finish();
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }

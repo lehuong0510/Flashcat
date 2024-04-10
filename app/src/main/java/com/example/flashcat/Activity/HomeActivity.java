@@ -169,8 +169,7 @@ public class HomeActivity extends AppCompatActivity {
                 Intent i = new Intent(HomeActivity.this, DeskActivity.class);
                 i.putExtra("NameDesk",editNameDesk.getText().toString());
                 i.putExtra("CreatedDay", currentDateTimeString);
-                Log.d("name", "onClick: " +editNameDesk.getText().toString() );
-                startActivity(i);
+                startActivityForResult(i,110);
 
             }
         });
@@ -194,4 +193,5 @@ public class HomeActivity extends AppCompatActivity {
         currentPage = CurrentPage.HOME;
         bottomNavigationView.setSelectedItemId(R.id.menu_Home);
     }
+
 }

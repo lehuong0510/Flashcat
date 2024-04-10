@@ -57,21 +57,17 @@
         </LinearLayout>
 
 
-        <Button
-            android:id="@+id/btnSearch"
-            style="?attr/materialButtonOutlinedStyle"
-            android:layout_width="345dp"
-            android:layout_height="65dp"
-            android:layout_gravity="center"
-            android:layout_marginStart="20dp"
-            android:contentDescription="@string/search_name"
-            android:drawableEnd="@drawable/search"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.239"
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchDesk"
+            android:layout_width="354dp"
+            android:layout_height="68dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="110dp"
+            style="@style/BORDER"
+            android:iconifiedByDefault="false"
+            android:queryHint="Search..."
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-            app:layout_constraintVertical_bias="0.071" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/btnSeeAll"

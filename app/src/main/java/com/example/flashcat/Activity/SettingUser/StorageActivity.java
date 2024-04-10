@@ -21,7 +21,7 @@ import com.example.flashcat.R;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class StorageActivity extends AppCompatActivity {
-    private Toolbar toolbarSrorage;
+    private ImageButton btnBack;
     private Button btnClear;
 
     @Override
@@ -29,18 +29,23 @@ public class StorageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_storage);
         findID();
-        setSupportActionBar(toolbarSrorage);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         btnClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDialogClear();
             }
         });
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
     public void findID(){
 
-        toolbarSrorage = findViewById(R.id.toolbar_Storage);
+        btnBack = findViewById(R.id.back_storage);
         btnClear = findViewById(R.id.action_clear);
     }
     @Override

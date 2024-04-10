@@ -44,6 +44,12 @@
         <item name="android:textColor">@color/gray</item>
         <item name="android:drawableEnd">@drawable/ic_chevron_right_24_dark</item>
     </style>
+    <!-- Button result background if dark mode on -->
+    <style name="BUTTON_PRACTICE">
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:drawableLeft">@drawable/practise</item>
+        <item name="android:tint">#FFF</item>
+    </style>
     <!-- Button setting background if dark mode on -->
     <style name="TEXT_SETTING">
         <item name="android:textColor">@color/gray</item>

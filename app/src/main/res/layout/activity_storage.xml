@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     style="@style/SCREEN"
     tools:context=".Activity.SettingUser.StorageActivity">
-    <androidx.appcompat.widget.Toolbar
+    <LinearLayout
         android:id="@+id/toolbar_Storage"
         android:layout_width="match_parent"
         android:layout_height="70dp"
@@ -16,7 +16,13 @@
         app:layout_constraintVertical_bias="0.005"
         tools:layout_editor_absoluteX="132dp">
 
-
+        <ImageButton
+            android:id="@+id/back_storage"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:backgroundTint="@color/transparent"
+            android:src="@drawable/back"
+            android:contentDescription="@string/back"/>
 
         <TextView
             android:layout_width="240dp"
@@ -40,7 +46,7 @@
             android:textColor="@color/color_font"
             android:textSize="20sp" />
 
-    </androidx.appcompat.widget.Toolbar>
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout5"
