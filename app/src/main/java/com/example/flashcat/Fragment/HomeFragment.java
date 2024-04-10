@@ -1,11 +1,9 @@
 package com.example.flashcat.Fragment;
 
-import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Build;
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,18 +15,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.flashcat.Activity.SearchActivity;
 import com.example.flashcat.Adapter.HomeDeskAdapter;
 import com.example.flashcat.Database.DatabaseApp;
 import com.example.flashcat.Model.Desk;
 import com.example.flashcat.R;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import org.threeten.bp.format.DateTimeFormatter;
 
