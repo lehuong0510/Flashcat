@@ -284,9 +284,9 @@ public class DatabaseApp extends SQLiteOpenHelper {
         String updateDayText = flashcard.getUpdate_day().format(DATE_TIME_FORMATTER);
         values.put(updateDay, updateDayText);
         values.put(idDesk, flashcard.getID_Deck());
-        db.update(TableNameF, values, idF + "=?", new String[]{String.valueOf(IdFlashcard)});
+        int a  = db.update(TableNameF, values, idF + "=?", new String[]{String.valueOf(IdFlashcard)});
         db.close();
-        Log.d("k", "updateDesk: "+IdFlashcard);
+        Log.d("k", "updateDesk: "+IdFlashcard + " a: " + flashcard.getTerm());
 
     }
     //xoa flashcard theo id

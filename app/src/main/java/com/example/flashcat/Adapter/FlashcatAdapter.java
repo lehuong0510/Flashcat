@@ -124,6 +124,7 @@ public class FlashcatAdapter extends RecyclerView.Adapter<FlashcatAdapter.Flashc
         return 0;
     }
 
+
     public class FlashcardViewHolder extends RecyclerView.ViewHolder{
         private TextView txtWordLearned;
         private TextView txtWordUnLearned;

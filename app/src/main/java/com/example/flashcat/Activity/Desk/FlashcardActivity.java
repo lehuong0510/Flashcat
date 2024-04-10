@@ -71,6 +71,7 @@ public class FlashcardActivity extends AppCompatActivity implements View.OnDragL
                 idDesk = extras.getInt("idDesk");
                 Log.d("name", "onClick: " +idFlashcard +idDesk );
 
+                //displayFlashcardSide(flipFrom);
             }
         }
 

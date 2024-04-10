@@ -81,6 +81,7 @@ public class EditDeskActivity extends AppCompatActivity {
                 Desk desk = db.getDesk(idDesk);
                 desk.setName_deck(nameDesk);
                 db.updateDesk(idDesk,desk);
+                Log.d("name", "name desk: " + nameDesk);
                 Intent i = new Intent(EditDeskActivity.this,DeskActivity.class);
                 i.putExtra("ID_Desk",idDesk);
                 i.putExtra("NameDesk", nameDesk);
