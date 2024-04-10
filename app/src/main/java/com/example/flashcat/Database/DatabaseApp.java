@@ -160,7 +160,7 @@ public class DatabaseApp extends SQLiteOpenHelper {
         db.close();
         return list;
     }
-    public ArrayList<Flashcard> getAllContactDesk(int id_desk) {
+    public ArrayList<Flashcard> getAllFlashcardByDeskID(int id_desk) {
         ArrayList<Flashcard> list = new ArrayList<>();
         // cau truy van
         String sql = "Select * from " + TableNameF + " Where idDesk = ? ";
@@ -184,7 +184,7 @@ public class DatabaseApp extends SQLiteOpenHelper {
         db.close();
         return list;
     }
-    public Flashcard getFlashcardID(int id_flashcard) {
+    public Flashcard getFlashcardByID(int id_flashcard) {
         Flashcard flashcard = new Flashcard() ;
         // cau truy van
         String sql = "Select * from " + TableNameF + " Where idF = ? ";
@@ -207,4 +207,5 @@ public class DatabaseApp extends SQLiteOpenHelper {
         db.close();
         return flashcard;
     }
+    
 }
