@@ -20,6 +20,7 @@
             android:layout_height="50dp"
             android:layout_gravity="center_vertical"
             android:backgroundTint="@color/transparent"
+            android:contentDescription="@string/delete"
             style="@style/ICON"
             app:srcCompat="@drawable/close" />
 
