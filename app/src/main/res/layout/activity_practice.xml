@@ -26,11 +26,12 @@
         android:layout_width="340dp"
         android:layout_height="60dp"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="20dp"
         android:textSize="20sp"
         style="@style/BORDER"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbarPractice"
+        android:background="@drawable/border"/>
 
     <LinearLayout
         android:layout_width="340dp"
@@ -48,12 +49,14 @@
             android:text="@string/question"
             android:textSize="20sp" />
 
-        <Spinner
-            android:id="@+id/sp_select_question"
+        <TextView
+            android:id="@+id/txt_total_questions"
             android:layout_width="180dp"
             android:layout_height="60dp"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="20sp"
             style="@style/BORDER" />
 
     </LinearLayout>
@@ -75,12 +78,15 @@
             android:textSize="20sp" />
 
         <Spinner
-            android:id="@+id/sp_select_answer"
+            android:id="@+id/sp_select_answer_method"
             android:layout_width="250dp"
             android:layout_height="60dp"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
-            style="@style/BORDER" />
+            style="@style/BORDER"
+            android:entries="@array/answer_method_arrays"
+            android:prompt="@string/answer_method_prompt"
+            android:gravity="center"/>
 
     </LinearLayout>
 
@@ -136,7 +142,7 @@
 
 
     <Button
-        android:id="@+id/btn_practice_save"
+        android:id="@+id/btn_practice_startTest"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -144,7 +150,7 @@
         android:layout_marginTop="704dp"
         android:background="@drawable/border"
         app:backgroundTint="@color/color_button"
-        android:text="@string/save"
+        android:text="@string/start_test"
         android:textSize="18sp"
         android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"

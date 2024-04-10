@@ -10,14 +10,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.flashcat.Adapter.FlashcatAdapter;
 import com.example.flashcat.Database.DatabaseApp;
-import com.example.flashcat.Fragment.DeskFragment;
 import com.example.flashcat.Model.Flashcard;
 import com.example.flashcat.R;
 
@@ -59,7 +56,7 @@ public class FlashcardActivity extends AppCompatActivity {
         //tao đb
         db = new DatabaseApp(this);
         flashcardArrayList = new ArrayList<>();
-        flashcardArrayList = db.getAllContactDesk(idDesk);
+        flashcardArrayList = db.getAllFlashcardByDeskID(idDesk);
         int position = findPositionById(idFlashcard);
                if (position != -1) {
                    LinearLayoutManager layoutManager = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
@@ -97,7 +94,7 @@ public class FlashcardActivity extends AppCompatActivity {
     private void displayFlashcardSide(String side) {
         if (side != null) {
             db = new DatabaseApp(FlashcardActivity.this);
-            Flashcard flashcard = db.getFlashcardID(idFlashcard);
+            Flashcard flashcard = db.getFlashcardByID(idFlashcard);
             if (flashcard != null) {
                 if (side.equals("front")) {
 

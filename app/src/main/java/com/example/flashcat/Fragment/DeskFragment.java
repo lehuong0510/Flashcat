@@ -97,7 +97,7 @@ public class DeskFragment extends Fragment {
             if (bundle != null) {
                 data = bundle.getInt("idDesk");
                 Log.d("data", "onCreate: " + data);
-                listFlashCard = db.getAllContactDesk(data);
+                listFlashCard = db.getAllFlashcardByDeskID(data);
 
             }
             listFlashCard.add(new Flashcard());
