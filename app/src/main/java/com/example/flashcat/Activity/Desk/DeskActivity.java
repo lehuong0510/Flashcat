@@ -85,7 +85,7 @@ public class DeskActivity extends AppCompatActivity {
         }
         listCard = new ArrayList<Flashcard>();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            listCard = db.getAllContactDesk(idDesk);
+            listCard = db.getAllFlashcardByDeskID(idDesk);
         }
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         rcflashcard.setLayoutManager(layoutManager);
@@ -211,7 +211,7 @@ public class DeskActivity extends AppCompatActivity {
                             .commit();
                     listCard = new ArrayList<Flashcard>();
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        listCard = db.getAllContactDesk(idDesk);
+                        listCard = db.getAllFlashcardByDeskID(idDesk);
                     }
                     LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
                     rcflashcard.setLayoutManager(layoutManager);

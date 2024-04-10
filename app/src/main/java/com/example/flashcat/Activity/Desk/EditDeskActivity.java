@@ -57,7 +57,7 @@ public class EditDeskActivity extends AppCompatActivity {
             }}
         Log.d("edit", "onCreate: "+ idDesk +" "+ nameDesk);
         edDesk.setText(nameDesk);
-        listFlashcard = db.getAllContactDesk(idDesk);
+        listFlashcard = db.getAllFlashcardByDeskID(idDesk);
         adapter = new EditDeskAdapter(listFlashcard,EditDeskActivity.this);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
         recyclerViewFlashcard.setLayoutManager(layoutManager);
