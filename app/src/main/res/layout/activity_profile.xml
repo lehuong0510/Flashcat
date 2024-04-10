@@ -13,7 +13,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.appcompat.widget.Toolbar
+    <LinearLayout
             android:id="@+id/toolbarProfile"
             android:layout_width="match_parent"
             android:layout_height="60dp"
@@ -26,7 +26,22 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
-            app:titleTextColor="@color/black" />
+            app:titleTextColor="@color/black" >
+        <ImageButton
+            android:id="@+id/back_editProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:backgroundTint="@color/transparent"
+            android:src="@drawable/back"
+            android:contentDescription="@string/back"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:text="@string/edit_profile"
+            android:textSize="27sp" />
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout

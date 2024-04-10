@@ -38,7 +38,7 @@ import java.util.ArrayList;
 
 public class DeskActivity extends AppCompatActivity {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-    private Toolbar toolbarDesk ;
+    private ImageButton btnBack ;
     private Button btnStudy;
     private ImageButton btnMore;
     private TextView txtNameDeskSelected;
@@ -62,8 +62,6 @@ public class DeskActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_layout_desk, new DeskFragment())
                 .commit();
-        setSupportActionBar(toolbarDesk);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //Truyen du lieu khi chon desk
         Intent intent = getIntent();
         if (intent != null) {
@@ -117,9 +115,15 @@ public class DeskActivity extends AppCompatActivity {
                 showPopupMenu();
             }
         });
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
     public void findID(){
-        toolbarDesk = findViewById(R.id.toolbar_Desk);
+        btnBack = findViewById(R.id.back_desk);
         btnStudy = findViewById(R.id.btn_Study);
         btnMore = findViewById(R.id.action_more_desk);
         txtNameDeskSelected = findViewById(R.id.txt_NameDesk_selected);

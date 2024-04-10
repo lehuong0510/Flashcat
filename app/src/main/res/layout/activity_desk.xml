@@ -7,16 +7,22 @@
     style="@style/SCREEN"
     tools:context=".Activity.Desk.DeskActivity">
 
-    <androidx.appcompat.widget.Toolbar
+    <LinearLayout
         android:id="@+id/toolbar_Desk"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
+        <ImageButton
+            android:id="@+id/back_desk"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:backgroundTint="@color/white"
+            android:src="@drawable/back"
+            android:contentDescription="@string/back"/>
         <TextView
             android:id="@+id/txt_NameDesk_selected"
-            android:layout_width="285dp"
+            android:layout_width="295dp"
             android:layout_height="58dp"
             android:backgroundTint="@color/white"
             android:fontFamily="@font/inter_semibold"
@@ -37,7 +43,7 @@
             android:textColor="@color/color_font"
             android:textSize="20sp"
             style="@style/ICON"/>
-    </androidx.appcompat.widget.Toolbar>
+    </LinearLayout>
 
     <FrameLayout
         android:id="@+id/fragment_layout_desk"

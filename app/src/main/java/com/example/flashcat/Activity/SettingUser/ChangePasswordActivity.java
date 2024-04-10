@@ -32,7 +32,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class ChangePasswordActivity extends AppCompatActivity {
 
-    private Toolbar toolbarPassword;
+    private ImageButton btnBack;
     private EditText edOldPassword;
     private ImageButton btnOldPassword;
     private EditText edNewPassword;
@@ -50,8 +50,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
         setContentView(R.layout.activity_change_password);
 
         findID();
-        setSupportActionBar(toolbarPassword);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         btnOldPassword.setOnClickListener(new View.OnClickListener() {
             boolean isPasswordVisible = false;
 
@@ -183,12 +182,17 @@ public class ChangePasswordActivity extends AppCompatActivity {
             }
         });
 
-
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
     }
     public void findID()
     {
-        toolbarPassword = findViewById(R.id.toolbar_Password);
+        btnBack = findViewById(R.id.back_changePassword);
         edOldPassword = findViewById(R.id.ed_old_password);
         btnOldPassword = findViewById(R.id.btn_old_password);
         edNewPassword = findViewById(R.id.ed_new_password);
@@ -197,14 +201,5 @@ public class ChangePasswordActivity extends AppCompatActivity {
         btnConfirmPassword = findViewById(R.id.btn_confirm_password);
         btnChangePassword = findViewById(R.id.action_changepassword);
     }
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int it = item.getItemId();
-        if(it == android.R.id.home){
-            onBackPressed();
-            return true;
-        }
 
-        return super.onOptionsItemSelected(item);
-    }
 }

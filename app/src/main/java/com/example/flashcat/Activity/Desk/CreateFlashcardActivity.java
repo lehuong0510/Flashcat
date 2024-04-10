@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 
 import com.example.flashcat.Database.DatabaseApp;
@@ -29,7 +30,7 @@ import java.util.ArrayList;
 
 public class CreateFlashcardActivity extends AppCompatActivity {
     private DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-    private Toolbar toolbarNewFlashcard;
+    private ImageButton btnBack;
     private Spinner spSelectDesk;
     private EditText edFront;
     private EditText edBack;
@@ -48,8 +49,6 @@ public class CreateFlashcardActivity extends AppCompatActivity {
         AndroidThreeTen.init(this);
         setContentView(R.layout.activity_create_flashcard);
         findID();
-        setSupportActionBar(toolbarNewFlashcard);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
          deskNames = new ArrayList<>();
         //Them ten tu db vao list
@@ -89,22 +88,18 @@ public class CreateFlashcardActivity extends AppCompatActivity {
 
             }
         });
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
     //event toolbar
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int it = item.getItemId();
-        if(it == android.R.id.home){
-            onBackPressed();
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     public void findID(){
-        toolbarNewFlashcard = findViewById(R.id.toolbar_NewFlashcard);
+        btnBack = findViewById(R.id.back_creteFlashcard);
         spSelectDesk = findViewById(R.id.sp_select_desk);
         edFront = findViewById(R.id.ed_front_flashcard);
         edBack = findViewById(R.id.ed_back_flashcard);

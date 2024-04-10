@@ -33,7 +33,7 @@ import com.example.flashcat.R;
 import java.util.ArrayList;
 
 public class FlashcardActivity extends AppCompatActivity implements View.OnDragListener{
-    private Toolbar toolbarFlashcard;
+    private ImageButton btnBack;
     private RecyclerView recyclerFlashcard;
     private ImageButton btnReturnFlashcard;
     private TextView txtNumber;
@@ -60,8 +60,7 @@ public class FlashcardActivity extends AppCompatActivity implements View.OnDragL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flashcard);
         findID();
-        setSupportActionBar(toolbarFlashcard);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         //Nhan du lieu
         Intent intent = getIntent();
         if(intent!=null){
@@ -126,6 +125,12 @@ public class FlashcardActivity extends AppCompatActivity implements View.OnDragL
                 return true;
             }
         });
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
     }
     private int findPositionById(int idFlashcard) {
@@ -149,7 +154,7 @@ public class FlashcardActivity extends AppCompatActivity implements View.OnDragL
         }
     }
     public  void findID(){
-        toolbarFlashcard = findViewById(R.id.toolbar_Flashcard);
+        btnBack = findViewById(R.id.back_flashcard);
         recyclerFlashcard = findViewById(R.id.list_item_flashcard);
         btnReturnFlashcard = findViewById(R.id.btn_return_flashcard);
         txtNumber = findViewById(R.id.txt_number_flashcard);
@@ -157,15 +162,6 @@ public class FlashcardActivity extends AppCompatActivity implements View.OnDragL
         txt_Learned = findViewById(R.id.txt_win);
         ll_Learned = findViewById(R.id.ll_win);
         txt_UnLearned = findViewById(R.id.txt_lose);
-    }
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int it = item.getItemId();
-        if(it == android.R.id.home){
-            setResult(RESULT_OK);
-            onBackPressed();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     // Phương thức để hiển thị số thứ tự của flashcard hiện tại

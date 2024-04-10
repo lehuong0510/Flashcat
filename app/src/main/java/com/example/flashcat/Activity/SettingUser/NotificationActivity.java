@@ -16,7 +16,7 @@ import com.example.flashcat.R;
 import com.google.android.material.materialswitch.MaterialSwitch;
 
 public class NotificationActivity extends AppCompatActivity {
-    private Toolbar toolbarNotification;
+    private ImageButton btnBack;
     private MaterialSwitch swPushNotification;
     private MaterialSwitch swWordReminder;
     private Spinner spDeskRemind;
@@ -30,8 +30,7 @@ public class NotificationActivity extends AppCompatActivity {
 
         findID();
 
-        setSupportActionBar(toolbarNotification);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         swPushNotification.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -65,7 +64,7 @@ public class NotificationActivity extends AppCompatActivity {
         });
     }
     public void findID(){
-        toolbarNotification = findViewById(R.id.toolbar_Notification);
+        btnBack = findViewById(R.id.back_notification);
         swPushNotification = findViewById(R.id.switch_push_notification);
         swWordReminder = findViewById(R.id.switch_word_reminder);
         spDeskRemind = findViewById(R.id.sp_select_desk_remind);
@@ -73,14 +72,5 @@ public class NotificationActivity extends AppCompatActivity {
         btnTimeFinish = findViewById(R.id.btn_select_timeFinish);
         btnSaveNotification = findViewById(R.id.btn_notification_save);
     }
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int it = item.getItemId();
-        if(it == android.R.id.home){
-            onBackPressed();
-            return true;
-        }
 
-        return super.onOptionsItemSelected(item);
-    }
 }

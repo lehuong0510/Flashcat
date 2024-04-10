@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,7 +38,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    private Toolbar toolbarProfile;
+    private ImageButton btnBack;
     private TextView btnChangeImage;
     private CircleImageView edProfileImage;
     private EditText edProfileFirstname;
@@ -53,15 +54,8 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         findID();
-        toolbarProfile = findViewById(R.id.toolbarProfile);
-        setSupportActionBar(toolbarProfile);
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            Drawable backArrow = getResources().getDrawable(R.drawable.back);
-            backArrow.setColorFilter(getResources().getColor(R.color.black), PorterDuff.Mode.SRC_ATOP);
-            actionBar.setHomeAsUpIndicator(backArrow);
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
+
+
         loadProfileData();
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,7 +72,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     public void findID(){
-        toolbarProfile = findViewById(R.id.toolbarProfile);
+        btnBack = findViewById(R.id.back_editProfile);
         btnChangeImage = findViewById(R.id.btn_change_image);
         edProfileImage = findViewById(R.id.ed_profile_image);
         edProfileFirstname = findViewById(R.id.ed_profile_first_name);
@@ -171,13 +165,4 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
 
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        if (id == android.R.id.home) {
-            finish();
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }

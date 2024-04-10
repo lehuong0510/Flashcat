@@ -6,20 +6,37 @@
     android:layout_height="match_parent"
     style="@style/SCREEN"
     tools:context=".Activity.Practice.PracticeActivity">
-    <androidx.appcompat.widget.Toolbar
+
+    <LinearLayout
         android:id="@+id/toolbarPractice"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         style="@style/SCREEN"
-        app:titleTextColor="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:fontFamily="@font/inter_semibold"
+        android:minHeight="?attr/actionBarSize"
+        android:textSize="25sp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.023"
-        android:textSize="25sp"
-        android:fontFamily="@font/inter_semibold"/>
+        app:layout_constraintVertical_bias="0.0"
+        app:titleTextColor="@color/black" >
+        <ImageButton
+            android:id="@+id/back_practice"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:backgroundTint="@color/white"
+            android:src="@drawable/back"
+            android:contentDescription="@string/back"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:text="@string/practice"
+            android:textSize="27sp" />
+
+    </LinearLayout>
 
     <Spinner
         android:id="@+id/sp_select_desk"
