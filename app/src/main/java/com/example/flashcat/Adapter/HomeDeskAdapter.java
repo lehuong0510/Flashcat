@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -23,10 +25,12 @@ import org.threeten.bp.format.DateTimeFormatter;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
-public class HomeDeskAdapter extends RecyclerView.Adapter<HomeDeskAdapter.DeskViewHolder>{
+public class HomeDeskAdapter extends RecyclerView.Adapter<HomeDeskAdapter.DeskViewHolder> implements Filterable {
     private ArrayList<Desk> deskArrayList;
+    private ArrayList<Desk> deskListOld;
     private Context context;
     public void setData(ArrayList<Desk> deskArrayList){
         this.deskArrayList = deskArrayList;
@@ -34,8 +38,10 @@ public class HomeDeskAdapter extends RecyclerView.Adapter<HomeDeskAdapter.DeskVi
     }
     public HomeDeskAdapter(ArrayList<Desk> deskArrayList, Context context) {
         this.deskArrayList = deskArrayList;
+        this.deskListOld = deskArrayList;
         this.context = context;
     }
+
 
     @NonNull
     @Override
@@ -62,6 +68,36 @@ public class HomeDeskAdapter extends RecyclerView.Adapter<HomeDeskAdapter.DeskVi
         if(deskArrayList!=null)
             return deskArrayList.size();
         return 0;
+    }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                String strSearch = constraint.toString();
+                if(strSearch.isEmpty()){
+                    deskArrayList = deskListOld;
+                } else{
+                    ArrayList<Desk> list = new ArrayList<>();
+                    for(Desk desk : deskListOld){
+                        if(desk.getName_deck().toLowerCase().contains(strSearch.toLowerCase())){
+                            list.add(desk);
+                        }
+                    }
+                    deskArrayList = list;
+                }
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = deskArrayList;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                deskArrayList = (ArrayList<Desk>) results.values;
+                notifyDataSetChanged();
+            }
+        };
     }
 
     public class DeskViewHolder extends RecyclerView.ViewHolder{

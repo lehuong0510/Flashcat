@@ -26,7 +26,7 @@ public class DatabaseApp extends SQLiteOpenHelper {
     }
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-    public  static final  String Databasename = "DatabaseFCa";
+    public  static final  String Databasename = "DbFCa";
     public static final int DATABASE_VERSION = 1;
     //Desk
     public static final String TableName = "DeskTable";

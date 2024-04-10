@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,6 +33,7 @@ import com.google.firebase.database.ValueEventListener;
 import org.threeten.bp.format.DateTimeFormatter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -51,7 +53,7 @@ public class HomeFragment extends Fragment {
     private ArrayList<Desk> listDesk;
     private HomeDeskAdapter adapterDesk;
     private RecyclerView recyclerViewDesk;
-    private Button btnSearch;
+    private SearchView btnSearch;
     private TextView txtName;
     private Button btnNotification;
     private TextView btnSeeAll;
@@ -108,31 +110,30 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
-        btnSearch = rootView.findViewById(R.id.btnSearch);
+        btnSearch = rootView.findViewById(R.id.searchDesk);
         txtName = rootView.findViewById(R.id.txtName);
         btnSeeAll = rootView.findViewById(R.id.btnSeeAll);
         recyclerViewDesk = rootView.findViewById(R.id.lst_desk);
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-
-        String userEmail = currentUser.getEmail();
-        String userId = userEmail.replace("@gmail.com", "");
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("accounts").child(userId);
-
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    // Get the value from dataSnapshot and set it to TextView
-                    String name = dataSnapshot.child("first_name").getValue(String.class);
-                    txtName.setText(name);
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+//        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+//
+//        String userEmail = currentUser.getEmail();
+//        String userId = userEmail.replace("@gmail.com", "");
+//        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("accounts").child(userId);
+//
+//        databaseReference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                if (dataSnapshot.exists()) {
+//                    String name = dataSnapshot.child("first_name").getValue(String.class);
+//                    txtName.setText(name);
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerViewDesk.setLayoutManager(layoutManager);
@@ -163,11 +164,17 @@ public class HomeFragment extends Fragment {
                 adapterDesk.notifyDataSetChanged();
             }
         });
-        btnSearch.setOnClickListener(new View.OnClickListener() {
+        btnSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getContext(), SearchActivity.class);
-                startActivity(i);
+            public boolean onQueryTextSubmit(String query) {
+                adapterDesk.getFilter().filter(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapterDesk.getFilter().filter(newText);
+                return true;
             }
         });
         return rootView;
@@ -185,5 +192,11 @@ public class HomeFragment extends Fragment {
         listDesk.addAll(db.getAllDesk());
         adapterDesk.notifyDataSetChanged();
     }
+    private List<Desk> getListDesks() {
+        List<Desk> list = new ArrayList<>();
+        db = new DatabaseApp(getContext());
+        list = db.getAllDesk();
 
+        return list;
+    }
 }

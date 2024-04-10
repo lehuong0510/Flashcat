@@ -114,9 +114,10 @@ public class Account {
         this.password = password;
         this.email = email;
     }
-    public Account(String first_name,String last_name,String username){
+    public Account(String first_name,String last_name,String username,String image){
         this.first_name = first_name;
         this.last_name = last_name;
         this.username =username;
+        this.image = image;
     }
 }

@@ -58,4 +58,6 @@ dependencies {
     //goi y
     implementation ("androidx.cursoradapter:cursoradapter:1.0.0")
 
+    //image
+    implementation("com.github.bumptech.glide:glide:4.16.0")
 }
