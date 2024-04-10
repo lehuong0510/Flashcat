@@ -8,6 +8,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -40,6 +41,9 @@ public class CreateFlashcardActivity extends AppCompatActivity {
     private ArrayList<Desk> desks;
     int selectedDeskId;
     String selectedDeskName;
+    String example="No example";
+    String sound ="No sound";
+    int idDesk;
 
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -50,7 +54,26 @@ public class CreateFlashcardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_flashcard);
         findID();
 
-         deskNames = new ArrayList<>();
+        //nhan data tu word
+        Intent intent = getIntent();
+        if(intent!=null)
+        {
+            String w= intent.getStringExtra("word_FC");
+            String d= intent.getStringExtra("definition_FC");
+            String e= intent.getStringExtra("example_FC");
+            idDesk = intent.getIntExtra("id_desk",1);
+            Log.d("de", "onCreate: " + idDesk);
+            if(e!=null){
+                example= e;
+            }
+            String s = intent.getStringExtra("sound_FC");
+            if(s!=null){
+                sound= e;
+            }
+            edFront.setText(w);
+            edBack.setText(d);
+        }
+        deskNames = new ArrayList<>();
         //Them ten tu db vao list
         db = new DatabaseApp(CreateFlashcardActivity.this);
         desks  = new ArrayList<>();
@@ -58,10 +81,30 @@ public class CreateFlashcardActivity extends AppCompatActivity {
         for (Desk desk : desks) {
             deskNames.add(desk.getName_deck());
         }
+
         // Tạo Adapter và thiết lập cho Spinner
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, deskNames);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spSelectDesk.setAdapter(adapter);
+        //Set vi tri desk
+        // Tìm vị trí của desk có ID là idDesk trong danh sách desks
+        int defaultDeskPosition = -1; // Khởi tạo vị trí mặc định là -1 (không tìm thấy)
+        for (int i = 0; i < desks.size(); i++) {
+            if (desks.get(i).getID_Deck() == idDesk) {
+                defaultDeskPosition = i;
+                break;
+            }
+        }
+        // Nếu tìm thấy vị trí hợp lệ, set vị trí mặc định cho Spinner
+        if (defaultDeskPosition != -1) {
+            spSelectDesk.setSelection(defaultDeskPosition);
+            adapter.notifyDataSetChanged();
+        }
+        else {
+            spSelectDesk.setSelection(1);
+            adapter.notifyDataSetChanged();
+        }
+
         spSelectDesk.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -79,8 +122,7 @@ public class CreateFlashcardActivity extends AppCompatActivity {
             public void onClick(View v) {
                 LocalDateTime currentDateTime = LocalDateTime.now();
                 String currentDateTimeString = currentDateTime.format(DATE_TIME_FORMATTER);
-
-                db.addFlashcard(new Flashcard(1,edFront.getText().toString(),edBack.getText().toString(),"K","S",false,LocalDateTime.parse(currentDateTimeString,DATE_TIME_FORMATTER),selectedDeskId));
+                db.addFlashcard(new Flashcard(1,edFront.getText().toString(),edBack.getText().toString(),example,sound,false,LocalDateTime.parse(currentDateTimeString,DATE_TIME_FORMATTER),selectedDeskId));
                 Intent i = new Intent(CreateFlashcardActivity.this,DeskActivity.class);
                 i.putExtra("ID_Desk",selectedDeskId);
                 i.putExtra("Name_Desk",selectedDeskName);

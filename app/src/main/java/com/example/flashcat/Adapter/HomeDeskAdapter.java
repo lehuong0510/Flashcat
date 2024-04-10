@@ -123,6 +123,10 @@ public class HomeDeskAdapter extends RecyclerView.Adapter<HomeDeskAdapter.DeskVi
 
                     ((Activity) context).startActivityForResult(i, REQUEST_CODE);                }
             });
+
         }
+
     }
+
 }
+

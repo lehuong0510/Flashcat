@@ -49,6 +49,25 @@ public class HomeActivity extends AppCompatActivity {
         AndroidThreeTen.init(this);
         setContentView(R.layout.activity_home);
         replaceFragment(new HomeFragment());
+        if (getIntent() != null) {
+            String fragmentTag = getIntent().getStringExtra("fragmentTag");
+            Log.d("fragment", "onCreate: " + fragmentTag);
+            if (fragmentTag != null) {
+                // Hiển thị Fragment tương ứng với fragmentTag
+                if (fragmentTag.equals("home")) {
+                    Log.d("fragmen", "onCreate: " + fragmentTag);
+                    replaceFragment(new HomeFragment());
+                    currentPage = CurrentPage.HOME;
+                } else if (fragmentTag.equals("dictionary")) {
+                    Log.d("fragme", "onCreate: " + fragmentTag);
+                    replaceFragment(new DictionaryFragment());
+                    currentPage = CurrentPage.DICTIONARY;
+                } else if (fragmentTag.equals("user")) {
+                    replaceFragment(new UserFragment());
+                    currentPage = CurrentPage.USER;
+                }
+            }
+        }
         bottomNavigationView=  findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int i = item.getItemId();

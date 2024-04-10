@@ -5,9 +5,11 @@ import android.content.Intent;
 import android.database.MatrixCursor;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.flashcat.Activity.WordActivity;
 import com.example.flashcat.Adapter.DictionaryAdapter;
 import com.example.flashcat.Database.DatabaseApp;
+import com.example.flashcat.Model.Desk;
 import com.example.flashcat.Model.Word;
 import com.example.flashcat.R;
 
@@ -90,12 +93,12 @@ public class DictionaryFragment extends Fragment {
         progressDialog = new ProgressDialog(getContext());
         recyclerViewDictionary = rootView.findViewById(R.id.list_Desk_Search);
 
-        wordArrayList = db.getAllWord();
+
         //xet layout recycleview
         recyclerViewDictionary.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
         dictionaryAdapter = new DictionaryAdapter(getContext(),wordArrayList);
         recyclerViewDictionary.setAdapter(dictionaryAdapter);
-        List<String> keywordList = new ArrayList<>();
+        //su kien search
         searchWord.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             // xu ly su kien khi an enter or button search
             @Override
@@ -105,19 +108,42 @@ public class DictionaryFragment extends Fragment {
 
                 progressDialog.setTitle("Loading...");
                 progressDialog.show();
-                startActivity(i);
+                startActivityForResult(i, 145);
                 return true;
             }
 
             //xu ly su kien khi nguoi dung thay doi van ban -> dung cap nhat goi y tim kiem
             @Override
             public boolean onQueryTextChange(String newText) {
-
-
+                dictionaryAdapter.getFilter().filter(newText);
                 return true;
             }});
 
         return rootView;
+
+    }
+//Lam moi du lieu
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Làm mới dữ liệu của fragment khi nó tiếp tục
+        refreshData();
+    }
+
+    private void refreshData() {
+        // Tải lại hoặc làm mới dữ liệu của fragment ở đây
+        wordArrayList.clear();
+        wordArrayList.addAll(db.getAllWord());
+        dictionaryAdapter.notifyDataSetChanged();
+    }
+
+
+    private List<Word> getListDictionary() {
+        List<Word> list = new ArrayList<>();
+        db = new DatabaseApp(getContext());
+        list = db.getAllWord();
+
+        return list;
     }
 
 }

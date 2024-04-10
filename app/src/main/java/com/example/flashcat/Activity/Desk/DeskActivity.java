@@ -118,7 +118,11 @@ public class DeskActivity extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(DeskActivity.this, HomeActivity.class);
+
+                startActivity(intent);
                 finish();
+
             }
         });
     }

@@ -3,13 +3,14 @@ package com.example.flashcat.Model;
 public class Word {
     private int id;
     private String word;
-    private String definitionWord;
+
     private String minusWord;
+    private String definitionWord;
 
     public Word() {
     }
 
-    public Word(int id, String word, String definitionWord, String minusWord) {
+    public Word(int id, String word, String minusWord,String definitionWord) {
         this.id = id;
         this.word = word;
         this.definitionWord = definitionWord;

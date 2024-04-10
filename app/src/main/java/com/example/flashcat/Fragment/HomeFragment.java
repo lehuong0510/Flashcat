@@ -129,12 +129,6 @@ public class HomeFragment extends Fragment {
         recyclerViewDesk.setLayoutManager(layoutManager);
         adapterDesk =  new HomeDeskAdapter(listDesk,getContext());
         recyclerViewDesk.setAdapter(adapterDesk);
-        recyclerViewDesk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
         btnSeeAll.setPaintFlags(btnSeeAll.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
 

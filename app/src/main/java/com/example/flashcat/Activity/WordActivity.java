@@ -21,6 +21,7 @@ import com.example.flashcat.Adapter.MeaningAdapter;
 import com.example.flashcat.Adapter.MinusAdapter;
 import com.example.flashcat.Database.DatabaseApp;
 import com.example.flashcat.Fragment.DictionaryFragment;
+import com.example.flashcat.Model.Dictionary.Phonetics;
 import com.example.flashcat.Model.Dictionary.WordItem;
 import com.example.flashcat.Model.Word;
 import com.example.flashcat.R;
@@ -41,6 +42,7 @@ public class WordActivity extends AppCompatActivity {
     private String searchWord;
     private ProgressDialog progressDialog;
     private DatabaseApp db;
+    private WordItem item;
     private ArrayList<Word> wordArrayList;
 
     @Override
@@ -48,10 +50,15 @@ public class WordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_word);
         findID();
+        //nhan tu khoa search
         Intent intent = getIntent();
-        searchWord = intent.getStringExtra("search_query");
+        if(intent!=null){
+            searchWord = intent.getStringExtra("search_query");
+        }
+
         //database
         db= new DatabaseApp(WordActivity.this);
+        item = new WordItem();
 
         wordArrayList = new ArrayList<>();
         //tao loading
@@ -61,20 +68,35 @@ public class WordActivity extends AppCompatActivity {
         //api
         RequestManager manager = new RequestManager(WordActivity.this);
         manager.getWordMeaning(listener,searchWord);
-        // su kien button Back
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-               finish();
-            }
-        });
         //su kien button CreateFC
         btnCreateFlashCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(WordActivity.this, CreateFlashcardActivity.class);
+                intent.putExtra("word_FC", item.getWord());
+                intent.putExtra("definition_FC",item.getMeanings().get(0).getDefinitions().get(0).getDefinition());
+                intent.putExtra("example_FC",item.getMeanings().get(0).getDefinitions().get(0).getExample());
+                ArrayList<Phonetics> phonetics = new ArrayList<>();
+                phonetics = item.getPhonetic();
+                for(Phonetics p : phonetics)
+                {
+                    if(p.getAudio()!=null);
+                    {
+                        intent.putExtra("sound_FC", p.getAudio());
+                        break;
+                    }
+                }
                 startActivity(intent);
+            }
+        });
+        // su kien button Back
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(WordActivity.this, HomeActivity.class);
+                i.putExtra("fragmentTag" ,"dictionary");
+                startActivity(i);
             }
         });
     }
@@ -115,12 +137,24 @@ public class WordActivity extends AppCompatActivity {
         meaing.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
         meaningAdapter = new MeaningAdapter(WordActivity.this,wordItem.getMeanings());
         meaing.setAdapter(meaningAdapter);
+        item = wordItem;
         //add data
+        String minusWord="";
+        ArrayList<Phonetics> phonetics = new ArrayList<>();
+        phonetics = item.getPhonetic();
+        for(Phonetics p : phonetics)
+        {
+            if(p.getText()!=null);
+            {
+                minusWord = p.getText();
+                break;
+            }
+        }
         db.addWord(new Word(1,
                 wordItem.getWord(),
-                wordItem.getPhonetic().get(0).getText(),
-                String.valueOf(wordItem.getMeanings().get(0).getDefinitions().get(0).getDefinition())));
-
+                minusWord,
+                wordItem.getMeanings().get(0).getDefinitions().get(0).getDefinition()));
+        progressDialog.dismiss();
     }
 
 

@@ -1,6 +1,7 @@
 package com.example.flashcat.Adapter;
 
 import android.content.Context;
+import android.media.MediaPlayer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import com.example.flashcat.Model.Desk;
 import com.example.flashcat.Model.Flashcard;
 import com.example.flashcat.R;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class DeskFlashcatAdapter extends RecyclerView.Adapter<DeskFlashcatAdapter.DeskFlashcatViewHolder>{
@@ -45,7 +47,14 @@ public class DeskFlashcatAdapter extends RecyclerView.Adapter<DeskFlashcatAdapte
         holder.btnVolumeDesk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                MediaPlayer mediaPlayer = new MediaPlayer();
+                try {
+                    mediaPlayer.setDataSource(flashcard.getSound());
+                    mediaPlayer.prepare();
+                    mediaPlayer.start();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
