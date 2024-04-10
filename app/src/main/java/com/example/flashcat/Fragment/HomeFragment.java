@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,6 +16,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.flashcat.Touch.DeskItemTouchHelper;
+import com.example.flashcat.Touch.ItemTouchHelperListener;
 import com.example.flashcat.Adapter.HomeDeskAdapter;
 import com.example.flashcat.Database.DatabaseApp;
 import com.example.flashcat.Model.Desk;
@@ -30,7 +33,7 @@ import java.util.List;
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements ItemTouchHelperListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -129,6 +132,9 @@ public class HomeFragment extends Fragment {
         recyclerViewDesk.setLayoutManager(layoutManager);
         adapterDesk =  new HomeDeskAdapter(listDesk,getContext());
         recyclerViewDesk.setAdapter(adapterDesk);
+
+        ItemTouchHelper.SimpleCallback simpleCallback = new DeskItemTouchHelper(0,ItemTouchHelper.LEFT,this);
+        new ItemTouchHelper(simpleCallback).attachToRecyclerView(recyclerViewDesk);
         recyclerViewDesk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -188,5 +194,17 @@ public class HomeFragment extends Fragment {
         list = db.getAllDesk();
 
         return list;
+    }
+
+    @Override
+    public void onSwiped(RecyclerView.ViewHolder viewHolder) {
+        if(viewHolder instanceof  HomeDeskAdapter.DeskViewHolder){
+            int indexDelete = viewHolder.getAdapterPosition();
+            Desk desk = listDesk.get(indexDelete);
+            //remove item;
+            adapterDesk.removeItem(indexDelete);
+            db.deleteDesk(desk.getID_Deck());
+
+        }
     }
 }

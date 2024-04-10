@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.flashcat.Activity.Desk.DeskActivity;
 import com.example.flashcat.Model.Desk;
 import com.example.flashcat.R;
+import com.example.flashcat.TimeAgo;
 
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
@@ -60,7 +61,8 @@ public class HomeDeskAdapter extends RecyclerView.Adapter<HomeDeskAdapter.DeskVi
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime createDay = desk.getCreate_day();
         String formattedDateTime = createDay.format(formatter);
-        holder.txtCreateDay.setText(formattedDateTime);
+
+        holder.txtCreateDay.setText(TimeAgo.convertTimeAgo(formattedDateTime));
     }
 
     @Override
@@ -124,5 +126,9 @@ public class HomeDeskAdapter extends RecyclerView.Adapter<HomeDeskAdapter.DeskVi
                     ((Activity) context).startActivityForResult(i, REQUEST_CODE);                }
             });
         }
+    }
+    public void removeItem(int index){
+        deskArrayList.remove(index);
+        notifyItemRemoved(index);
     }
 }

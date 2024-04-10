@@ -8,6 +8,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.flashcat.Model.Desk;
@@ -63,12 +64,22 @@ public class DeskFlashcatAdapter extends RecyclerView.Adapter<DeskFlashcatAdapte
         private TextView txtDefinitionDesk;
         private ImageButton btnVolumeDesk;
         private ImageButton btnStarDesk;
+        private ConstraintLayout layoutForeground;
         public DeskFlashcatViewHolder(@NonNull View itemView) {
             super(itemView);
             txtTearmDesk = itemView.findViewById(R.id.txt_term_desk);
             txtDefinitionDesk = itemView.findViewById(R.id.txt_definition_desk);
             btnVolumeDesk = itemView.findViewById(R.id.btn_volume_term_desk);
             btnStarDesk = itemView.findViewById(R.id.btn_star_desk);
+            layoutForeground = itemView.findViewById(R.id.layout_foreground);
         }
+    }
+    public void removeItem(int index){
+        flashcardArrayList.remove(index);
+        notifyItemRemoved(index);
+    }
+    public void undoItem(Flashcard flashcard, int index){
+        flashcardArrayList.add(index,flashcard);
+        notifyItemInserted(index);
     }
 }
