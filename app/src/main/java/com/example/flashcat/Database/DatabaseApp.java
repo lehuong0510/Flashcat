@@ -13,6 +13,7 @@ import androidx.annotation.RequiresApi;
 
 import com.example.flashcat.Model.Desk;
 import com.example.flashcat.Model.Flashcard;
+import com.example.flashcat.Model.Word;
 
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
@@ -25,8 +26,9 @@ public class DatabaseApp extends SQLiteOpenHelper {
     }
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-    public  static final  String Databasename = "DatabaseFCa";
+    public  static final  String Databasename = "DatabaseFCardR";
     public static final int DATABASE_VERSION = 1;
+    //Desk
     public static final String TableName = "DeskTable";
     public static final String id = "idDesk";
     public static final String name = "nameDesk";
@@ -34,6 +36,7 @@ public class DatabaseApp extends SQLiteOpenHelper {
     public static final String createDay = "createDay";
     public static final String idAccount = "idAccount";
     public static final String numberFlashcard = "numberFlashcard";
+    //Flashcard
     public static final String TableNameF = "FlashcardTable";
     public static final String idF = "idFlashcard";
     public static final String term = "term";
@@ -43,6 +46,12 @@ public class DatabaseApp extends SQLiteOpenHelper {
     public static final String statusF = "status";
     public static final String updateDay = "updateDay";
     public static final String idDesk = "idDesk";
+    //Dictionary
+    public static final String TableNameDic = "DictionaryTable";
+    public static final String idDic = "idDic";
+    public static final String word = "word";
+    public static final String defWord = "definitionWord";
+    public static final String minusWord = "minusWord";
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -68,6 +77,12 @@ public class DatabaseApp extends SQLiteOpenHelper {
         }catch (Exception e){
             System.out.println(e);
         }
+        String sqlCreateDictionary = "Create table if not exists " + TableNameDic + "(" +
+                idDic + " Integer Primary key AUTOINCREMENT, "
+                + word + " Text, "
+                + defWord+ " Text, "
+                + minusWord+ " Text)";
+        db.execSQL(sqlCreateDictionary);
         String triggerSQL = "CREATE TRIGGER IF NOT EXISTS update_flashcard_count AFTER INSERT ON " +
                 TableNameF + " BEGIN " +
                 "UPDATE " + TableName + " SET " + numberFlashcard + " = " + numberFlashcard + " + 1 " +
@@ -79,6 +94,7 @@ public class DatabaseApp extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("Drop table if exists " + TableName);
         db.execSQL("Drop table if exists " + TableNameF);
+        db.execSQL("Drop table if exists " + TableNameDic);
         //tao lai
         onCreate(db);
     }
@@ -111,7 +127,6 @@ public class DatabaseApp extends SQLiteOpenHelper {
                 Desk desk = new Desk(cursor.getInt(0),
                         cursor.getString(1), cursor.getInt(2)==1?true:false,
                         createDay, cursor.getString(4), cursor.getInt(5));
-                Log.d("number", "getAllContact: " + String.valueOf(cursor.getInt(5)));
                 list.add(desk);
             }
         }
@@ -131,7 +146,6 @@ public class DatabaseApp extends SQLiteOpenHelper {
         values.put(numberFlashcard, desk.getNumber_flashcard());
         db.update(TableName, values, id + "=?", new String[]{String.valueOf(IdDesk)});
         db.close();
-        Log.d("k", "updateDesk: "+id);
 
     }
     //xoa desk theo id
@@ -251,7 +265,6 @@ public class DatabaseApp extends SQLiteOpenHelper {
         values.put(idDesk, flashcard.getID_Deck());
         db.update(TableNameF, values, idF + "=?", new String[]{String.valueOf(IdFlashcard)});
         db.close();
-        Log.d("k", "updateDesk: "+IdFlashcard);
 
     }
     //xoa flashcard theo id
@@ -267,5 +280,44 @@ public class DatabaseApp extends SQLiteOpenHelper {
         String sql ="Delete from " + TableNameF+ " Where idDesk = " + IdDesk;
         db.execSQL(sql);
         db.close();
+    }
+    //Dictionary
+    public void addWord(Word wordItem) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(word, wordItem.getWord());
+        values.put(defWord, wordItem.getDefinitionWord());
+        values.put(minusWord, wordItem.getMinusWord());
+        db.insert(TableNameDic, null, values);
+        db.close();
+
+    }
+    public void deleteWord(int idDic){
+        SQLiteDatabase db = getWritableDatabase();
+        String sql ="Delete from " + TableNameDic+ " Where idDic = " + idDic;
+        db.execSQL(sql);
+        db.close();
+    }
+    public ArrayList<Word> getAllWord() {
+        ArrayList<Word> list = new ArrayList<>();
+        // cau truy van
+        String sql = "Select * from " + TableNameDic;
+        //Lay doi tuong csdl sqlLite
+        SQLiteDatabase db = this.getReadableDatabase();
+        // Chay cau truy van tra ve cursor
+        Cursor cursor = db.rawQuery(sql, null);
+        //Tao ArrayList<Contact> de tra ve
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+                Word wordItem = new Word(cursor.getInt(0),
+                        cursor.getString(1), cursor.getString(2),
+                         cursor.getString(3));
+
+                list.add(wordItem);
+            }
+        }
+        cursor.close();
+        db.close();
+        return list;
     }
 }

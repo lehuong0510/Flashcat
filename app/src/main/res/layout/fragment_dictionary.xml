@@ -25,7 +25,7 @@
         style="@style/BORDER"
         android:queryHint="Search..."         />
 
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list_Desk_Search"
         android:layout_width="360dp"
         android:layout_height="match_parent"

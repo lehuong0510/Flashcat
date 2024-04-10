@@ -38,8 +38,6 @@ public class FlashcatAdapter extends RecyclerView.Adapter<FlashcatAdapter.Flashc
         Flashcard flashcard = flashcardArrayList.get(position);
         holder.txtTerm.setText(flashcard.getTerm());
         holder.txtDefinition.setText(flashcard.getDefinition());
-//        holder.txtWordLearned.setText(getNumberOfWordsLearned());
-//        holder.txtWordUnLearned.setText(flashcardArrayList.size()-getNumberOfWordsLearned());
     }
     private void updateNumberOfWordsLearned() {
         wordLearned = 0;

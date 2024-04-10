@@ -71,7 +71,7 @@ public class NotificationActivity extends AppCompatActivity {
         spDeskRemind = findViewById(R.id.sp_select_desk_remind);
         btnTimeStart = findViewById(R.id.btn_select_timeStart);
         btnTimeFinish = findViewById(R.id.btn_select_timeFinish);
-        btnSaveNotification = findViewById(R.id.btn_change_password);
+        btnSaveNotification = findViewById(R.id.btn_notification_save);
     }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

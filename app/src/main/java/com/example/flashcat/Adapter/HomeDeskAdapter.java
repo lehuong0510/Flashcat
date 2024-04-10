@@ -82,9 +82,7 @@ public class HomeDeskAdapter extends RecyclerView.Adapter<HomeDeskAdapter.DeskVi
                     Bundle b = new Bundle();
                     int ID= deskArrayList.get(getAdapterPosition()).getID_Deck();
                     b.putInt("ID_Desk",ID);
-                    Log.d("ID", "onClick: "+String.valueOf(ID));
                     b.putString("Name_Desk" , txtDeskName.getText().toString());
-                    Log.d("Name", "onClick: "+txtDeskName);
                     i.putExtras(b);
 
                     ((Activity) context).startActivityForResult(i, REQUEST_CODE);                }

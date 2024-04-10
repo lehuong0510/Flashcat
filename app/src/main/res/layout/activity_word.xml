@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".Activity.WordActivity"
     style="@style/SCREEN">
-    <androidx.appcompat.widget.Toolbar
+    <LinearLayout
         android:id="@+id/toolbarWord"
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -14,18 +14,33 @@
         android:fontFamily="@font/inter_semibold"
         android:minHeight="?attr/actionBarSize"
         android:textSize="25sp"
+        android:orientation="horizontal"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:titleTextColor="@color/black" />
+        app:titleTextColor="@color/black">
+        <ImageButton
+            android:id="@+id/back_word"
+            android:layout_width="wrap_content"
+            android:backgroundTint="@color/white"
+            android:src="@drawable/back"
+            android:layout_height="50dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Word"
+            android:gravity="center"
+            android:textColor="@color/color_font"
+            android:textSize="30sp"/>
+    </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="100dp"
+        android:layout_width="277dp"
+        android:layout_height="132dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="80dp"
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -34,59 +49,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <TextView
                 android:id="@+id/txt_word"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:text="@string/card"
+                android:layout_gravity="center_vertical"
                 android:fontFamily="@font/inter_semibold"
-                android:textSize="36sp"
-                android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"
-                />
-            <TextView
-                android:id="@+id/txt_minus_word"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:text="@string/minus_card"
-                android:fontFamily="@font/inter_medium"
-                android:textSize="15sp"
-                style="@style/WORD"
-                android:layout_gravity="center_vertical"
-                android:gravity="center_vertical"
-                android:paddingLeft="10dp"
-                />
-            <ImageButton
-                android:id="@+id/btn_volume_term"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_margin="10dp"
-                android:background="@color/transparent"
-                android:src="@drawable/volum2"
-                android:contentDescription="@string/term"/>
+                android:text="@string/card"
+                android:textSize="36sp" />
+
+
         </LinearLayout>
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list_item_minus"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
-        <TextView
-            android:id="@+id/txt_word_category"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/word_category"
-            android:fontFamily="@font/inter_medium"
-            android:textSize="16sp"
-            android:textColor="@color/word_category"
-            />
 
-        <TextView
-            android:id="@+id/txt_definition_word"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/definition"
-            android:fontFamily="@font/inter_medium"
-            android:textSize="18sp"
-            android:paddingTop="10dp"
-
-            />
     </LinearLayout>
 
     <LinearLayout
@@ -117,19 +99,28 @@
             android:layout_gravity="center"/>
     </LinearLayout>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/meaning"
+        android:layout_width="378dp"
+        android:layout_height="421dp"
+        android:layout_marginTop="232dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Button
         android:id="@+id/btn_create_word"
-        android:layout_width="301dp"
-        android:layout_height="65dp"
         style="@style/BUTTON_BIG"
-        android:text="@string/create"
-        app:backgroundTint="@color/color_button"
+        android:layout_width="259dp"
+        android:layout_height="58dp"
         android:fontFamily="@font/inter_semibold"
+        android:text="@string/create"
         android:textSize="18sp"
+        app:backgroundTint="@color/color_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.611"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/toolbarWord"
-        app:layout_constraintVertical_bias="0.906" />
+        app:layout_constraintVertical_bias="0.976" />
 </androidx.constraintlayout.widget.ConstraintLayout>
