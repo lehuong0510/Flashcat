@@ -51,4 +51,6 @@ dependencies {
     //implementation("com.roughike:swipe-selector:1.0.6")
     //time
     implementation ("com.jakewharton.threetenabp:threetenabp:1.3.1")
+    //image
+    implementation("com.github.bumptech.glide:glide:4.16.0")
 }
