@@ -41,6 +41,11 @@ public class HomeActivity extends AppCompatActivity {
     private enum CurrentPage {
         HOME, PRACTICE, ADD, DICTIONARY, USER
     }
+    String userName= "Linda";
+
+    public String getUserName() {
+        return userName;
+    }
 
     private CurrentPage currentPage = CurrentPage.HOME;
     @Override
@@ -51,19 +56,23 @@ public class HomeActivity extends AppCompatActivity {
         replaceFragment(new HomeFragment());
         if (getIntent() != null) {
             String fragmentTag = getIntent().getStringExtra("fragmentTag");
-            Log.d("fragment", "onCreate: " + fragmentTag);
+            userName = getIntent().getStringExtra("userName");
+
             if (fragmentTag != null) {
                 // Hiển thị Fragment tương ứng với fragmentTag
                 if (fragmentTag.equals("home")) {
-                    Log.d("fragmen", "onCreate: " + fragmentTag);
-                    replaceFragment(new HomeFragment());
+                    HomeFragment homeFragment =new HomeFragment();
+                    replaceFragment(homeFragment);
                     currentPage = CurrentPage.HOME;
                 } else if (fragmentTag.equals("dictionary")) {
-                    Log.d("fragme", "onCreate: " + fragmentTag);
                     replaceFragment(new DictionaryFragment());
                     currentPage = CurrentPage.DICTIONARY;
                 } else if (fragmentTag.equals("user")) {
-                    replaceFragment(new UserFragment());
+                    UserFragment userFragment = new UserFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("UserName", userName);
+                    userFragment.setArguments(bundle);
+                    replaceFragment(userFragment);
                     currentPage = CurrentPage.USER;
                 }
             }

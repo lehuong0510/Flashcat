@@ -1,10 +1,13 @@
 package com.example.flashcat.Adapter;
 
+import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.ClipDescription;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.util.Log;
 import android.view.DragEvent;
 import android.view.LayoutInflater;
@@ -14,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,6 +26,7 @@ import com.example.flashcat.Model.Flashcard;
 import com.example.flashcat.R;
 import com.wajahatkarim3.easyflipview.EasyFlipView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class FlashcatAdapter extends RecyclerView.Adapter<FlashcatAdapter.FlashcardViewHolder>{
@@ -57,11 +62,23 @@ public class FlashcatAdapter extends RecyclerView.Adapter<FlashcatAdapter.Flashc
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FlashcardViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull FlashcardViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Flashcard flashcard = flashcardArrayList.get(position);
         holder.txtTerm.setText(flashcard.getTerm());
         holder.txtDefinition.setText(flashcard.getDefinition());
         holder.itemView.setTag("Drag");
+        // Kiểm tra xem đây có phải là vị trí hiện tại, sau đó hiển thị flashcard
+//        if (position == currentPosition) {
+//            Flashcard flashcard = flashcardArrayList.get(position);
+//            holder.txtTerm.setText(flashcard.getTerm());
+//            holder.txtDefinition.setText(flashcard.getDefinition());
+//            //holder.llUnLearned.setOnDragListener(this::onDrag);
+//            holder.itemView.setTag("Drag");
+//            holder.itemView.setVisibility(View.VISIBLE);
+//        } else {
+//            // Ẩn view nếu không phải là vị trí hiện tại
+//            holder.itemView.setVisibility(View.GONE);
+//        }
         if (position == draggedItemPosition) {
             // Đặt màu nền xám nhạt cho item khi đang được kéo
             holder.itemView.setBackgroundColor(Color.LTGRAY);
@@ -99,7 +116,16 @@ public class FlashcatAdapter extends RecyclerView.Adapter<FlashcatAdapter.Flashc
             @Override
             public void onClick(View v) {
                 setStatus(false);
-                //xu ly su kien click Volume
+                MediaPlayer player = new MediaPlayer();
+                try{
+                    player.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                    player.setDataSource(flashcardArrayList.get(position).getSound());
+                    player.prepare();
+                    player.start();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Toast.makeText(context, "Couldn't play audio", Toast.LENGTH_SHORT).show();
+                }
 
                 setStatus(true);
             }

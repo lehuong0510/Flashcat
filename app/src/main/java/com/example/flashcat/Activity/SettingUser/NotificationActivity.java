@@ -94,6 +94,12 @@ public class NotificationActivity extends AppCompatActivity {
 
             }
         });
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
     public void findID(){
         btnBack = findViewById(R.id.back_notification);

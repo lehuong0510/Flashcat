@@ -69,6 +69,7 @@ public class LoginActivity extends AppCompatActivity {
            @Override
            public void onClick(View v) {
                Intent i = new Intent(LoginActivity.this, HomeActivity.class);
+               i.putExtra("userName","User0510");
                startActivity(i);
            }
        });

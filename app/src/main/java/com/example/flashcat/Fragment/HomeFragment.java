@@ -1,5 +1,7 @@
 package com.example.flashcat.Fragment;
 
+
+import android.app.Activity;
 import android.graphics.Paint;
 import android.os.Build;
 import android.os.Bundle;
@@ -9,14 +11,17 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.flashcat.Activity.HomeActivity;
 import com.example.flashcat.Adapter.HomeDeskAdapter;
 import com.example.flashcat.Database.DatabaseApp;
+import com.example.flashcat.MainActivity;
 import com.example.flashcat.Model.Desk;
 import com.example.flashcat.R;
 
@@ -49,6 +54,8 @@ public class HomeFragment extends Fragment {
     private TextView btnSeeAll;
     public boolean isVertical = true;
     public DatabaseApp db;
+    private static final String ARG_USERNAME = "userName";
+    HomeActivity homeActivity;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -71,6 +78,14 @@ public class HomeFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
+
+//    public static HomeFragment newInstance(String userName) {
+//        HomeFragment fragment = new HomeFragment();
+//        Bundle args = new Bundle();
+//        args.putString(ARG_USERNAME, userName);
+//        fragment.setArguments(args);
+//        return fragment;
+//    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -104,6 +119,7 @@ public class HomeFragment extends Fragment {
         txtName = rootView.findViewById(R.id.txtName);
         btnSeeAll = rootView.findViewById(R.id.btnSeeAll);
         recyclerViewDesk = rootView.findViewById(R.id.lst_desk);
+        homeActivity = (HomeActivity) getActivity();
 //        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 //
 //        String userEmail = currentUser.getEmail();
@@ -124,7 +140,9 @@ public class HomeFragment extends Fragment {
 //
 //            }
 //        });
-
+        // Hiển thị username trên TextView
+            txtName.setText(homeActivity.getUserName());
+        //add list desk
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerViewDesk.setLayoutManager(layoutManager);
         adapterDesk =  new HomeDeskAdapter(listDesk,getContext());

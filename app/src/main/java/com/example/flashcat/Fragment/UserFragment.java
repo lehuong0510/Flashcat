@@ -13,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.flashcat.Activity.HomeActivity;
 import com.example.flashcat.Activity.Login.LoginActivity;
 import com.example.flashcat.Activity.SettingUser.SettingActivity;
 import com.example.flashcat.Activity.SyncActivity;
@@ -47,6 +48,8 @@ public class UserFragment extends Fragment {
     private String mParam2;
     private int complete = 0;
     private int onprogress = 0;
+    private HomeActivity homeActivity;
+    private TextView txtName;
 
     public UserFragment() {
         // Required empty public constructor
@@ -91,7 +94,11 @@ public class UserFragment extends Fragment {
         txtComplete = rootView.findViewById(R.id.txt_number_complete);
         txtOnProgress = rootView.findViewById(R.id.txt_number_onProgress);
         txtDesk = rootView.findViewById(R.id.txt_number_desk);
+        txtName = rootView.findViewById(R.id.txt_username);
+        homeActivity = (HomeActivity) getActivity();
 
+        // Hiển thị username trên TextView
+        txtName.setText(homeActivity.getUserName());
         //tao đb
         db = new DatabaseApp(getContext());
         deskArrayList = new ArrayList<>();
