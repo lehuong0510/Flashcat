@@ -60,4 +60,8 @@ dependencies {
 
     //image
     implementation("com.github.bumptech.glide:glide:4.16.0")
+
+    //pie chat
+    implementation("com.nineoldandroids:library:2.4.0")
+    implementation("com.github.blackfizz:eazegraph:1.2.5l@aar")
 }
