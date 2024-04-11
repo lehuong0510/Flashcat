@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.flashcat.Model.Flashcard;
 import com.example.flashcat.R;
+import com.wajahatkarim3.easyflipview.EasyFlipView;
 
 import java.util.ArrayList;
 
@@ -29,6 +30,15 @@ public class FlashcatAdapter extends RecyclerView.Adapter<FlashcatAdapter.Flashc
     private int wordLearned;
     private int currentPosition = 0; // Theo dõi vị trí hiện tại
     private int draggedItemPosition = -1;
+    private boolean status = true;
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
 
     public void setCurrentPosition(int position) {
         this.currentPosition = position;
@@ -52,18 +62,6 @@ public class FlashcatAdapter extends RecyclerView.Adapter<FlashcatAdapter.Flashc
         holder.txtTerm.setText(flashcard.getTerm());
         holder.txtDefinition.setText(flashcard.getDefinition());
         holder.itemView.setTag("Drag");
-        // Kiểm tra xem đây có phải là vị trí hiện tại, sau đó hiển thị flashcard
-//        if (position == currentPosition) {
-//            Flashcard flashcard = flashcardArrayList.get(position);
-//            holder.txtTerm.setText(flashcard.getTerm());
-//            holder.txtDefinition.setText(flashcard.getDefinition());
-//            //holder.llUnLearned.setOnDragListener(this::onDrag);
-//            holder.itemView.setTag("Drag");
-//            holder.itemView.setVisibility(View.VISIBLE);
-//        } else {
-//            // Ẩn view nếu không phải là vị trí hiện tại
-//            holder.itemView.setVisibility(View.GONE);
-//        }
         if (position == draggedItemPosition) {
             // Đặt màu nền xám nhạt cho item khi đang được kéo
             holder.itemView.setBackgroundColor(Color.LTGRAY);
@@ -97,8 +95,32 @@ public class FlashcatAdapter extends RecyclerView.Adapter<FlashcatAdapter.Flashc
                 return true;
             }
         });
-//        holder.txtWordLearned.setText(getNumberOfWordsLearned());
-//        holder.txtWordUnLearned.setText(flashcardArrayList.size()-getNumberOfWordsLearned());
+        holder.btnVolumeTerm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setStatus(false);
+                //xu ly su kien click Volume
+
+                setStatus(true);
+            }
+        });
+        holder.btnVolumeDefinition.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setStatus(false);
+                //xu ly su kien click Volume
+
+                setStatus(true);
+            }
+        });
+        holder.easyFlipView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isStatus()) {
+                    holder.easyFlipView.flipTheView();
+                }
+            }
+        });
     }
     private void updateNumberOfWordsLearned() {
         wordLearned = 0;
@@ -132,6 +154,8 @@ public class FlashcatAdapter extends RecyclerView.Adapter<FlashcatAdapter.Flashc
         private TextView txtDefinition;
         private ImageButton btnVolumeTerm;
         private ImageButton btnVolumeDefinition;
+        private EasyFlipView easyFlipView;
+
         public FlashcardViewHolder(@NonNull View itemView) {
             super(itemView);
             txtWordLearned = itemView.findViewById(R.id.txt_win);
@@ -140,6 +164,10 @@ public class FlashcatAdapter extends RecyclerView.Adapter<FlashcatAdapter.Flashc
             txtTerm = itemView.findViewById(R.id.term_flashcard);
             btnVolumeDefinition = itemView.findViewById(R.id.btn_volume_definition);
             btnVolumeTerm = itemView.findViewById(R.id.btn_volume_term);
+            easyFlipView = itemView.findViewById(R.id.easy_flip_flashcard);
         }
+    }
+    public void undo(int index){
+
     }
 }
