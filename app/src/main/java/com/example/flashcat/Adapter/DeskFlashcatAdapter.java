@@ -79,7 +79,6 @@ public class DeskFlashcatAdapter extends RecyclerView.Adapter<DeskFlashcatAdapte
             txtTearmDesk = itemView.findViewById(R.id.txt_term_desk);
             txtDefinitionDesk = itemView.findViewById(R.id.txt_definition_desk);
             btnVolumeDesk = itemView.findViewById(R.id.btn_volume_term_desk);
-            btnStarDesk = itemView.findViewById(R.id.btn_star_desk);
             layoutForeground = itemView.findViewById(R.id.layout_foreground);
         }
     }

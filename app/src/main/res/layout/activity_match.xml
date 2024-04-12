@@ -10,23 +10,23 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:layout_margin="20px"
+        android:layout_margin="5dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
             android:id="@+id/btn_end_match"
-            android:layout_width="60dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="10px"
+            style="@style/ICON"
+            android:layout_width="36dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:backgroundTint="@color/transparent"
             android:contentDescription="close"
-            android:src="@drawable/close"
-            style="@style/ICON"/>
+            android:src="@drawable/close" />
 
         <TextView
             android:id="@+id/txt_time_Match"
-            android:layout_width="260dp"
+            android:layout_width="316dp"
             android:layout_height="match_parent"
             android:gravity="center"
             android:inputType="time"
@@ -35,13 +35,19 @@
 
         <ImageButton
             android:id="@+id/btn_am_thanh"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            style="@style/ICON"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:backgroundTint="@color/transparent"
             android:contentDescription="volume"
-            android:src="@drawable/volume"
-            style="@style/ICON"/>
+            android:src="@drawable/volume" />
 
     </LinearLayout>
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </GridLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

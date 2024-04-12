@@ -104,14 +104,6 @@ public class DeskActivity extends AppCompatActivity implements ItemTouchHelperLi
             db.addDesk(new Desk(1,nameDeskCreate,false,LocalDateTime.parse(createdDay,formatter),"12",0));
         }
 
-
-        btnStudy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(DeskActivity.this, FlashcardActivity.class);
-                startActivity(i);
-            }
-        });
         btnMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
