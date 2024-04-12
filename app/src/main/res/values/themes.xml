@@ -63,6 +63,10 @@
     <style name="BORDER">
         <item name="android:background">@drawable/bord_flashcard</item>
     </style>
+    <!-- Border background if light mode on -->
+    <style name="BORDER_TERM">
+        <item name="android:background">@drawable/bord_term</item>
+    </style>
     <!-- BORDER_DESK_DIALOG background if light mode on -->
     <style name="BORDER_DESK_DIALOG">
         <item name="android:background">@drawable/border_desk_dialog</item>

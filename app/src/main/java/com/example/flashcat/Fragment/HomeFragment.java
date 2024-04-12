@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,7 +19,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.flashcat.Activity.HomeActivity;
+import com.example.flashcat.Touch.DeskItemTouchHelper;
+import com.example.flashcat.Touch.ItemTouchHelperListener;
 import com.example.flashcat.Adapter.HomeDeskAdapter;
 import com.example.flashcat.Database.DatabaseApp;
 import com.example.flashcat.MainActivity;
@@ -35,7 +37,7 @@ import java.util.List;
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements ItemTouchHelperListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -55,7 +57,7 @@ public class HomeFragment extends Fragment {
     public boolean isVertical = true;
     public DatabaseApp db;
     private static final String ARG_USERNAME = "userName";
-    HomeActivity homeActivity;
+
 
     public HomeFragment() {
         // Required empty public constructor
@@ -78,14 +80,6 @@ public class HomeFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-
-//    public static HomeFragment newInstance(String userName) {
-//        HomeFragment fragment = new HomeFragment();
-//        Bundle args = new Bundle();
-//        args.putString(ARG_USERNAME, userName);
-//        fragment.setArguments(args);
-//        return fragment;
-//    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -119,7 +113,6 @@ public class HomeFragment extends Fragment {
         txtName = rootView.findViewById(R.id.txtName);
         btnSeeAll = rootView.findViewById(R.id.btnSeeAll);
         recyclerViewDesk = rootView.findViewById(R.id.lst_desk);
-        homeActivity = (HomeActivity) getActivity();
 //        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 //
 //        String userEmail = currentUser.getEmail();
@@ -140,13 +133,20 @@ public class HomeFragment extends Fragment {
 //
 //            }
 //        });
-        // Hiển thị username trên TextView
 
-        //add list desk
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerViewDesk.setLayoutManager(layoutManager);
         adapterDesk =  new HomeDeskAdapter(listDesk,getContext());
         recyclerViewDesk.setAdapter(adapterDesk);
+
+        ItemTouchHelper.SimpleCallback simpleCallback = new DeskItemTouchHelper(0,ItemTouchHelper.LEFT,this);
+        new ItemTouchHelper(simpleCallback).attachToRecyclerView(recyclerViewDesk);
+        recyclerViewDesk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         btnSeeAll.setPaintFlags(btnSeeAll.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
 
@@ -200,5 +200,17 @@ public class HomeFragment extends Fragment {
         list = db.getAllDesk();
 
         return list;
+    }
+
+    @Override
+    public void onSwiped(RecyclerView.ViewHolder viewHolder) {
+        if(viewHolder instanceof  HomeDeskAdapter.DeskViewHolder){
+            int indexDelete = viewHolder.getAdapterPosition();
+            Desk desk = listDesk.get(indexDelete);
+            //remove item;
+            adapterDesk.removeItem(indexDelete);
+            db.deleteDesk(desk.getID_Deck());
+
+        }
     }
 }

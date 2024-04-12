@@ -4,8 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.FragmentManager;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,7 +13,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,15 +29,19 @@ import com.example.flashcat.Fragment.HomeFragment;
 import com.example.flashcat.Model.Desk;
 import com.example.flashcat.Model.Flashcard;
 import com.example.flashcat.R;
+import com.example.flashcat.Touch.FlashcardItemTouchHelper;
+import com.example.flashcat.Touch.ItemTouchHelperListener;
 
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
-public class DeskActivity extends AppCompatActivity {
+public class DeskActivity extends AppCompatActivity implements ItemTouchHelperListener {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     private ImageButton btnBack ;
+    private Button btnStudy;
     private ImageButton btnMore;
     private TextView txtNameDeskSelected;
     private int idDesk;
@@ -51,6 +54,7 @@ public class DeskActivity extends AppCompatActivity {
     private DatabaseApp db;
     private DeskFlashcatAdapter deskFlashcatAdapter;
     private RecyclerView rcflashcard;
+    private ConstraintLayout rootview;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,6 +104,14 @@ public class DeskActivity extends AppCompatActivity {
             db.addDesk(new Desk(1,nameDeskCreate,false,LocalDateTime.parse(createdDay,formatter),"12",0));
         }
 
+
+        btnStudy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(DeskActivity.this, FlashcardActivity.class);
+                startActivity(i);
+            }
+        });
         btnMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,16 +124,23 @@ public class DeskActivity extends AppCompatActivity {
                 Intent intent = new Intent(DeskActivity.this, HomeActivity.class);
 
                 startActivity(intent);
+                Desk desk = db.getDesk(idDesk);
+                desk.setCreate_day(getCurrentTime());
+                db.updateDesk(idDesk,desk);
                 finish();
 
             }
         });
+
+        ItemTouchHelper.SimpleCallback simpleCallback = new FlashcardItemTouchHelper(0,ItemTouchHelper.LEFT,this);
+        new ItemTouchHelper(simpleCallback).attachToRecyclerView(rcflashcard);
     }
     public void findID(){
         btnBack = findViewById(R.id.back_desk);
         btnMore = findViewById(R.id.action_more_desk);
         txtNameDeskSelected = findViewById(R.id.txt_NameDesk_selected);
         rcflashcard = findViewById(R.id.list_flashcard_desk);
+        rootview = findViewById(R.id.rootview);
     }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -215,5 +234,24 @@ public class DeskActivity extends AppCompatActivity {
             }
 
         }
+    }
+
+    @Override
+    public void onSwiped(RecyclerView.ViewHolder viewHolder) {
+        if(viewHolder instanceof  DeskFlashcatAdapter.DeskFlashcatViewHolder){
+            int indexDelete = viewHolder.getAdapterPosition();
+            Flashcard flashcardDelete = listCard.get(indexDelete);
+            String termDelete = listCard.get(indexDelete).getTerm();
+            //remove item;
+            deskFlashcatAdapter.removeItem(indexDelete);
+            db.deleteFlashcard(flashcardDelete.getID_Flashcard());
+            Desk desk = db.getDesk(idDesk);
+            desk.setNumber_flashcard(desk.getNumber_flashcard()-1);
+            db.updateDesk(idDesk,desk);
+        }
+    }
+    //get current time
+    public LocalDateTime getCurrentTime(){
+        return LocalDateTime.now();
     }
 }
