@@ -103,7 +103,6 @@ public class DeskActivity extends AppCompatActivity implements ItemTouchHelperLi
             txtNameDeskSelected.setText(nameDeskCreate);
             db.addDesk(new Desk(1,nameDeskCreate,false,LocalDateTime.parse(createdDay,formatter),"12",0));
         }
-
         btnMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
