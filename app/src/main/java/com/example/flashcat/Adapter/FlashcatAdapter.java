@@ -126,7 +126,6 @@ public class FlashcatAdapter extends RecyclerView.Adapter<FlashcatAdapter.Flashc
                     e.printStackTrace();
                     Toast.makeText(context, "Couldn't play audio", Toast.LENGTH_SHORT).show();
                 }
-
                 setStatus(true);
             }
         });
