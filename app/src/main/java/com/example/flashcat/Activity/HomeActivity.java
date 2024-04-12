@@ -56,7 +56,7 @@ public class HomeActivity extends AppCompatActivity {
         replaceFragment(new HomeFragment());
         if (getIntent() != null) {
             String fragmentTag = getIntent().getStringExtra("fragmentTag");
-            userName = getIntent().getStringExtra("userName");
+
 
             if (fragmentTag != null) {
                 // Hiển thị Fragment tương ứng với fragmentTag

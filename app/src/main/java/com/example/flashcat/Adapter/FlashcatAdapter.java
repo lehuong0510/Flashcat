@@ -116,6 +116,7 @@ public class FlashcatAdapter extends RecyclerView.Adapter<FlashcatAdapter.Flashc
             @Override
             public void onClick(View v) {
                 setStatus(false);
+                Log.d("volum", "onClick: ");
                 MediaPlayer player = new MediaPlayer();
                 try{
                     player.setAudioStreamType(AudioManager.STREAM_MUSIC);

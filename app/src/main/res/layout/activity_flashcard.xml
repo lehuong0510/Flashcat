@@ -128,16 +128,4 @@
         app:layout_constraintTop_toTopOf="parent"
         style="@style/ICON"/>
 
-    <ImageButton
-        android:id="@+id/btn_flash_star"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="328dp"
-        android:layout_marginTop="712dp"
-        android:background="@color/transparent"
-        android:contentDescription="@string/add_to_favorites"
-        android:src="@drawable/star_nocolor"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        style="@style/ICON"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

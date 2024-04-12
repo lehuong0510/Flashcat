@@ -71,13 +71,12 @@ public class DeskFlashcatAdapter extends RecyclerView.Adapter<DeskFlashcatAdapte
         private TextView txtTearmDesk;
         private TextView txtDefinitionDesk;
         private ImageButton btnVolumeDesk;
-        private ImageButton btnStarDesk;
         public DeskFlashcatViewHolder(@NonNull View itemView) {
             super(itemView);
             txtTearmDesk = itemView.findViewById(R.id.txt_term_desk);
             txtDefinitionDesk = itemView.findViewById(R.id.txt_definition_desk);
             btnVolumeDesk = itemView.findViewById(R.id.btn_volume_term_desk);
-            btnStarDesk = itemView.findViewById(R.id.btn_star_desk);
+
         }
     }
 }

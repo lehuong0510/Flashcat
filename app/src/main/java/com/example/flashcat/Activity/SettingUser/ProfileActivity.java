@@ -53,7 +53,6 @@ public class ProfileActivity extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 1; // Mã yêu cầu cho việc chọn ảnh
     private static final String KEY_IMAGE_URI = "image_uri";
     private Uri newImageUri;
-    private Toolbar toolbarProfile;
     private TextView btnChangeImage;
     private CircleImageView edProfileImage;
     private EditText edProfileFirstname;
@@ -82,6 +81,12 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 openImagePicker();
+            }
+        });
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }

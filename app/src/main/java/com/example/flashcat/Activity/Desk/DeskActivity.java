@@ -39,7 +39,6 @@ import java.util.ArrayList;
 public class DeskActivity extends AppCompatActivity {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     private ImageButton btnBack ;
-    private Button btnStudy;
     private ImageButton btnMore;
     private TextView txtNameDeskSelected;
     private int idDesk;
@@ -101,14 +100,6 @@ public class DeskActivity extends AppCompatActivity {
             db.addDesk(new Desk(1,nameDeskCreate,false,LocalDateTime.parse(createdDay,formatter),"12",0));
         }
 
-
-        btnStudy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(DeskActivity.this, FlashcardActivity.class);
-                startActivity(i);
-            }
-        });
         btnMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -128,7 +119,6 @@ public class DeskActivity extends AppCompatActivity {
     }
     public void findID(){
         btnBack = findViewById(R.id.back_desk);
-        btnStudy = findViewById(R.id.btn_Study);
         btnMore = findViewById(R.id.action_more_desk);
         txtNameDeskSelected = findViewById(R.id.txt_NameDesk_selected);
         rcflashcard = findViewById(R.id.list_flashcard_desk);

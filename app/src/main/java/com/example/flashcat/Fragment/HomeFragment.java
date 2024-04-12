@@ -141,7 +141,7 @@ public class HomeFragment extends Fragment {
 //            }
 //        });
         // Hiển thị username trên TextView
-            txtName.setText(homeActivity.getUserName());
+
         //add list desk
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerViewDesk.setLayoutManager(layoutManager);

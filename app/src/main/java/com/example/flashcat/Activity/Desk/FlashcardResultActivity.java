@@ -1,5 +1,7 @@
 package com.example.flashcat.Activity.Desk;
 
+import static android.graphics.Color.*;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,6 +16,8 @@ import com.example.flashcat.R;
 
 import org.eazegraph.lib.charts.PieChart;
 import org.eazegraph.lib.models.PieModel;
+
+import java.util.ArrayList;
 
 public class FlashcardResultActivity extends AppCompatActivity {
     private TextView txtKnow;
@@ -33,9 +37,25 @@ public class FlashcardResultActivity extends AppCompatActivity {
         int learning = b.getInt("Learning");
         txtKnow.setText(String.valueOf(know));
         txtLearning.setText(String.valueOf(learning));
-        result.addPieSlice(new PieModel("know", know, Color.parseColor("#66BB6A")));
-        result.addPieSlice(new PieModel("learning", learning, Color.parseColor("#F45F5F")));
+        //pie chat
+        ArrayList<PieModel> pieModels = new ArrayList<>();
+        pieModels.add(new PieModel("know", know, parseColor("#66BB6A")));
+        pieModels.add(new PieModel("learning", learning, parseColor("#F45F5F")));
+
+        // Set the percentage values directly on each PieModel
+        for (PieModel pieModel : pieModels) {
+            pieModel.setShowLabel(true); // Hiển thị phần trăm trong mỗi phần của biểu đồ
+
+            // Thiết lập màu nền của nhãn (phần trăm) là trong suốt (transparent)
+            pieModel.setHighlightedColor(TRANSPARENT);
+
+            result.addPieSlice(pieModel);
+        }
+
         result.startAnimation();
+
+
+
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

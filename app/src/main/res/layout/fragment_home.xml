@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/linearLayout"
             android:layout_width="350dp"
             android:layout_height="65dp"
@@ -35,26 +35,27 @@
 
             <TextView
                 android:id="@+id/txtName"
-                android:layout_width="wrap_content"
+                style="@style/TEXT"
+                android:layout_width="300dp"
                 android:layout_height="match_parent"
                 android:fontFamily="@font/inter_bold"
                 android:gravity="center_vertical"
-                android:paddingLeft="10dp"
-                android:text="@string/name"
-                android:textSize="26sp"
-                style="@style/TEXT"/>
+                android:paddingLeft="50dp"
+                android:text="@string/app_name"
+                android:textSize="26sp" />
 
             <ImageButton
                 android:id="@+id/btn_Notification_Home"
-                android:layout_width="64dp"
+                style="@style/ICON"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="170dp"
+                android:layout_marginLeft="300dp"
                 android:backgroundTint="@color/transparent"
                 android:contentDescription="@string/notification"
-                android:src="@drawable/notification"
-                style="@style/ICON"/>
-        </LinearLayout>
+                android:src="@drawable/notification" />
+        </RelativeLayout>
 
 
         <androidx.appcompat.widget.SearchView

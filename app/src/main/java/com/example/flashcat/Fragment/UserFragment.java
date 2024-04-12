@@ -1,10 +1,12 @@
 package com.example.flashcat.Fragment;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +22,7 @@ import com.example.flashcat.Activity.SyncActivity;
 import com.example.flashcat.Database.DatabaseApp;
 import com.example.flashcat.Model.Desk;
 import com.example.flashcat.R;
+import com.google.firebase.database.collection.LLRBNode;
 
 import java.util.ArrayList;
 
@@ -96,9 +99,16 @@ public class UserFragment extends Fragment {
         txtDesk = rootView.findViewById(R.id.txt_number_desk);
         txtName = rootView.findViewById(R.id.txt_username);
         homeActivity = (HomeActivity) getActivity();
+        if(txtName.getText().equals("FlashCat"))
+        {
 
+            btnSync.setEnabled(false);
+            btnLogout.setEnabled(false);
+            btnSync.setTextColor(Color.LTGRAY);
+            btnLogout.setTextColor(Color.LTGRAY);
+        }
         // Hiển thị username trên TextView
-        txtName.setText(homeActivity.getUserName());
+//        txtName.setText(homeActivity.getUserName());
         //tao đb
         db = new DatabaseApp(getContext());
         deskArrayList = new ArrayList<>();

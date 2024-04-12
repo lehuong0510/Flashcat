@@ -71,7 +71,6 @@ public class FlashcardActivity extends AppCompatActivity implements View.OnDragL
                 idDesk = extras.getInt("idDesk");
                 Log.d("name", "onClick: " +idFlashcard +idDesk );
 
-                //displayFlashcardSide(flipFrom);
             }
         }
 
@@ -88,7 +87,6 @@ public class FlashcardActivity extends AppCompatActivity implements View.OnDragL
         GridLayoutManager layoutManager = new GridLayoutManager(this, 1);
         recyclerFlashcard.setLayoutManager(layoutManager);
         recyclerFlashcard.setNestedScrollingEnabled(false);
-        Log.d("size", "onCreate: " + flashcardArrayList.size());
         adapter = new FlashcatAdapter(flashcardArrayList,this);
         recyclerFlashcard.setAdapter(adapter);
 
