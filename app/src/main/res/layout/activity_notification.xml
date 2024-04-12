@@ -61,14 +61,6 @@
         app:layout_constraintVertical_bias="0.144">
 
         <com.google.android.material.materialswitch.MaterialSwitch
-            android:id="@+id/switch_push_notification"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_weight="1"
-            android:text="@string/push"
-            android:textSize="16sp" />
-
-        <com.google.android.material.materialswitch.MaterialSwitch
             android:id="@+id/switch_word_reminder"
             android:layout_width="match_parent"
             android:layout_height="55dp"
@@ -77,14 +69,26 @@
             android:textSize="16sp" />
     </LinearLayout>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select Desks to remind"
+        android:textSize="18sp"
+        android:padding="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/toolbar_Notification"
+        app:layout_constraintVertical_bias="0.409"
+        tools:layout_editor_absoluteX="0dp" />
+
     <Spinner
         android:id="@+id/sp_select_desk_remind"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="100dp"
+        android:padding="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="@+id/toolbar_Notification"
-        app:layout_constraintVertical_bias="0.496"
-        tools:layout_editor_absoluteX="171dp" />
+        app:layout_constraintVertical_bias="0.535"
+        tools:layout_editor_absoluteX="0dp" />
 
     <LinearLayout
         android:layout_width="339dp"

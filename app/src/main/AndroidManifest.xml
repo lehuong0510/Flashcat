@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
@@ -99,17 +101,6 @@
             android:label=""
             android:exported="false" />
         <activity
-            android:name=".Activity.SearchActivity"
-            android:exported="false"
-            android:label="@string/search_name"
-            android:theme="@style/Theme.Material3.DayNight.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.ALTERNATIVE"></category>
-            </intent-filter>
-        </activity>
-        <activity
             android:name=".Activity.HomeActivity"
             android:label="@string/title_activity_start_screen"
             android:theme="@style/Theme.Material3.DayNight.NoActionBar"
@@ -123,6 +114,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <receiver android:name=".Receiver.ReminderReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.example.NOTIFY" />
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>

@@ -105,13 +105,6 @@ public class DeskActivity extends AppCompatActivity implements ItemTouchHelperLi
         }
 
 
-        btnStudy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(DeskActivity.this, FlashcardActivity.class);
-                startActivity(i);
-            }
-        });
         btnMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
