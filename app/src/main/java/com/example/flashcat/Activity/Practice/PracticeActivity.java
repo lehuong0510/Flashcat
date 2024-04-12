@@ -82,6 +82,7 @@ public class PracticeActivity extends AppCompatActivity {
                 Desk selectedDesk = deskList.get(position);
                 totalQuestion = selectedDesk.getNumber_flashcard();
                 totalQuestions.setText(String.valueOf(totalQuestion));
+                deskID = selectedDesk.getID_Deck();
             }
 
             @Override
@@ -158,28 +159,28 @@ public class PracticeActivity extends AppCompatActivity {
                     return;
                 }
 
-                // Get the list of flashcards
-                flashcards = db.getAllFlashcardByDeskID(deskList.get(deskSpinner.getSelectedItemPosition()).getID_Deck());
-
                 // Start the test
                 // Check the question type and start the test
                 if (questionType == 0) {
                     // Start the true/false test
                     Intent intent = new Intent(PracticeActivity.this, TrueFalseActivity.class);
-                    intent.putExtra("FLASHCARDS", flashcards);
-                    intent.putExtra("QUESTION_TYPE", questionType);
+                    intent.putExtra("ID_DECK", deskID);
+                    intent.putExtra("IS_ANSWER_WITH_DEFINITION", isAnswerWithDefinition);
+                    intent.putExtra("IS_PRACTICE", true);
                     startActivity(intent);
                 } else if (questionType == 1) {
                     // Start the multiple choice test
                     Intent intent = new Intent(PracticeActivity.this, MultipleChoiceActivity.class);
-                    intent.putExtra("FLASHCARDS", flashcards);
-                    intent.putExtra("QUESTION_TYPE", questionType);
+                    intent.putExtra("ID_DECK", deskID);
+                    intent.putExtra("IS_ANSWER_WITH_DEFINITION", isAnswerWithDefinition);
+                    intent.putExtra("IS_PRACTICE", true);
                     startActivity(intent);
                 } else {
                     // Start the match test
                     Intent intent = new Intent(PracticeActivity.this, MatchActivity.class);
-                    intent.putExtra("FLASHCARDS", flashcards);
-                    intent.putExtra("QUESTION_TYPE", questionType);
+                    intent.putExtra("ID_DECK", deskID);
+                    intent.putExtra("IS_ANSWER_WITH_DEFINITION", isAnswerWithDefinition);
+                    intent.putExtra("IS_PRACTICE", true);
                     startActivity(intent);
                 }
             }
