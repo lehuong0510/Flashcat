@@ -41,14 +41,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
                         android:backgroundTint="@color/transparent"
+                        style="@style/ICON"
                         android:src="@drawable/back"
                         android:contentDescription="@string/back"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:textColor="@color/black"
                         android:text="@string/setting"
+                        style="@style/TEXT"
                         android:textSize="27sp" />
                 </LinearLayout>
 
@@ -71,6 +72,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/edit_profile"
+                        android:backgroundTint="@color/transparent"
                         android:gravity="start|center_vertical"
                         style="@style/BUTTON_SETTING"
                         android:textSize="20sp"
@@ -81,6 +83,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/change_password"
+                        android:backgroundTint="@color/transparent"
                         android:gravity="start|center_vertical"
                         style="@style/BUTTON_SETTING"
                         android:textSize="20sp"
@@ -113,6 +116,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/notification_settings"
                         android:gravity="start|center_vertical"
+                        android:backgroundTint="@color/transparent"
                         style="@style/BUTTON_SETTING"
                         android:textSize="20sp"
                         android:layout_marginBottom="15px"
@@ -124,6 +128,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/manage_storage"
                         android:gravity="start|center_vertical"
+                        android:backgroundTint="@color/transparent"
                         style="@style/BUTTON_SETTING"
                         android:textSize="20sp"
                         android:layout_marginBottom="15px"
@@ -182,6 +187,7 @@
                         android:layout_height="wrap_content"
                         android:text="About us"
                         android:gravity="start|center_vertical"
+                        android:backgroundTint="@color/transparent"
                         style="@style/BUTTON_SETTING"
                         android:textSize="20sp"
 
@@ -193,6 +199,7 @@
                         android:layout_height="wrap_content"
                         android:text="Manage storage"
                         android:gravity="start|center_vertical"
+                        android:backgroundTint="@color/transparent"
                         style="@style/BUTTON_SETTING"
                         android:textSize="20sp"
                         />

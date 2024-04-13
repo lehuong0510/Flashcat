@@ -129,6 +129,7 @@ public class UserFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getContext(), SettingActivity.class);
+                i.putExtra("Name",txtName.getText());
                 startActivity(i);
             }
         });

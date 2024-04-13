@@ -265,6 +265,8 @@ public class FlashcardActivity extends AppCompatActivity implements View.OnDragL
 
                     b.putInt("Know", wordLearned);
                     b.putInt("Learning", wordUnLearned);
+                    b.putInt("idFlashcard", idFlashcard);
+                    b.putInt("idDesk",idDesk);
                     i.putExtras(b);
                     startActivityForResult(i,200);
                 }

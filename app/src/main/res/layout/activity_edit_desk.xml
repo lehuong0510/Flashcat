@@ -19,7 +19,8 @@
             android:id="@+id/back_editDesk"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:backgroundTint="@color/white"
+            android:backgroundTint="@color/transparent"
+            style="@style/ICON"
             android:src="@drawable/back"
             android:contentDescription="@string/back"/>
 
@@ -38,6 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             style="@style/SAVE"
+            android:backgroundTint="@color/transparent"
             android:fontFamily="@font/inter_semibold"
             android:gravity="center"
             android:text="@string/save"
@@ -100,8 +102,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list_flashcard"
-        android:layout_width="369dp"
-        android:layout_height="397dp"
+        android:layout_width="340dp"
+        android:layout_height="500dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="216dp"
         app:layout_constraintStart_toStartOf="parent"

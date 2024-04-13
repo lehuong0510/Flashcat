@@ -9,6 +9,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -40,6 +41,15 @@ public class SettingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_setting);
         findID();
 
+        Intent i = getIntent();
+        String name = i.getStringExtra("Name");
+        if(name.equals("FlashCat"))
+        {
+            btnEditProfile.setEnabled(false);
+            btnChangePassword.setEnabled(false);
+            btnEditProfile.setTextColor(Color.LTGRAY);
+            btnChangePassword.setTextColor(Color.LTGRAY);
+        }
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,17 +104,19 @@ public class SettingActivity extends AppCompatActivity {
         swDarkMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(nightMODE){
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                    editor = sharedPreferences.edit();
-                    editor.putBoolean("night",false);
-                }
-                else
-                {
+                // Cập nhật giá trị nightMODE khi trạng thái thay đổi
+                nightMODE = isChecked;
+
+                if(isChecked){
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                    editor = sharedPreferences.edit();
-                    editor.putBoolean("night",true);
+                } else {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                 }
+
+                // Lưu giá trị nightMODE
+                editor = sharedPreferences.edit();
+                editor.putBoolean("night", isChecked);
+                editor.apply(); // hoặc editor.commit();
             }
         });
         btnAboutUs.setOnClickListener(new View.OnClickListener() {

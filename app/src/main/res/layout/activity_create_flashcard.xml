@@ -20,7 +20,8 @@
             android:id="@+id/back_creteFlashcard"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:backgroundTint="@color/white"
+            style="@style/ICON"
+            android:backgroundTint="@color/transparent"
             android:src="@drawable/back"
             android:contentDescription="@string/back"/>
 
@@ -40,6 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             style="@style/SAVE"
+            android:backgroundTint="@color/transparent"
             android:fontFamily="@font/inter_semibold"
             android:gravity="center"
             android:text="@string/change"

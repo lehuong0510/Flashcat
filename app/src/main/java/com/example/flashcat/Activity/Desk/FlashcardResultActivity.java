@@ -9,10 +9,14 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.flashcat.R;
+//
+//import org.eazegraph.lib.charts.PieChart;
+//import org.eazegraph.lib.models.PieModel;
 
 import org.eazegraph.lib.charts.PieChart;
 import org.eazegraph.lib.models.PieModel;
@@ -24,6 +28,7 @@ public class FlashcardResultActivity extends AppCompatActivity {
     private TextView txtLearning;
     private ImageButton btnClose;
     private PieChart result;
+    private Button btnKeepLearning;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +40,8 @@ public class FlashcardResultActivity extends AppCompatActivity {
 
         int know = b.getInt("Know");
         int learning = b.getInt("Learning");
+        int idflashcard = b.getInt("idFlashcard");
+        int idDesk = b.getInt("idDesk");
         txtKnow.setText(String.valueOf(know));
         txtLearning.setText(String.valueOf(learning));
         //pie chat
@@ -48,13 +55,21 @@ public class FlashcardResultActivity extends AppCompatActivity {
 
             // Thiết lập màu nền của nhãn (phần trăm) là trong suốt (transparent)
             pieModel.setHighlightedColor(TRANSPARENT);
-
             result.addPieSlice(pieModel);
         }
 
         result.startAnimation();
 
-
+        btnKeepLearning.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(FlashcardResultActivity.this, FlashcardActivity.class);
+                i.putExtra("idFlashcard", idflashcard);
+                i.putExtra("idDesk",idDesk);
+                i.putExtra("flipFrom","back");
+                startActivity(i);
+            }
+        });
 
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,6 +84,7 @@ public class FlashcardResultActivity extends AppCompatActivity {
         txtLearning = findViewById(R.id.txt_learning);
         btnClose = findViewById(R.id.btn_close_result_flashcard);
         result = findViewById(R.id.pie_chart);
+        btnKeepLearning = findViewById(R.id.btn_keep_learning);
     }
 
 
