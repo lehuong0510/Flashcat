@@ -69,7 +69,6 @@ public class FlashcardActivity extends AppCompatActivity implements View.OnDragL
                 flipFrom = extras.getString("flipFrom");
                 idFlashcard = extras.getInt("idFlashcard");
                 idDesk = extras.getInt("idDesk");
-                Log.d("name", "onClick: " +idFlashcard +idDesk );
 
             }
         }
@@ -92,7 +91,6 @@ public class FlashcardActivity extends AppCompatActivity implements View.OnDragL
 
         //Hiển thị chỉ số flashcard
         txtNumber.setText(String.valueOf(position) + "/" + size);
-        Log.d("pos first", "onDrag: position" +position);
 
         // Hiển thị flashcard hiện tại
         displayFlashcard(currentPosition);
@@ -242,7 +240,6 @@ public class FlashcardActivity extends AppCompatActivity implements View.OnDragL
                 db.updateFlashcard(flashcardArrayList.get(currentPosition).getID_Flashcard(),flashcardArrayList.get(currentPosition));
                 // Cập nhật danh sách dữ liệu sau khi item được kéo đi
                 flashcardArrayList.remove(currentPosition);
-                Log.d("drAG", "onDrag: " + flashcardArrayList.size());
                 if (flashcardArrayList.size()!=0) {
                     // Tạo RecyclerView mới
                     RecyclerView newRecyclerView = new RecyclerView(this);
@@ -256,7 +253,6 @@ public class FlashcardActivity extends AppCompatActivity implements View.OnDragL
 
                     // Hiển thị số thứ tự của flashcard hiện tại
                     txtNumber.setText(String.valueOf(position) + "/" + size);
-                    Log.d("pos", "onDrag: position" +position);
 
                 } else {
                     // Handle the case where flashcardArrayList is empty
