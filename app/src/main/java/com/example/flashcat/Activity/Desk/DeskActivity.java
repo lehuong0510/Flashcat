@@ -233,12 +233,30 @@ public class DeskActivity extends AppCompatActivity implements ItemTouchHelperLi
             int indexDelete = viewHolder.getAdapterPosition();
             Flashcard flashcardDelete = listCard.get(indexDelete);
             String termDelete = listCard.get(indexDelete).getTerm();
-            //remove item;
-            deskFlashcatAdapter.removeItem(indexDelete);
-            db.deleteFlashcard(flashcardDelete.getID_Flashcard());
-            Desk desk = db.getDesk(idDesk);
-            desk.setNumber_flashcard(desk.getNumber_flashcard()-1);
-            db.updateDesk(idDesk,desk);
+            // Create an AlertDialog
+            AlertDialog.Builder builder = new AlertDialog.Builder(DeskActivity.this);
+            builder.setMessage("Are you sure you want to delete this item?");
+            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    // Remove item
+                    deskFlashcatAdapter.removeItem(indexDelete);
+                    db.deleteFlashcard(flashcardDelete.getID_Flashcard());
+                    Desk desk = db.getDesk(idDesk);
+                    desk.setNumber_flashcard(desk.getNumber_flashcard()-1);
+                    db.updateDesk(idDesk,desk);
+                }
+            });
+            builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    // Do not remove item, reset view
+                    deskFlashcatAdapter.notifyItemChanged(viewHolder.getAdapterPosition());
+                    dialog.dismiss();
+                }
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
         }
     }
     //get current time

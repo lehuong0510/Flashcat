@@ -2,10 +2,12 @@ package com.example.flashcat.Fragment;
 
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.graphics.Paint;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -19,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.flashcat.Activity.Desk.DeskActivity;
 import com.example.flashcat.Touch.DeskItemTouchHelper;
 import com.example.flashcat.Touch.ItemTouchHelperListener;
 import com.example.flashcat.Adapter.HomeDeskAdapter;
@@ -236,10 +239,28 @@ public class HomeFragment extends Fragment implements ItemTouchHelperListener {
         if(viewHolder instanceof  HomeDeskAdapter.DeskViewHolder){
             int indexDelete = viewHolder.getAdapterPosition();
             Desk desk = listDesk.get(indexDelete);
-            //remove item;
-            adapterDesk.removeItem(indexDelete);
-            db.deleteDesk(desk.getID_Deck());
 
+            // Create an AlertDialog
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setMessage("Are you sure you want to delete this item?");
+            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    //remove item;
+                    adapterDesk.removeItem(indexDelete);
+                    db.deleteDesk(desk.getID_Deck());
+                }
+            });
+            builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    // Do not remove item, reset view
+                    adapterDesk.notifyItemChanged(viewHolder.getAdapterPosition());
+                    dialog.dismiss();
+                }
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
         }
     }
 }
