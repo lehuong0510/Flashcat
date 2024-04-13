@@ -67,18 +67,6 @@ public class FlashcatAdapter extends RecyclerView.Adapter<FlashcatAdapter.Flashc
         holder.txtTerm.setText(flashcard.getTerm());
         holder.txtDefinition.setText(flashcard.getDefinition());
         holder.itemView.setTag("Drag");
-        // Kiểm tra xem đây có phải là vị trí hiện tại, sau đó hiển thị flashcard
-//        if (position == currentPosition) {
-//            Flashcard flashcard = flashcardArrayList.get(position);
-//            holder.txtTerm.setText(flashcard.getTerm());
-//            holder.txtDefinition.setText(flashcard.getDefinition());
-//            //holder.llUnLearned.setOnDragListener(this::onDrag);
-//            holder.itemView.setTag("Drag");
-//            holder.itemView.setVisibility(View.VISIBLE);
-//        } else {
-//            // Ẩn view nếu không phải là vị trí hiện tại
-//            holder.itemView.setVisibility(View.GONE);
-//        }
         if (position == draggedItemPosition) {
             // Đặt màu nền xám nhạt cho item khi đang được kéo
             holder.itemView.setBackgroundColor(Color.LTGRAY);
