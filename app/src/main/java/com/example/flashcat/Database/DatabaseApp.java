@@ -26,7 +26,7 @@ public class DatabaseApp extends SQLiteOpenHelper {
     }
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-    public  static final  String Databasename = "DbFCa";
+    public  static final  String Databasename = "DatabaseFC";
     public static final int DATABASE_VERSION = 1;
     //Desk
     public static final String TableName = "DeskTable";
@@ -79,8 +79,8 @@ public class DatabaseApp extends SQLiteOpenHelper {
         String sqlCreateDictionary = "Create table if not exists " + TableNameDic + "(" +
                 idDic + " Integer Primary key AUTOINCREMENT, "
                 + word + " Text, "
-                + defWord+ " Text, "
-                + minusWord+ " Text)";
+                + minusWord+ " Text, "
+                + defWord+ " Text)";
         db.execSQL(sqlCreateDictionary);
         String triggerSQL = "CREATE TRIGGER IF NOT EXISTS update_flashcard_count AFTER INSERT ON " +
                 TableNameF + " BEGIN " +
@@ -96,6 +96,40 @@ public class DatabaseApp extends SQLiteOpenHelper {
         //tao lai
         onCreate(db);
     }
+    public void deleteAllTables() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        try {
+            // Xóa tất cả các bảng
+            db.execSQL("DROP TABLE IF EXISTS " + TableName);
+            db.execSQL("DROP TABLE IF EXISTS " + TableNameF);
+            db.execSQL("DROP TABLE IF EXISTS " + TableNameDic);
+
+            // Tạo lại các bảng sau khi đã xóa
+            onCreate(db);
+
+            Log.d("DatabaseApp", "All tables dropped successfully");
+        } catch (Exception e) {
+            Log.e("DatabaseApp", "Error dropping tables: " + e.getMessage());
+        } finally {
+            db.close();
+        }
+    }
+    public boolean isWordExists(String word) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+
+        String query = "SELECT * FROM " + TableNameDic + " WHERE word = ?";
+
+        // Sử dụng rawQuery với tham số selectionArgs
+        Cursor cursor = db.rawQuery(query, new String[] { word });
+
+        boolean exists = (cursor.getCount() > 0);
+
+        cursor.close();
+        return exists;
+    }
+
+
     public void addDesk(Desk desk) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -125,7 +159,6 @@ public class DatabaseApp extends SQLiteOpenHelper {
                 Desk desk = new Desk(cursor.getInt(0),
                         cursor.getString(1), cursor.getInt(2)==1?true:false,
                         createDay, cursor.getString(4), cursor.getInt(5));
-                Log.d("number", "getAllContact: " + String.valueOf(cursor.getInt(5)));
                 list.add(desk);
             }
         }
@@ -165,7 +198,6 @@ public class DatabaseApp extends SQLiteOpenHelper {
         values.put(numberFlashcard, desk.getNumber_flashcard());
         db.update(TableName, values, id + "=?", new String[]{String.valueOf(IdDesk)});
         db.close();
-        Log.d("k", "updateDesk: "+id);
 
     }
     //xoa desk theo id

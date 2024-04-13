@@ -101,11 +101,14 @@ public class UserFragment extends Fragment {
         homeActivity = (HomeActivity) getActivity();
         if(txtName.getText().equals("FlashCat"))
         {
-
             btnSync.setEnabled(false);
             btnLogout.setEnabled(false);
             btnSync.setTextColor(Color.LTGRAY);
             btnLogout.setTextColor(Color.LTGRAY);
+        }
+        else {
+            btnLogin.setEnabled(false);
+            btnLogin.setTextColor(Color.LTGRAY);
         }
         // Hiển thị username trên TextView
 //        txtName.setText(homeActivity.getUserName());

@@ -150,10 +150,14 @@ public class WordActivity extends AppCompatActivity {
                 break;
             }
         }
-        db.addWord(new Word(1,
-                wordItem.getWord(),
-                minusWord,
-                wordItem.getMeanings().get(0).getDefinitions().get(0).getDefinition()));
+        if (!db.isWordExists(wordItem.getWord())) {
+            // Từ chưa tồn tại trong cơ sở dữ liệu, vì vậy thêm vào
+            db.addWord(new Word(1, wordItem.getWord(), minusWord, wordItem.getMeanings().get(0).getDefinitions().get(0).getDefinition()));
+        } else {
+            // Từ đã tồn tại trong cơ sở dữ liệu
+            Log.d("Database", "Word '" + word + "' already exists in database");
+        }
+
         progressDialog.dismiss();
     }
 

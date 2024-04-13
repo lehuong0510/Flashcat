@@ -92,7 +92,7 @@ public class DictionaryFragment extends Fragment {
         searchWord = rootView.findViewById(R.id.search_dictionary);
         progressDialog = new ProgressDialog(getContext());
         recyclerViewDictionary = rootView.findViewById(R.id.list_Desk_Search);
-
+        searchWord.setQueryHint("Search word...");
 
         //xet layout recycleview
         recyclerViewDictionary.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));

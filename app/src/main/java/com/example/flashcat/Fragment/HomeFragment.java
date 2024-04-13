@@ -26,6 +26,13 @@ import com.example.flashcat.Database.DatabaseApp;
 import com.example.flashcat.MainActivity;
 import com.example.flashcat.Model.Desk;
 import com.example.flashcat.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.threeten.bp.format.DateTimeFormatter;
 
@@ -113,26 +120,39 @@ public class HomeFragment extends Fragment implements ItemTouchHelperListener {
         txtName = rootView.findViewById(R.id.txtName);
         btnSeeAll = rootView.findViewById(R.id.btnSeeAll);
         recyclerViewDesk = rootView.findViewById(R.id.lst_desk);
-//        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-//
-//        String userEmail = currentUser.getEmail();
-//        String userId = userEmail.replace("@gmail.com", "");
-//        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("accounts").child(userId);
-//
-//        databaseReference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                if (dataSnapshot.exists()) {
-//                    String name = dataSnapshot.child("first_name").getValue(String.class);
-//                    txtName.setText(name);
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
+        btnSearch.setQueryHint("Search desk...");
+        //use firebase
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        String userEmail = currentUser.getEmail();
+        Log.d("k", "onCreateView: "+ userEmail);
+        if(userEmail!=null){
+            String userId = userEmail.replace("@gmail.com", "");
+            Log.d("k", "onCreateView: "+ userId);
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("accounts").child(userId);
+
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        String name = dataSnapshot.child("first_name").getValue(String.class);
+                        txtName.setText(name);
+                        Log.d("k", "onCreateView: "+ name);
+                    }
+                    else {
+                        Log.d("FirebaseData", "No data exists for userId: " + userId);
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+        else {
+            txtName.setText("Flashcat");
+        }
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerViewDesk.setLayoutManager(layoutManager);

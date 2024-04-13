@@ -55,7 +55,6 @@ public class EditDeskActivity extends AppCompatActivity {
                 idDesk = extras.getInt("ID_Desk");
                 nameDesk = extras.getString("NameDesk");
             }}
-        Log.d("edit", "onCreate: "+ idDesk +" "+ nameDesk);
         edDesk.setText(nameDesk);
         listFlashcard = db.getAllFlashcardByDeskID(idDesk);
         adapter = new EditDeskAdapter(listFlashcard,EditDeskActivity.this);
@@ -81,7 +80,6 @@ public class EditDeskActivity extends AppCompatActivity {
                 Desk desk = db.getDesk(idDesk);
                 desk.setName_deck(nameDesk);
                 db.updateDesk(idDesk,desk);
-                Log.d("name", "name desk: " + nameDesk);
                 Intent i = new Intent(EditDeskActivity.this,DeskActivity.class);
                 i.putExtra("ID_Desk",idDesk);
                 i.putExtra("NameDesk", nameDesk);

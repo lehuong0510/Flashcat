@@ -53,13 +53,13 @@
 
         <TextView
             android:id="@+id/txt_definition"
+            style="@style/SCREEN"
             android:layout_width="match_parent"
             android:layout_height="102dp"
             android:layout_marginTop="60dp"
             android:fontFamily="@font/inter_medium"
             android:text="@string/definition"
-            android:textSize="25sp"
-            style="@style/SCREEN"/>
+            android:textSize="25sp" />
 
     </androidx.cardview.widget.CardView>
 

@@ -1,8 +1,10 @@
 package com.example.flashcat.Activity.SettingUser;
-
+import android.Manifest;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -11,6 +13,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,6 +29,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import java.io.File;
 
 public class StorageActivity extends AppCompatActivity {
+    private static final int REQUEST_STORAGE_PERMISSION = 1;
     private ImageButton btnBack;
     private Button btnClear;
     private TextView txtData;
@@ -37,15 +41,77 @@ public class StorageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_storage);
         findID();
 
+//        // Lấy và hiển thị dung lượng data
+//        long dataSize = getAppDataSize();
+//        String formattedDataSize = formatSize(dataSize);
+//        txtData.setText(formattedDataSize);
+//        // Dung lượng cache
+//        long cacheSize = getCacheSize();
+//        String formattedCacheSize = formatSize(cacheSize);
+//        txtCache.setText(formattedCacheSize);
+//
+//
+//        btnClear.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                showDialogClear();
+//            }
+//        });
+//
+//        btnBack.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                finish();
+//            }
+//        });
+        requestStoragePermission();
+    }
+    public void findID(){
+
+        btnBack = findViewById(R.id.back_storage);
+        btnClear = findViewById(R.id.action_clear);
+        txtData = findViewById(R.id.txt_data);
+        txtCache = findViewById(R.id.txt_cache);
+    }
+    private void requestStoragePermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            // Permission is not granted, request it
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    REQUEST_STORAGE_PERMISSION);
+        } else {
+            // Permission already granted, proceed with file operations
+            initializeStorage();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_STORAGE_PERMISSION) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission granted, proceed with file operations
+                initializeStorage();
+            } else {
+                // Permission denied, handle accordingly
+                // You can show a message or take appropriate action
+                Log.e("StorageActivity", "Storage permission denied");
+            }
+        }
+    }
+    private void initializeStorage() {
+        // Initialize views and set click listeners after permission is granted
         // Lấy và hiển thị dung lượng data
         long dataSize = getAppDataSize();
         String formattedDataSize = formatSize(dataSize);
         txtData.setText(formattedDataSize);
+
         // Dung lượng cache
         long cacheSize = getCacheSize();
         String formattedCacheSize = formatSize(cacheSize);
         txtCache.setText(formattedCacheSize);
-
 
         btnClear.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,13 +127,8 @@ public class StorageActivity extends AppCompatActivity {
             }
         });
     }
-    public void findID(){
 
-        btnBack = findViewById(R.id.back_storage);
-        btnClear = findViewById(R.id.action_clear);
-        txtData = findViewById(R.id.txt_data);
-        txtCache = findViewById(R.id.txt_cache);
-    }
+
     private long getCacheSize() {
         File cacheDir = getCacheDir(); // Thư mục cache của ứng dụng
         return getDirectorySize(cacheDir);
@@ -136,7 +197,7 @@ public class StorageActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 // Xử lý khi nhấn nút neutral
-                                deleteAppData();
+
                                 overlay.setVisibility(View.GONE);
 
                             }
@@ -146,6 +207,7 @@ public class StorageActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 // Xử lý khi nhấn nút positive
+                                deleteAppData();
                                 overlay.setVisibility(View.GONE);
 
                             }
@@ -170,7 +232,7 @@ public class StorageActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 // Xử lý khi nhấn nút neutral
 
-                                deleteAppCache();
+
                                 overlay.setVisibility(View.GONE);
 
                             }
@@ -180,6 +242,7 @@ public class StorageActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 // Xử lý khi nhấn nút positive
+                                deleteAppCache();
                                 overlay.setVisibility(View.GONE);
 
                             }
@@ -215,27 +278,59 @@ public class StorageActivity extends AppCompatActivity {
         // Định dạng kết quả với đơn vị và số lượng chữ số thập phân phù hợp
         return String.format("%.2f %s", adjustedSize, units[unitIndex]);
     }
-    // delete Data
     private void deleteAppData() {
-        File dataDir = getFilesDir(); // Thư mục dữ liệu của ứng dụng
-        deleteRecursive(dataDir);
+        try {
+            File appDirectory = getFilesDir().getParentFile(); // Lấy thư mục gốc của ứng dụng
+            String appPath = appDirectory.getAbsolutePath();
+            if (appDirectory != null && appDirectory.isDirectory()) {
+                deleteRecursive(appDirectory);
+                initializeStorage();
+                Log.d("StorageActivity", "Error deleting app data: " + appDirectory);
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.d("Storage", "Error deleting app data: " + e.getMessage());
+        }
+    }
+
+
+    private void deleteAppCache() {
+        try {
+            File cacheDir = getCacheDir(); // Thư mục cache của ứng dụng
+            deleteRecursive(cacheDir);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void deleteRecursive(File fileOrDirectory) {
-        if (fileOrDirectory.isDirectory()) {
-            File[] files = fileOrDirectory.listFiles();
-            if (files != null) {
-                for (File child : files) {
-                    deleteRecursive(child);
+        try {
+            if (fileOrDirectory.exists()) {
+                if (fileOrDirectory.isDirectory()) {
+                    File[] files = fileOrDirectory.listFiles();
+                    if (files != null) {
+                        for (File child : files) {
+                            deleteRecursive(child);
+                        }
+                    }
                 }
+                boolean deletionResult = fileOrDirectory.delete();
+                if (!deletionResult) {
+                    Log.e("StorageActivity", "Failed to delete: " + fileOrDirectory.getAbsolutePath());
+                }
+                Log.e("S", "Failed to delete: " + fileOrDirectory.getAbsolutePath());
+
             }
+
+        } catch (SecurityException e) {
+            Log.e("StorageActivity", "SecurityException while deleting: " + fileOrDirectory.getAbsolutePath(), e);
+        } catch (Exception e) {
+            Log.e("StorageActivity", "Exception while deleting: " + fileOrDirectory.getAbsolutePath(), e);
         }
-        fileOrDirectory.delete();
     }
-    // delete Cache
-    private void deleteAppCache() {
-        File cacheDir = getCacheDir(); // Thư mục cache của ứng dụng
-        deleteRecursive(cacheDir);
-    }
+
+
+
 
 }
