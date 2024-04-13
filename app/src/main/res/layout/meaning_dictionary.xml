@@ -2,7 +2,9 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardBackgroundColor="#9DABBF">
 <TextView
     android:id="@+id/partOfSpeech"
     android:layout_width="wrap_content"
@@ -15,5 +17,6 @@
         android:id="@+id/list_definitions"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="30dp" />
+        android:layout_marginTop="30dp"
+        style="@style/SCREEN"/>
 </androidx.cardview.widget.CardView>

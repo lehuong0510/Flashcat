@@ -24,9 +24,10 @@
         <ImageButton
             android:id="@+id/back_word"
             android:layout_width="wrap_content"
-            android:backgroundTint="@color/white"
+            android:backgroundTint="@color/transparent"
             android:src="@drawable/back"
             android:contentDescription="@string/back"
+            style="@style/ICON"
             android:layout_height="50dp"/>
         <TextView
             android:layout_width="match_parent"
