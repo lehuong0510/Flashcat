@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.flashcat.Activity.HomeActivity;
 import com.example.flashcat.Database.DatabaseApp;
+import com.example.flashcat.Model.Account;
 import com.example.flashcat.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -70,8 +71,9 @@ public class LoginActivity extends AppCompatActivity {
        btnLocal.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
+               db= new DatabaseApp(LoginActivity.this);
+               db.addAccount(new Account("local","FlashCard","FlashCard","No","12345678","dsadsa","dsdsad"));
                Intent i = new Intent(LoginActivity.this, HomeActivity.class);
-               i.putExtra("userName","User0510");
                startActivity(i);
            }
        });

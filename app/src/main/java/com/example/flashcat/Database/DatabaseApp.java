@@ -13,6 +13,7 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
+import com.example.flashcat.Model.Account;
 import com.example.flashcat.Model.Desk;
 import com.example.flashcat.Model.Flashcard;
 import com.example.flashcat.Model.Word;
@@ -28,7 +29,7 @@ public class DatabaseApp extends SQLiteOpenHelper {
     }
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-    public  static final  String Databasename = "DatabaseFC";
+    public  static final  String Databasename = "DatabaseFlashcard";
     public static final int DATABASE_VERSION = 1;
     //Desk
     public static final String TableName = "DeskTable";
@@ -53,6 +54,16 @@ public class DatabaseApp extends SQLiteOpenHelper {
     public static final String word = "word";
     public static final String defWord = "definitionWord";
     public static final String minusWord = "minusWord";
+    //Account
+
+    public static final String TableNameAccount = "AccountTable";
+    public static final String idAcc = "idAccount";
+    public static final String userName = "UserName";
+    public static final String firstName = "FirstName";
+    public static final String lastName = "LastName";
+    public static final String password = "Password";
+    public static final String image = "Image";
+    public static final String email = "Email";
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -84,6 +95,15 @@ public class DatabaseApp extends SQLiteOpenHelper {
                 + minusWord+ " Text, "
                 + defWord+ " Text)";
         db.execSQL(sqlCreateDictionary);
+        String sqlCreateAcc = "Create table if not exists " + TableNameAccount + "(" +
+                idAcc + " Text Primary key , "
+                + userName + " Text, "
+                + firstName + " Text, "
+                + lastName + " Text, "
+                + password + " Text, "
+                + image + " Text, "
+                + email + " Text)";
+        db.execSQL(sqlCreateAcc);
         String triggerSQL = "CREATE TRIGGER IF NOT EXISTS update_flashcard_count AFTER INSERT ON " +
                 TableNameF + " BEGIN " +
                 "UPDATE " + TableName + " SET " + numberFlashcard + " = " + numberFlashcard + " + 1 " +
@@ -95,6 +115,8 @@ public class DatabaseApp extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("Drop table if exists " + TableName);
         db.execSQL("Drop table if exists " + TableNameF);
+        db.execSQL("Drop table if exists " + TableNameDic);
+        db.execSQL("Drop table if exists " + TableNameAccount);
         //tao lai
         onCreate(db);
     }
@@ -105,6 +127,7 @@ public class DatabaseApp extends SQLiteOpenHelper {
             db.execSQL("DROP TABLE IF EXISTS " + TableName);
             db.execSQL("DROP TABLE IF EXISTS " + TableNameF);
             db.execSQL("DROP TABLE IF EXISTS " + TableNameDic);
+            db.execSQL("Drop table if exists " + TableNameAccount);
 
             // Tạo lại các bảng sau khi đã xóa
             onCreate(db);
@@ -116,6 +139,7 @@ public class DatabaseApp extends SQLiteOpenHelper {
             db.close();
         }
     }
+    //kiem tra ton tai cua tu trong DB
     public boolean isWordExists(String word) {
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -416,6 +440,51 @@ public class DatabaseApp extends SQLiteOpenHelper {
         }
         return false;
     }
+    //truy van cua Account
+    public void addAccount(Account account) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(idAcc, account.getID_Account());
+        values.put(userName,account.getUsername());
+        values.put(firstName,account.getFirst_name());
+        values.put(lastName,account.getLast_name());
+        values.put(password,account.getPassword());
+        values.put(image,account.getImage());
+        values.put(email,account.getEmail());
+        db.insert(TableNameAccount, null, values);
+        db.close();
+
+    }
+    public void deleteAccount(){
+        SQLiteDatabase db = getWritableDatabase();
+        String sql ="Delete from " + TableNameAccount;
+        db.execSQL(sql);
+        db.close();
+    }
+    public ArrayList<Account> getAccount() {
+        ArrayList<Account> list = new ArrayList<>();
+        // cau truy van
+        String sql = "Select * from " + TableNameAccount;
+        //Lay doi tuong csdl sqlLite
+        SQLiteDatabase db = this.getReadableDatabase();
+        // Chay cau truy van tra ve cursor
+        Cursor cursor = db.rawQuery(sql, null);
+        //Tao ArrayList<Contact> de tra ve
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+                Account account = new Account(cursor.getString(0),
+                        cursor.getString(1), cursor.getString(2),
+                        cursor.getString(3),cursor.getString(4),
+                        cursor.getString(5),cursor.getString(6));
+
+                list.add(account);
+            }
+        }
+        cursor.close();
+        db.close();
+        return list;
+    }
+
 
 
 }

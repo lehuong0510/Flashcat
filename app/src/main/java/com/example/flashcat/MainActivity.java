@@ -11,10 +11,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.flashcat.Activity.HomeActivity;
 import com.example.flashcat.Activity.Login.LoginActivity;
+import com.example.flashcat.Database.DatabaseApp;
+import com.example.flashcat.Fragment.HomeFragment;
 
 public class MainActivity extends AppCompatActivity {
     private Button btnStart;
+    private DatabaseApp db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,11 +32,20 @@ public class MainActivity extends AppCompatActivity {
 
         }
         btnStart = findViewById(R.id.btn_Start);
+        db= new DatabaseApp(MainActivity.this);
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(i);
+                if(db.getAccount().size()>0)
+                {
+                    Intent i = new Intent(MainActivity.this, HomeActivity.class);
+                    startActivity(i);
+                }
+                else{
+                    Intent i = new Intent(MainActivity.this, LoginActivity.class);
+                    startActivity(i);
+                }
+
             }
         });
     }

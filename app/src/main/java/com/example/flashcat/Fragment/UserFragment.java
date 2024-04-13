@@ -22,6 +22,13 @@ import com.example.flashcat.Activity.SyncActivity;
 import com.example.flashcat.Database.DatabaseApp;
 import com.example.flashcat.Model.Desk;
 import com.example.flashcat.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.database.collection.LLRBNode;
 
 import java.util.ArrayList;
@@ -99,7 +106,47 @@ public class UserFragment extends Fragment {
         txtDesk = rootView.findViewById(R.id.txt_number_desk);
         txtName = rootView.findViewById(R.id.txt_username);
         homeActivity = (HomeActivity) getActivity();
-        if(txtName.getText().equals("FlashCat"))
+        db = new DatabaseApp(getContext());
+        if(db.getAccount().size()<1){
+            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+            if(currentUser!=null){
+                String userEmail = currentUser.getEmail();
+
+                Log.d("k", "onCreateView: "+ userEmail);
+                if(userEmail!=null){
+                    String userId = userEmail.replace("@gmail.com", "");
+                    Log.d("k", "onCreateView: "+ userId);
+                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("accounts").child(userId);
+
+                    databaseReference.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.exists()) {
+                                String name = dataSnapshot.child("first_name").getValue(String.class);
+                                txtName.setText(name);
+                                Log.d("k", "onCreateView: "+ name);
+                            }
+                            else {
+                                Log.d("FirebaseData", "No data exists for userId: " + userId);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+            }
+
+            else {
+                txtName.setText("Flashcat");
+            }
+        }
+        else {
+            txtName.setText("Flashcat");
+        }
+        if(!txtName.getText().equals("FlashCat"))
         {
             btnSync.setEnabled(false);
             btnLogout.setEnabled(false);
@@ -110,10 +157,8 @@ public class UserFragment extends Fragment {
             btnLogin.setEnabled(false);
             btnLogin.setTextColor(Color.LTGRAY);
         }
-        // Hiển thị username trên TextView
-//        txtName.setText(homeActivity.getUserName());
-        //tao đb
-        db = new DatabaseApp(getContext());
+
+
         deskArrayList = new ArrayList<>();
         deskArrayList = db.getAllDesk();
 
