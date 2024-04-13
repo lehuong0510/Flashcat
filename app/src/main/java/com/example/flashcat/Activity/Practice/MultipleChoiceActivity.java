@@ -22,9 +22,5 @@ public class MultipleChoiceActivity extends AppCompatActivity {
 
         // Get data from intent
         Intent intent = getIntent();
-        flashcards = (ArrayList<Flashcard>) intent.getSerializableExtra("FLASHCARDS");
-        questionType = intent.getIntExtra("QUESTION_TYPE", 0);
-
-        // Rest of your code...
     }
 }

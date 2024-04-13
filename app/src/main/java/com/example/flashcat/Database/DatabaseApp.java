@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Build;
 import android.util.Log;
@@ -373,4 +374,46 @@ public class DatabaseApp extends SQLiteOpenHelper {
         db.close();
         return list;
     }
+
+    public String getDefinitionByTermId(int termId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String definition = "";
+
+        // Define the query to get the definition by termId
+        String query = "SELECT definition FROM " + TableNameF + " WHERE idFlashcard = ?";
+
+        // Use a try-with-resources to auto-close the cursor
+        try (Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(termId)})) {
+            if (cursor.moveToFirst()) {
+                definition = cursor.getString(cursor.getColumnIndex("definition"));
+            }
+        } catch (SQLiteException e) {
+            Log.e("DatabaseApp", "Error retrieving definition by termId: " + e.getMessage());
+        } finally {
+            // Close the database connection
+            db.close();
+        }
+        return definition;
+    }
+
+    public boolean isExistTermWithDefinition(String term, String definition) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // Define the query to check if the term with definition exists
+        String query = "SELECT * FROM " + TableNameF
+                + " WHERE term = ? AND definition = ?";
+
+        // Use a try-with-resources to auto-close the cursor
+        try (Cursor cursor = db.rawQuery(query, new String[]{term, definition})) {
+            return cursor.moveToFirst();
+        } catch (SQLiteException e) {
+            Log.e("DatabaseApp", "Error checking if term with definition exists: " + e.getMessage());
+        } finally {
+            // Close the database connection
+            db.close();
+        }
+        return false;
+    }
+
+
 }
