@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
 
+import com.example.flashcat.Activity.HomeActivity;
 import com.example.flashcat.R;
 import com.google.android.material.materialswitch.MaterialSwitch;
 
@@ -54,6 +55,9 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+                Intent i = new Intent(SettingActivity.this, HomeActivity.class);
+                i.putExtra("fragmentTag", "user");
+                startActivity(i);
             }
         });
 

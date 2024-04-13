@@ -123,33 +123,36 @@ public class HomeFragment extends Fragment implements ItemTouchHelperListener {
         btnSearch.setQueryHint("Search desk...");
         //use firebase
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if(currentUser!=null){
+            String userEmail = currentUser.getEmail();
 
-        String userEmail = currentUser.getEmail();
-        Log.d("k", "onCreateView: "+ userEmail);
-        if(userEmail!=null){
-            String userId = userEmail.replace("@gmail.com", "");
-            Log.d("k", "onCreateView: "+ userId);
-            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("accounts").child(userId);
+            Log.d("k", "onCreateView: "+ userEmail);
+            if(userEmail!=null){
+                String userId = userEmail.replace("@gmail.com", "");
+                Log.d("k", "onCreateView: "+ userId);
+                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("accounts").child(userId);
 
-            databaseReference.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.exists()) {
-                        String name = dataSnapshot.child("first_name").getValue(String.class);
-                        txtName.setText(name);
-                        Log.d("k", "onCreateView: "+ name);
+                databaseReference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            String name = dataSnapshot.child("first_name").getValue(String.class);
+                            txtName.setText(name);
+                            Log.d("k", "onCreateView: "+ name);
+                        }
+                        else {
+                            Log.d("FirebaseData", "No data exists for userId: " + userId);
+                        }
                     }
-                    else {
-                        Log.d("FirebaseData", "No data exists for userId: " + userId);
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
                     }
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
+                });
+            }
         }
+
         else {
             txtName.setText("Flashcat");
         }

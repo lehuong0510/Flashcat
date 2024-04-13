@@ -54,9 +54,12 @@ public class HomeActivity extends AppCompatActivity {
         AndroidThreeTen.init(this);
         setContentView(R.layout.activity_home);
         replaceFragment(new HomeFragment());
+
+
+        bottomNavigationView=  findViewById(R.id.bottomNavigationView);
         if (getIntent() != null) {
             String fragmentTag = getIntent().getStringExtra("fragmentTag");
-
+            Log.d("curr", "onCreate: "+ fragmentTag);
 
             if (fragmentTag != null) {
                 // Hiển thị Fragment tương ứng với fragmentTag
@@ -67,17 +70,23 @@ public class HomeActivity extends AppCompatActivity {
                 } else if (fragmentTag.equals("dictionary")) {
                     replaceFragment(new DictionaryFragment());
                     currentPage = CurrentPage.DICTIONARY;
+                    bottomNavigationView.setSelectedItemId(R.id.menu_Dictionary);
+
                 } else if (fragmentTag.equals("user")) {
-                    UserFragment userFragment = new UserFragment();
-                    Bundle bundle = new Bundle();
-                    bundle.putString("UserName", userName);
-                    userFragment.setArguments(bundle);
-                    replaceFragment(userFragment);
+//                    UserFragment userFragment = new UserFragment();
+//                    Bundle bundle = new Bundle();
+//                    bundle.putString("UserName", userName);
+//                    userFragment.setArguments(bundle);
+//                    replaceFragment(userFragment);
+                    replaceFragment(new UserFragment());
                     currentPage = CurrentPage.USER;
+                    bottomNavigationView.setSelectedItemId(R.id.menu_User);
+
+
+
                 }
             }
         }
-        bottomNavigationView=  findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int i = item.getItemId();
             if (i == R.id.menu_Home) {

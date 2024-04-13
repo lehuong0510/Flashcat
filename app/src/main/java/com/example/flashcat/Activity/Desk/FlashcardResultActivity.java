@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.example.flashcat.Database.DatabaseApp;
+import com.example.flashcat.Model.Desk;
 import com.example.flashcat.R;
 //
 //import org.eazegraph.lib.charts.PieChart;
@@ -29,6 +31,8 @@ public class FlashcardResultActivity extends AppCompatActivity {
     private ImageButton btnClose;
     private PieChart result;
     private Button btnKeepLearning;
+    private DatabaseApp db= new DatabaseApp(FlashcardResultActivity.this);
+    private Desk desk ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +41,8 @@ public class FlashcardResultActivity extends AppCompatActivity {
         findID();
         Intent i = getIntent();
         Bundle b = i.getExtras();
+
+
 
         int know = b.getInt("Know");
         int learning = b.getInt("Learning");
@@ -74,7 +80,11 @@ public class FlashcardResultActivity extends AppCompatActivity {
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                Intent i = new Intent(FlashcardResultActivity.this, DeskActivity.class);
+                desk= db.getDesk(idDesk);
+                i.putExtra("ID_Desk",idDesk);
+                i.putExtra("Name_Desk",desk.getName_deck());
+                startActivity(i);
             }
         });
     }
