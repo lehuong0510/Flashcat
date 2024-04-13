@@ -9,10 +9,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.flashcat.Activity.HomeActivity;
 import com.example.flashcat.Database.DatabaseApp;
 import com.example.flashcat.Model.Desk;
 import com.example.flashcat.Model.Flashcard;
@@ -30,6 +32,7 @@ public class PracticeActivity extends AppCompatActivity {
     MaterialSwitch multiChoiceSwitch;
     MaterialSwitch matchSwitch;
     Button startButton;
+    ImageButton backBtn;
     ArrayList<Desk> deskList;
     // Database
     DatabaseApp db;
@@ -39,7 +42,7 @@ public class PracticeActivity extends AppCompatActivity {
     int totalQuestion;
     boolean isAnswerWithDefinition;
     int questionType; // 0: True/False, 1: Multiple choice, 2: Match
-
+    boolean isPractice;
     int deskID;
     ArrayList<Flashcard> flashcards;
 
@@ -52,6 +55,7 @@ public class PracticeActivity extends AppCompatActivity {
         db = new DatabaseApp(this);
 
         // Get the views
+        backBtn = findViewById(R.id.back_practice);
         deskSpinner = findViewById(R.id.sp_select_desk);
         totalQuestions = findViewById(R.id.txt_total_questions);
         answerWaySpinner = findViewById(R.id.sp_select_answer_method);
@@ -59,6 +63,10 @@ public class PracticeActivity extends AppCompatActivity {
         multiChoiceSwitch = findViewById(R.id.switch_multiple_choice);
         matchSwitch = findViewById(R.id.switch_match);
         startButton = findViewById(R.id.btn_practice_startTest);
+
+        // get the data from the intent
+        Intent intent = getIntent();
+        isPractice = intent.getBooleanExtra("IS_PRACTICE", true);
 
         // Set value for deskSpinner
         // Get the list of desk from database
@@ -142,6 +150,15 @@ public class PracticeActivity extends AppCompatActivity {
             }
         });
 
+        // Handle the back button
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PracticeActivity.this, HomeActivity.class);
+                startActivity(intent);
+            }
+        });
+
         // Handle the start button
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -166,21 +183,21 @@ public class PracticeActivity extends AppCompatActivity {
                     Intent intent = new Intent(PracticeActivity.this, TrueFalseActivity.class);
                     intent.putExtra("ID_DECK", deskID);
                     intent.putExtra("IS_ANSWER_WITH_DEFINITION", isAnswerWithDefinition);
-                    intent.putExtra("IS_PRACTICE", true);
+                    intent.putExtra("IS_PRACTICE", isPractice);
                     startActivity(intent);
                 } else if (questionType == 1) {
                     // Start the multiple choice test
                     Intent intent = new Intent(PracticeActivity.this, MultipleChoiceActivity.class);
                     intent.putExtra("ID_DECK", deskID);
                     intent.putExtra("IS_ANSWER_WITH_DEFINITION", isAnswerWithDefinition);
-                    intent.putExtra("IS_PRACTICE", true);
+                    intent.putExtra("IS_PRACTICE", isPractice);
                     startActivity(intent);
                 } else {
                     // Start the match test
                     Intent intent = new Intent(PracticeActivity.this, MatchActivity.class);
                     intent.putExtra("ID_DECK", deskID);
                     intent.putExtra("IS_ANSWER_WITH_DEFINITION", isAnswerWithDefinition);
-                    intent.putExtra("IS_PRACTICE", true);
+                    intent.putExtra("IS_PRACTICE", isPractice);
                     startActivity(intent);
                 }
             }
