@@ -134,6 +134,8 @@ public class HomeActivity extends AppCompatActivity {
                 View overlay = findViewById(R.id.overlay);
                 overlay.setVisibility(View.GONE);
                 Intent intent = new Intent(HomeActivity.this, PracticeActivity.class);
+                // Inlcude a value to indicate that the user wants to make a Practice
+                intent.putExtra("IS_PRACTICE", true);
                 startActivity(intent);
 
             }
@@ -146,6 +148,7 @@ public class HomeActivity extends AppCompatActivity {
                 View overlay = findViewById(R.id.overlay);
                 overlay.setVisibility(View.GONE);
                 Intent intent = new Intent(HomeActivity.this, PracticeActivity.class);
+                intent.putExtra("IS_PRACTICE", false);
                 startActivity(intent);
 
 
