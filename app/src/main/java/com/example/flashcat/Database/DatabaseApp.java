@@ -1,5 +1,6 @@
 package com.example.flashcat.Database;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -252,7 +253,7 @@ public class DatabaseApp extends SQLiteOpenHelper {
     public Flashcard getFlashcardByID(int id_flashcard) {
         Flashcard flashcard = new Flashcard() ;
         // cau truy van
-        String sql = "Select * from " + TableNameF + " Where idF = ? ";
+        String sql = "Select * from " + TableNameF + " Where idFlashcard = ? ";
         //Lay doi tuong csdl sqlLite
         SQLiteDatabase db = this.getReadableDatabase();
         // Chay cau truy van tra ve cursor
@@ -343,6 +344,7 @@ public class DatabaseApp extends SQLiteOpenHelper {
         return list;
     }
 
+    @SuppressLint("Range")
     public String getDefinitionByTermId(int termId) {
         SQLiteDatabase db = this.getReadableDatabase();
         String definition = "";

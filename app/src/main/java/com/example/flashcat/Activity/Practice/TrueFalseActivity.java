@@ -24,6 +24,7 @@ public class TrueFalseActivity extends AppCompatActivity {
     ArrayList<String> terms;
     ArrayList<String> definitions;
     ArrayList<Flashcard> shuffledFlashcards;
+    ArrayList<Integer> shuffledFlashcardsID;
     int deckID;
     boolean isAnswerWithDefinition;
     DatabaseApp db;
@@ -33,9 +34,11 @@ public class TrueFalseActivity extends AppCompatActivity {
     TextView txtDefinition;
     Button btnTrue;
     Button btnFalse;
-
+    boolean isPractice;
     int currentQuestion = 0;
     int totalQuestion;
+    ArrayList<Integer> correctAnswersID;
+    ArrayList<Integer> wrongAnswersID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +60,7 @@ public class TrueFalseActivity extends AppCompatActivity {
         Intent intent = getIntent();
         deckID = intent.getIntExtra("ID_DECK", 0);
         isAnswerWithDefinition = intent.getBooleanExtra("IS_ANSWER_WITH_DEFINITION", false);
+        isPractice = intent.getBooleanExtra("IS_PRACTICE", true);
 
         // get flashcards from database corresponding to deckID
         flashcards = db.getAllFlashcardByDeskID(deckID);
@@ -73,11 +77,21 @@ public class TrueFalseActivity extends AppCompatActivity {
         Collections.shuffle(flashcards);
         shuffledFlashcards = flashcards;
 
+        // Convert the shuffled flashcards list to a list of shuffled flashcard IDs
+        shuffledFlashcardsID = new ArrayList<>();
+        for (Flashcard flashcard : shuffledFlashcards) {
+            shuffledFlashcardsID.add(flashcard.getID_Flashcard());
+        }
+
         // Set total question
         totalQuestion = flashcards.size();
 
         // Initialize the first question
         showQuestion(currentQuestion);
+
+        // Initialize the correct and wrong answers list
+        correctAnswersID = new ArrayList<>();
+        wrongAnswersID = new ArrayList<>();
 
         // Set up the click listeners for the buttons
         btnTrue.setOnClickListener(new View.OnClickListener() {
@@ -125,32 +139,54 @@ public class TrueFalseActivity extends AppCompatActivity {
         Flashcard currentFlashcard = shuffledFlashcards.get(currentQuestion);
 
         if (isTrue == db.isExistTermWithDefinition(currentFlashcard.getTerm(), txtDefinition.getText().toString())) {
-            // Set the text color to green
-            txtTerm.setTextColor(Color.GREEN);
-            txtDefinition.setTextColor(Color.GREEN);
+            if (isPractice)
+            {
+                // Set the text color to green
+                txtTerm.setTextColor(Color.GREEN);
+                txtDefinition.setTextColor(Color.GREEN);
+            }
+            // Increment the total correct answer
+            correctAnswersID.add(currentFlashcard.getID_Flashcard());
+
         } else {
-            // Set the text color to red
-            txtTerm.setTextColor(Color.RED);
-            txtDefinition.setTextColor(Color.RED);
-            // Not
+            if (isPractice)
+            {
+                // Set the text color to red
+                txtTerm.setTextColor(Color.RED);
+                txtDefinition.setTextColor(Color.RED);
+            }
+            // Add the current question to the wrong answers list
+            wrongAnswersID.add(currentFlashcard.getID_Flashcard());
         }
 
         // Schedule a task to reset the text color after 1 seconds
         new android.os.Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                // Reset the text color to black
-                txtTerm.setTextColor(Color.BLACK);
-                txtDefinition.setTextColor(Color.BLACK);
 
-                // Move to the next question
+                // Increment the current question
                 currentQuestion++;
+                // Check if the current question is the last question
                 if (currentQuestion < totalQuestion) {
+                    // Reset the text color to black
+                    txtTerm.setTextColor(Color.BLACK);
+                    txtDefinition.setTextColor(Color.BLACK);
+
+                    // Show the next question
                     showQuestion(currentQuestion);
                 } else {
-                    // End of questions
+                    // Put result to intent
+                    Intent intent = new Intent(TrueFalseActivity.this, ResultActivity.class);
+                    intent.putExtra("CORRECT_ANSWERS_ID", correctAnswersID);
+                    intent.putExtra("WRONG_ANSWERS_ID", wrongAnswersID);
+                    intent.putExtra("SHUFFLE_FLASHCARDS_ID", shuffledFlashcardsID);
+
+                    startActivity(intent);
+
                 }
             }
         }, 1000);
+
+
     }
 }
