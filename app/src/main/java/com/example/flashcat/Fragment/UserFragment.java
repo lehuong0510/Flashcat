@@ -140,13 +140,13 @@ public class UserFragment extends Fragment {
             }
 
             else {
-                txtName.setText("Flashcat");
+                txtName.setText("FlashCat");
             }
         }
         else {
-            txtName.setText("Flashcat");
+            txtName.setText("FlashCat");
         }
-        if(!txtName.getText().equals("FlashCat"))
+        if(txtName.getText().equals("FlashCat"))
         {
             btnSync.setEnabled(false);
             btnLogout.setEnabled(false);

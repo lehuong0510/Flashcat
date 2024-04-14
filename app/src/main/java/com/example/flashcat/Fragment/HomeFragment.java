@@ -158,11 +158,11 @@ public class HomeFragment extends Fragment implements ItemTouchHelperListener {
             }
 
             else {
-                txtName.setText("Flashcat");
+                txtName.setText("FlashCat");
             }
         }
         else {
-            txtName.setText("Flashcat");
+            txtName.setText("FlashCat");
         }
 
 
