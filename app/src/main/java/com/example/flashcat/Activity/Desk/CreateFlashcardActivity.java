@@ -135,6 +135,7 @@ public class CreateFlashcardActivity extends AppCompatActivity {
                 String currentDateTimeString = currentDateTime.format(DATE_TIME_FORMATTER);
                 if(s!=null){
                     sound= s;
+                    saveFlashcard();
                 }
                 else
                 {
