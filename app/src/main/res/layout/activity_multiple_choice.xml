@@ -37,7 +37,7 @@
         android:id="@+id/cardView"
         android:layout_width="wrap_content"
         android:layout_height="250dp"
-        android:layout_marginTop="104dp"
+        android:layout_marginTop="32dp"
         android:background="@drawable/bord_flashcard"
         android:backgroundTint="@color/multiplechoice_bluepastel"
         app:layout_constraintEnd_toEndOf="parent"
@@ -50,71 +50,86 @@
             android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:gravity="center"
             android:layout_margin="10dp"
             android:fontFamily="@font/inter_semibold"
             android:text="a small domesticated carnivorous mammal with soft fur, a short snout, and retractable claws."
             android:textSize="20sp" />
     </androidx.cardview.widget.CardView>
 
-    <Button
-        android:id="@+id/btn_answerB"
-        style="@style/MATCH"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="124dp"
-        android:background="@drawable/bord_flashcard"
-        android:fontFamily="@font/inter"
-        android:text="Pant"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/cardView"
+        android:gravity="center">
 
-    <Button
-        android:id="@+id/btn_answerC"
-        style="@style/MATCH"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="192dp"
-        android:background="@drawable/bord_flashcard"
-        android:fontFamily="@font/inter"
-        android:text="Dog"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView" />
+        <Button
+            android:id="@+id/btn_answerB"
+            style="@style/MATCH"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:background="@drawable/bord_flashcard"
+            android:fontFamily="@font/inter"
+            android:maxHeight="120dp"
+            android:text="Pant"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_answerA" />
 
-    <Button
-        android:id="@+id/btn_answerA"
-        style="@style/MATCH"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="56dp"
-        android:background="@drawable/bord_flashcard"
-        android:fontFamily="@font/inter"
-        android:text="Cat"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView" />
+        <Button
+            android:id="@+id/btn_answerC"
+            style="@style/MATCH"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bord_flashcard"
+            android:fontFamily="@font/inter"
+            android:maxHeight="120dp"
+            android:text="Dog"
+            android:textSize="18sp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_answerB" />
 
-    <Button
-        android:id="@+id/btn_answerD"
-        style="@style/MATCH"
-        android:layout_width="300dp"
-        android:layout_height="52dp"
-        android:background="@drawable/bord_flashcard"
-        android:fontFamily="@font/inter"
-        android:text="Fish"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_answerC"
-        app:layout_constraintVertical_bias="0.192" />
+        <Button
+            android:id="@+id/btn_answerA"
+            style="@style/MATCH"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bord_flashcard"
+            android:fontFamily="@font/inter"
+            android:maxHeight="120dp"
+            android:text="Cat"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
+        <Button
+            android:id="@+id/btn_answerD"
+            style="@style/MATCH"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bord_flashcard"
+            android:fontFamily="@font/inter"
+            android:maxHeight="120dp"
+            android:text="Fish"
+            android:textSize="18sp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_answerC"
+            app:layout_constraintVertical_bias="0.192" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
