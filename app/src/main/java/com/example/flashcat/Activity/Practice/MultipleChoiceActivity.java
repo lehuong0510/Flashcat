@@ -186,6 +186,7 @@ public class MultipleChoiceActivity extends AppCompatActivity implements View.On
         String randomDefinition;
         do {
             randomDefinition = flashcards.get(new Random().nextInt(flashcards.size())).getDefinition();
+
         } while (randomDefinition.equals(correctDefinition));
 
         return randomDefinition;
@@ -223,8 +224,10 @@ public class MultipleChoiceActivity extends AppCompatActivity implements View.On
             {
                 if (selectedAnswer.equals(currentFlashcard.getDefinition())) {
                     Toast.makeText(this, "Correct!", Toast.LENGTH_SHORT).show();
+                    correctAnswersID.add(currentFlashcard.getID_Flashcard());
                 } else {
                     Toast.makeText(this, "Wrong! The correct answer is: " + currentFlashcard.getDefinition(), Toast.LENGTH_SHORT).show();
+                    wrongAnswersID.add(currentFlashcard.getID_Flashcard());
                 }
             } else {
                 if (selectedAnswer.equals(currentFlashcard.getDefinition())) {
@@ -241,8 +244,10 @@ public class MultipleChoiceActivity extends AppCompatActivity implements View.On
             {
                 if (selectedAnswer.equals(currentFlashcard.getTerm())) {
                     Toast.makeText(this, "Correct!", Toast.LENGTH_SHORT).show();
+                    correctAnswersID.add(currentFlashcard.getID_Flashcard());
                 } else {
                     Toast.makeText(this, "Wrong! The correct answer is: " + currentFlashcard.getTerm(), Toast.LENGTH_SHORT).show();
+                    wrongAnswersID.add(currentFlashcard.getID_Flashcard());
                 }
             } else {
                 if (selectedAnswer.equals(currentFlashcard.getTerm())) {
