@@ -31,6 +31,7 @@ import com.example.flashcat.Model.Flashcard;
 import com.example.flashcat.R;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class FlashcardActivity extends AppCompatActivity implements View.OnDragListener{
     private ImageButton btnBack;
@@ -53,6 +54,7 @@ public class FlashcardActivity extends AppCompatActivity implements View.OnDragL
     private int wordUnLearned = 0;
     private int size = 0;
     private Desk desk;
+    private Stack<Flashcard> flashcardStack = new Stack<>();
     int position = 1; // Biến để lưu trữ vị trí của item đang được kéo
 
     @Override
@@ -128,7 +130,29 @@ public class FlashcardActivity extends AppCompatActivity implements View.OnDragL
                 finish();
             }
         });
+        btnReturnFlashcard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!flashcardStack.isEmpty()) {
+                    Flashcard lastDraggedFlashcard = flashcardStack.pop();
+                    flashcardArrayList.add(0,lastDraggedFlashcard);
+                    adapter.notifyDataSetChanged();
+                    Log.d("return", "onClick: " + lastDraggedFlashcard.getTerm());
+                    if (lastDraggedFlashcard.isStatus() == true) {
+                        wordLearned--;
+                    } else {
+                        wordUnLearned--;
+                    }
 
+                    // Update the text views displaying the number of learned and unlearned words
+                    txt_Learned.setText(String.valueOf(wordLearned));
+                    txt_UnLearned.setText(String.valueOf(wordUnLearned));
+                    // Update the position and the flashcard number display
+                    position--;
+                    txtNumber.setText(String.valueOf(position) + "/" + size);
+                }
+            }
+        });
     }
     private int findPositionById(int idFlashcard) {
         for (int i = 0; i < flashcardArrayList.size(); i++) {
@@ -238,6 +262,8 @@ public class FlashcardActivity extends AppCompatActivity implements View.OnDragL
                     txt_UnLearned.setText(String.valueOf(wordUnLearned));
                 }
                 db.updateFlashcard(flashcardArrayList.get(currentPosition).getID_Flashcard(),flashcardArrayList.get(currentPosition));
+                //Them vao stack
+                flashcardStack.push(flashcardArrayList.get(currentPosition));
                 // Cập nhật danh sách dữ liệu sau khi item được kéo đi
                 flashcardArrayList.remove(currentPosition);
                 if (flashcardArrayList.size()!=0) {
