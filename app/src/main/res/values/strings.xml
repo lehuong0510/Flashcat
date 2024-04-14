@@ -163,5 +163,6 @@
     </string-array>
     <!--    Practice-->
     <string name="start_test">Start</string>
+    <string name="zoom">Zoom</string>
 
 </resources>
