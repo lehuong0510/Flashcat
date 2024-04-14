@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/linearLayout"
             android:layout_width="350dp"
             android:layout_height="65dp"
@@ -35,43 +35,40 @@
 
             <TextView
                 android:id="@+id/txtName"
-                android:layout_width="wrap_content"
+                style="@style/TEXT"
+                android:layout_width="300dp"
                 android:layout_height="match_parent"
                 android:fontFamily="@font/inter_bold"
                 android:gravity="center_vertical"
-                android:paddingLeft="10dp"
-                android:text="@string/name"
-                android:textSize="26sp"
-                style="@style/TEXT"/>
+                android:paddingLeft="50dp"
+                android:text="@string/app_name"
+                android:textSize="26sp" />
 
             <ImageButton
                 android:id="@+id/btn_Notification_Home"
-                android:layout_width="64dp"
+                style="@style/ICON"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="170dp"
+                android:layout_marginLeft="300dp"
                 android:backgroundTint="@color/transparent"
                 android:contentDescription="@string/notification"
-                android:src="@drawable/notification"
-                style="@style/ICON"/>
-        </LinearLayout>
+                android:src="@drawable/notification" />
+        </RelativeLayout>
 
 
-        <Button
-            android:id="@+id/btnSearch"
-            style="?attr/materialButtonOutlinedStyle"
-            android:layout_width="345dp"
-            android:layout_height="65dp"
-            android:layout_gravity="center"
-            android:layout_marginStart="20dp"
-            android:contentDescription="@string/search_name"
-            android:drawableEnd="@drawable/search"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.239"
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchDesk"
+            android:layout_width="354dp"
+            android:layout_height="68dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="110dp"
+            style="@style/BORDER"
+            android:iconifiedByDefault="false"
+            android:queryHint="Search..."
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-            app:layout_constraintVertical_bias="0.071" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/btnSeeAll"

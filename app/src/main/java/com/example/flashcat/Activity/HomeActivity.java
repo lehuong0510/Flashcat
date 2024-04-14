@@ -41,6 +41,11 @@ public class HomeActivity extends AppCompatActivity {
     private enum CurrentPage {
         HOME, PRACTICE, ADD, DICTIONARY, USER
     }
+    String userName= "Linda";
+
+    public String getUserName() {
+        return userName;
+    }
 
     private CurrentPage currentPage = CurrentPage.HOME;
     @Override
@@ -49,7 +54,39 @@ public class HomeActivity extends AppCompatActivity {
         AndroidThreeTen.init(this);
         setContentView(R.layout.activity_home);
         replaceFragment(new HomeFragment());
+
+
         bottomNavigationView=  findViewById(R.id.bottomNavigationView);
+        if (getIntent() != null) {
+            String fragmentTag = getIntent().getStringExtra("fragmentTag");
+            Log.d("curr", "onCreate: "+ fragmentTag);
+
+            if (fragmentTag != null) {
+                // Hiển thị Fragment tương ứng với fragmentTag
+                if (fragmentTag.equals("home")) {
+                    HomeFragment homeFragment =new HomeFragment();
+                    replaceFragment(homeFragment);
+                    currentPage = CurrentPage.HOME;
+                } else if (fragmentTag.equals("dictionary")) {
+                    replaceFragment(new DictionaryFragment());
+                    currentPage = CurrentPage.DICTIONARY;
+                    bottomNavigationView.setSelectedItemId(R.id.menu_Dictionary);
+
+                } else if (fragmentTag.equals("user")) {
+//                    UserFragment userFragment = new UserFragment();
+//                    Bundle bundle = new Bundle();
+//                    bundle.putString("UserName", userName);
+//                    userFragment.setArguments(bundle);
+//                    replaceFragment(userFragment);
+                    replaceFragment(new UserFragment());
+                    currentPage = CurrentPage.USER;
+                    bottomNavigationView.setSelectedItemId(R.id.menu_User);
+
+
+
+                }
+            }
+        }
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int i = item.getItemId();
             if (i == R.id.menu_Home) {
@@ -97,6 +134,8 @@ public class HomeActivity extends AppCompatActivity {
                 View overlay = findViewById(R.id.overlay);
                 overlay.setVisibility(View.GONE);
                 Intent intent = new Intent(HomeActivity.this, PracticeActivity.class);
+                // Inlcude a value to indicate that the user wants to make a Practice
+                intent.putExtra("IS_PRACTICE", true);
                 startActivity(intent);
 
             }
@@ -109,6 +148,7 @@ public class HomeActivity extends AppCompatActivity {
                 View overlay = findViewById(R.id.overlay);
                 overlay.setVisibility(View.GONE);
                 Intent intent = new Intent(HomeActivity.this, PracticeActivity.class);
+                intent.putExtra("IS_PRACTICE", false);
                 startActivity(intent);
 
 
@@ -169,8 +209,7 @@ public class HomeActivity extends AppCompatActivity {
                 Intent i = new Intent(HomeActivity.this, DeskActivity.class);
                 i.putExtra("NameDesk",editNameDesk.getText().toString());
                 i.putExtra("CreatedDay", currentDateTimeString);
-                Log.d("name", "onClick: " +editNameDesk.getText().toString() );
-                startActivity(i);
+                startActivityForResult(i,110);
 
             }
         });
@@ -194,4 +233,5 @@ public class HomeActivity extends AppCompatActivity {
         currentPage = CurrentPage.HOME;
         bottomNavigationView.setSelectedItemId(R.id.menu_Home);
     }
+
 }

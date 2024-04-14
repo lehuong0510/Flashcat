@@ -68,8 +68,8 @@
     <string name="name">Tiago.</string>
     <string name="see_all">See All</string>
     <!--    Strings Practice-->
-    <string name="question">Question</string>
-    <string name="answer">Answer</string>
+    <string name="question">Total questions</string>
+    <string name="answer">Answer with</string>
     <string name="true_false">True/False</string>
     <string name="multiple">Multiple choice</string>
     <string name="match">Match</string>
@@ -154,6 +154,15 @@
     <string name="answerB">AnswerB</string>
     <string name="answerC">AnswerC</string>
     <string name="answerD">AnswerD</string>
-
+    <!--    Answer Method prompt-->
+    <string name="answer_method_prompt">Choose a country</string>
+    <!--    Answer method-->
+    <string-array name="answer_method_arrays">
+        <item>Definition</item>
+        <item>Term</item>
+    </string-array>
+    <!--    Practice-->
+    <string name="start_test">Start</string>
+    <string name="zoom">Zoom</string>
 
 </resources>

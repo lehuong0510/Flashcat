@@ -51,4 +51,17 @@ dependencies {
     //implementation("com.roughike:swipe-selector:1.0.6")
     //time
     implementation ("com.jakewharton.threetenabp:threetenabp:1.3.1")
+    //api
+    implementation ("com.google.code.gson:gson:2.10.1")
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    //goi y
+    implementation ("androidx.cursoradapter:cursoradapter:1.0.0")
+
+    //image
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+
+    //pie chat
+    implementation("com.nineoldandroids:library:2.4.0")
+    implementation("com.github.blackfizz:eazegraph:1.2.5l@aar")
 }

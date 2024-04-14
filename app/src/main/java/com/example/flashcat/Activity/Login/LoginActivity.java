@@ -14,6 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.flashcat.Activity.HomeActivity;
+import com.example.flashcat.Database.DatabaseApp;
+import com.example.flashcat.Model.Account;
 import com.example.flashcat.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -37,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
     private static final String EMAIL_KEY = "email";
     private static final String PASSWORD_KEY = "password";
     private static final String REMEMBER_ME_KEY = "rememberMe";
+    private DatabaseApp db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +71,9 @@ public class LoginActivity extends AppCompatActivity {
        btnLocal.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
+               db= new DatabaseApp(LoginActivity.this);
+               db.deleteAllTables();
+               db.addAccount(new Account("local","FlashCard","FlashCard","No","12345678","dsadsa","dsdsad"));
                Intent i = new Intent(LoginActivity.this, HomeActivity.class);
                startActivity(i);
            }
@@ -86,6 +92,8 @@ public class LoginActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
     }
     public void login(){
+        db = new DatabaseApp(this);
+        db.deleteAllTables();
         String email, pass;
         email = edEmailLogin.getText().toString();
         pass = edPasswordLogin.getText().toString();

@@ -1,36 +1,53 @@
 package com.example.flashcat.Fragment;
 
-import android.content.Intent;
+
+import android.app.Activity;
+import android.content.DialogInterface;
 import android.graphics.Paint;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.flashcat.Activity.SearchActivity;
+import com.example.flashcat.Activity.Desk.DeskActivity;
+import com.example.flashcat.Touch.DeskItemTouchHelper;
+import com.example.flashcat.Touch.ItemTouchHelperListener;
 import com.example.flashcat.Adapter.HomeDeskAdapter;
 import com.example.flashcat.Database.DatabaseApp;
+import com.example.flashcat.MainActivity;
 import com.example.flashcat.Model.Desk;
 import com.example.flashcat.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.threeten.bp.format.DateTimeFormatter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements ItemTouchHelperListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -43,12 +60,14 @@ public class HomeFragment extends Fragment {
     private ArrayList<Desk> listDesk;
     private HomeDeskAdapter adapterDesk;
     private RecyclerView recyclerViewDesk;
-    private Button btnSearch;
+    private SearchView btnSearch;
     private TextView txtName;
     private Button btnNotification;
     private TextView btnSeeAll;
     public boolean isVertical = true;
     public DatabaseApp db;
+    private static final String ARG_USERNAME = "userName";
+
 
     public HomeFragment() {
         // Required empty public constructor
@@ -100,15 +119,60 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
-        btnSearch = rootView.findViewById(R.id.btnSearch);
+        btnSearch = rootView.findViewById(R.id.searchDesk);
         txtName = rootView.findViewById(R.id.txtName);
         btnSeeAll = rootView.findViewById(R.id.btnSeeAll);
         recyclerViewDesk = rootView.findViewById(R.id.lst_desk);
+        btnSearch.setQueryHint("Search desk...");
+        //use firebase
+        if(db.getAccount().size()<1){
+            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+            if(currentUser!=null){
+                String userEmail = currentUser.getEmail();
+
+                Log.d("k", "onCreateView: "+ userEmail);
+                if(userEmail!=null){
+                    String userId = userEmail.replace("@gmail.com", "");
+                    Log.d("k", "onCreateView: "+ userId);
+                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("accounts").child(userId);
+
+                    databaseReference.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.exists()) {
+                                String name = dataSnapshot.child("first_name").getValue(String.class);
+                                txtName.setText(name);
+                                Log.d("k", "onCreateView: "+ name);
+                            }
+                            else {
+                                Log.d("FirebaseData", "No data exists for userId: " + userId);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+            }
+
+            else {
+                txtName.setText("FlashCat");
+            }
+        }
+        else {
+            txtName.setText("FlashCat");
+        }
+
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerViewDesk.setLayoutManager(layoutManager);
         adapterDesk =  new HomeDeskAdapter(listDesk,getContext());
         recyclerViewDesk.setAdapter(adapterDesk);
+
+        ItemTouchHelper.SimpleCallback simpleCallback = new DeskItemTouchHelper(0,ItemTouchHelper.LEFT,this);
+        new ItemTouchHelper(simpleCallback).attachToRecyclerView(recyclerViewDesk);
         recyclerViewDesk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -134,13 +198,69 @@ public class HomeFragment extends Fragment {
                 adapterDesk.notifyDataSetChanged();
             }
         });
-        btnSearch.setOnClickListener(new View.OnClickListener() {
+        btnSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getContext(), SearchActivity.class);
-                startActivity(i);
+            public boolean onQueryTextSubmit(String query) {
+                adapterDesk.getFilter().filter(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapterDesk.getFilter().filter(newText);
+                return true;
             }
         });
         return rootView;
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Làm mới dữ liệu của fragment khi nó tiếp tục
+        refreshData();
+    }
+
+    private void refreshData() {
+        // Tải lại hoặc làm mới dữ liệu của fragment ở đây
+        listDesk.clear();
+        listDesk.addAll(db.getAllDesk());
+        adapterDesk.notifyDataSetChanged();
+    }
+    private List<Desk> getListDesks() {
+        List<Desk> list = new ArrayList<>();
+        db = new DatabaseApp(getContext());
+        list = db.getAllDesk();
+
+        return list;
+    }
+
+    @Override
+    public void onSwiped(RecyclerView.ViewHolder viewHolder) {
+        if(viewHolder instanceof  HomeDeskAdapter.DeskViewHolder){
+            int indexDelete = viewHolder.getAdapterPosition();
+            Desk desk = listDesk.get(indexDelete);
+
+            // Create an AlertDialog
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setMessage("Are you sure you want to delete this item?");
+            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    //remove item;
+                    adapterDesk.removeItem(indexDelete);
+                    db.deleteDesk(desk.getID_Deck());
+                }
+            });
+            builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    // Do not remove item, reset view
+                    adapterDesk.notifyItemChanged(viewHolder.getAdapterPosition());
+                    dialog.dismiss();
+                }
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
     }
 }

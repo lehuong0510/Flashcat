@@ -6,35 +6,10 @@
     android:layout_height="match_parent"
     style="@style/SCREEN">
 
-    <TextView
-        android:id="@+id/txt_lose"
-        android:layout_width="37dp"
-        android:layout_height="43dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="7dp"
-        android:background="@drawable/bord_0"
-        android:text="@string/lose"
-        android:textSize="26sp"
-        android:textColor="@color/bord_0"
-        android:gravity="center"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/txt_win"
-        android:layout_width="37dp"
-        android:layout_height="43dp"
-        android:layout_marginStart="354dp"
-        android:layout_marginTop="4dp"
-        android:background="@drawable/bord_1"
-        android:gravity="center"
-        android:text="@string/win"
-        android:textColor="@color/bord_1"
-        android:textSize="26sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <com.wajahatkarim3.easyflipview.EasyFlipView
+        android:id="@+id/easy_flip_flashcard"
         android:layout_width="345dp"
         android:layout_height="457dp"
         android:layout_marginStart="20dp"
@@ -44,7 +19,7 @@
         app:flipDuration="400"
         app:flipEnabled="true"
         app:flipFrom="front"
-        app:flipOnTouch="true"
+        app:flipOnTouch="false"
         app:flipType="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -31,4 +31,8 @@
     <color name="word_category">#409FBD</color>
     <color name="background_back">#EEF1F4</color>
     <color name="create_new">#6C7076</color>
+    <color name="multiplechoice_bluepastel">#F3EEEA</color>
+    <color name="correctColor">#669854</color>
+    <color name="incorrectColor">#BF4A4A</color>
+
 </resources>

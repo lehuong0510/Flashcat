@@ -2,6 +2,7 @@ package com.example.flashcat.Adapter;
 
 import static androidx.core.content.ContextCompat.startActivity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -58,7 +59,7 @@ public class DeskFlashcardTopAdapter extends RecyclerView.Adapter<DeskFlashcardT
     }
 
     @Override
-    public void onBindViewHolder(@NonNull DeskTopViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull DeskTopViewHolder holder, @SuppressLint("RecyclerView") int position) {
         if (getItemViewType(position) == TYPE_FLASHCARD) {
             Flashcard flashcard = flashcardArrayList.get(position);
             if(flashcard == null)
@@ -109,6 +110,7 @@ public class DeskFlashcardTopAdapter extends RecyclerView.Adapter<DeskFlashcardT
                 @Override
                 public void onClick(View v) {
                     Intent i = new Intent(context, CreateFlashcardActivity.class);
+                    i.putExtra("id_desk",flashcardArrayList.get(position).getID_Deck());
                     ((Activity) context).startActivity(i);
                 }
             });
