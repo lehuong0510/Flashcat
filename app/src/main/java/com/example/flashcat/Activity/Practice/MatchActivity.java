@@ -63,5 +63,9 @@ public class MatchActivity extends AppCompatActivity {
         Card9 = findViewById(R.id.txt_match_card9);
         Card10 = findViewById(R.id.txt_match_card10);
 
+        // Handle close button
+        btnClose.setOnClickListener(v -> {
+            finish();
+        });
     }
 }
