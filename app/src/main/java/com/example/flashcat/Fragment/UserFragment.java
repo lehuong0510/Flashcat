@@ -146,14 +146,15 @@ public class UserFragment extends Fragment {
         else {
             txtName.setText("FlashCat");
         }
-        if(txtName.getText().equals("FlashCat"))
+        if(!txtName.getText().equals("FlashCat"))
         {
             btnSync.setEnabled(false);
             btnLogout.setEnabled(false);
             btnSync.setTextColor(Color.LTGRAY);
             btnLogout.setTextColor(Color.LTGRAY);
         }
-        else {
+        else if(txtName.getText().equals("FlashCat"))
+        {
             btnLogin.setEnabled(false);
             btnLogin.setTextColor(Color.LTGRAY);
         }

@@ -8,11 +8,14 @@ import androidx.core.content.ContextCompat;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -40,30 +43,6 @@ public class StorageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_storage);
         findID();
-
-//        // Lấy và hiển thị dung lượng data
-//        long dataSize = getAppDataSize();
-//        String formattedDataSize = formatSize(dataSize);
-//        txtData.setText(formattedDataSize);
-//        // Dung lượng cache
-//        long cacheSize = getCacheSize();
-//        String formattedCacheSize = formatSize(cacheSize);
-//        txtCache.setText(formattedCacheSize);
-//
-//
-//        btnClear.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                showDialogClear();
-//            }
-//        });
-//
-//        btnBack.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                finish();
-//            }
-//        });
         requestStoragePermission();
     }
     public void findID(){
@@ -74,11 +53,11 @@ public class StorageActivity extends AppCompatActivity {
         txtCache = findViewById(R.id.txt_cache);
     }
     private void requestStoragePermission() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.MANAGE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
             // Permission is not granted, request it
             ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    new String[]{Manifest.permission.MANAGE_EXTERNAL_STORAGE},
                     REQUEST_STORAGE_PERMISSION);
         } else {
             // Permission already granted, proceed with file operations
@@ -98,6 +77,7 @@ public class StorageActivity extends AppCompatActivity {
                 // Permission denied, handle accordingly
                 // You can show a message or take appropriate action
                 Log.e("StorageActivity", "Storage permission denied");
+                openAppDetailsSettings();
             }
         }
     }
@@ -127,7 +107,12 @@ public class StorageActivity extends AppCompatActivity {
             }
         });
     }
-
+    private void openAppDetailsSettings() {
+        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        Uri uri = Uri.fromParts("package", getPackageName(), null);
+        intent.setData(uri);
+        startActivity(intent);
+    }
 
     private long getCacheSize() {
         File cacheDir = getCacheDir(); // Thư mục cache của ứng dụng
