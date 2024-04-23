@@ -20,8 +20,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.flashcat.Activity.Desk.DeskActivity;
+import com.example.flashcat.Activity.WordActivity;
+import com.example.flashcat.Model.Dictionary.WordItem;
 import com.example.flashcat.Touch.DeskItemTouchHelper;
 import com.example.flashcat.Touch.ItemTouchHelperListener;
 import com.example.flashcat.Adapter.HomeDeskAdapter;
@@ -29,6 +32,8 @@ import com.example.flashcat.Database.DatabaseApp;
 import com.example.flashcat.MainActivity;
 import com.example.flashcat.Model.Desk;
 import com.example.flashcat.R;
+import com.example.flashcat.api.OnFetchDataListener;
+import com.example.flashcat.api.RequestManagerDesk;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -159,10 +164,16 @@ public class HomeFragment extends Fragment implements ItemTouchHelperListener {
 
             else {
                 txtName.setText("FlashCat");
+
             }
+            RequestManagerDesk requestManagerDesk = new RequestManagerDesk(getContext());
+            Log.d("list", "onCreateView: "+"1");
+            requestManagerDesk.getAllDesks(listener);
+            Log.d("list", "onCreateView: "+"1");
         }
         else {
             txtName.setText("FlashCat");
+
         }
 
 
@@ -263,4 +274,33 @@ public class HomeFragment extends Fragment implements ItemTouchHelperListener {
             dialog.show();
         }
     }
+    private OnFetchDataListener listener = new OnFetchDataListener() {
+        @Override
+        public void onFetchData(WordItem wordItem, String message) {
+
+        }
+
+        @Override
+        public void onFetchData(Desk desk, int message) {
+
+        }
+
+        @Override
+        public void onError(String message) {
+            Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+            Log.d("error", "onError: " + message);
+
+        }
+
+        @Override
+        public void onFetchDataList(List<Desk> ListDesk) {
+            if (ListDesk!=null){
+              listDesk.addAll(ListDesk);
+            }
+            else {
+                Log.d("loi", "onFetchDataList: ");
+            }
+
+        }
+    };
 }

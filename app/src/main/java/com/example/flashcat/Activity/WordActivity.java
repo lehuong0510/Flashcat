@@ -21,6 +21,7 @@ import com.example.flashcat.Adapter.MeaningAdapter;
 import com.example.flashcat.Adapter.MinusAdapter;
 import com.example.flashcat.Database.DatabaseApp;
 import com.example.flashcat.Fragment.DictionaryFragment;
+import com.example.flashcat.Model.Desk;
 import com.example.flashcat.Model.Dictionary.Phonetics;
 import com.example.flashcat.Model.Dictionary.WordItem;
 import com.example.flashcat.Model.Word;
@@ -29,6 +30,7 @@ import com.example.flashcat.api.OnFetchDataListener;
 import com.example.flashcat.api.RequestManager;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class WordActivity extends AppCompatActivity {
 
@@ -122,8 +124,18 @@ public class WordActivity extends AppCompatActivity {
         }
 
         @Override
+        public void onFetchData(Desk desk, int message) {
+
+        }
+
+        @Override
         public void onError(String message) {
             Toast.makeText(WordActivity.this, message, Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onFetchDataList(List<Desk> listDesk) {
+
         }
     };
 

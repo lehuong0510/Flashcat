@@ -72,6 +72,7 @@ public class LoginActivity extends AppCompatActivity {
            @Override
            public void onClick(View v) {
                db= new DatabaseApp(LoginActivity.this);
+               db.deleteAllTables();
                db.addAccount(new Account("local","FlashCard","FlashCard","No","12345678","dsadsa","dsdsad"));
                Intent i = new Intent(LoginActivity.this, HomeActivity.class);
                startActivity(i);

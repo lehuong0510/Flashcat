@@ -194,8 +194,18 @@ public class CreateFlashcardActivity extends AppCompatActivity {
         }
 
         @Override
+        public void onFetchData(Desk desk, int message) {
+
+        }
+
+        @Override
         public void onError(String message) {
             //Toast.makeText(WordActivity.this, message, Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onFetchDataList(List<Desk> listDesk) {
+
         }
     };
     @RequiresApi(api = Build.VERSION_CODES.O)

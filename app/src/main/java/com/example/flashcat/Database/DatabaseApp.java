@@ -229,7 +229,8 @@ public class DatabaseApp extends SQLiteOpenHelper {
     //xoa desk theo id
     public void deleteDesk(int idDesk){
         SQLiteDatabase db = getWritableDatabase();
-        String sql ="Delete from " + TableName+ " Where idDesk = " + idDesk;
+        String sql ="Delete from "
+                + TableName+ " Where idDesk = " + idDesk;
         db.execSQL(sql);
         db.close();
     }
