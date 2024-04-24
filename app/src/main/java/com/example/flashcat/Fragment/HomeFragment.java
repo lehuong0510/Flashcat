@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.example.flashcat.Activity.Desk.DeskActivity;
 import com.example.flashcat.Activity.WordActivity;
 import com.example.flashcat.Model.Dictionary.WordItem;
+import com.example.flashcat.Model.Flashcard;
 import com.example.flashcat.Touch.DeskItemTouchHelper;
 import com.example.flashcat.Touch.ItemTouchHelperListener;
 import com.example.flashcat.Adapter.HomeDeskAdapter;
@@ -260,6 +261,8 @@ public class HomeFragment extends Fragment implements ItemTouchHelperListener {
                     //remove item;
                     adapterDesk.removeItem(indexDelete);
                     db.deleteDesk(desk.getID_Deck());
+                    // delete from server
+                    deleteDesk(desk.getID_Deck());
                 }
             });
             builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -274,6 +277,47 @@ public class HomeFragment extends Fragment implements ItemTouchHelperListener {
             dialog.show();
         }
     }
+
+    private void deleteDesk(int idDeck) {
+        RequestManagerDesk requestManagerDesk = new RequestManagerDesk(getContext());
+        requestManagerDesk.deleteDesk(new OnFetchDataListener() {
+            @Override
+            public void onFetchData(WordItem wordItem, String message) {
+                // Not used in this context
+            }
+
+            @Override
+            public void onFetchData(Desk Desk, int message) {
+                // Desk deleted successfully
+                Toast.makeText(getContext(), "Desk deleted successfully", Toast.LENGTH_SHORT).show();
+                // Refresh data after deletion
+                refreshData();
+            }
+
+            @Override
+            public void onFetchData(Flashcard flashcard, int flashcardMessage) {
+
+            }
+
+            @Override
+            public void onError(String message) {
+                Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFetchDataList(List<Desk> ListDesk) {
+                // Not used in this context
+            }
+
+            @Override
+            public void onFetchDataListFlashcard(List<Flashcard> ListFlashcard, int idDesk) {
+
+            }
+        }, idDeck);
+    }
+
+
+
     private OnFetchDataListener listener = new OnFetchDataListener() {
         @Override
         public void onFetchData(WordItem wordItem, String message) {
@@ -281,7 +325,12 @@ public class HomeFragment extends Fragment implements ItemTouchHelperListener {
         }
 
         @Override
-        public void onFetchData(Desk desk, int message) {
+        public void onFetchData(Desk Desk, int message) {
+
+        }
+
+        @Override
+        public void onFetchData(Flashcard flashcard, int flashcardMessage) {
 
         }
 
@@ -300,6 +349,11 @@ public class HomeFragment extends Fragment implements ItemTouchHelperListener {
             else {
                 Log.d("loi", "onFetchDataList: ");
             }
+
+        }
+
+        @Override
+        public void onFetchDataListFlashcard(List<Flashcard> ListFlashcard, int idDesk) {
 
         }
     };

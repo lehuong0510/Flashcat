@@ -1,5 +1,7 @@
 package com.example.flashcat.Activity.Desk;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -20,6 +22,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.flashcat.Activity.HomeActivity;
 import com.example.flashcat.Adapter.DeskFlashcatAdapter;
@@ -27,16 +30,20 @@ import com.example.flashcat.Database.DatabaseApp;
 import com.example.flashcat.Fragment.DeskFragment;
 import com.example.flashcat.Fragment.HomeFragment;
 import com.example.flashcat.Model.Desk;
+import com.example.flashcat.Model.Dictionary.WordItem;
 import com.example.flashcat.Model.Flashcard;
 import com.example.flashcat.R;
 import com.example.flashcat.Touch.FlashcardItemTouchHelper;
 import com.example.flashcat.Touch.ItemTouchHelperListener;
+import com.example.flashcat.api.OnFetchDataListener;
+import com.example.flashcat.api.RequestManagerDesk;
 
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class DeskActivity extends AppCompatActivity implements ItemTouchHelperListener {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -55,6 +62,8 @@ public class DeskActivity extends AppCompatActivity implements ItemTouchHelperLi
     private DeskFlashcatAdapter deskFlashcatAdapter;
     private RecyclerView rcflashcard;
     private ConstraintLayout rootview;
+
+    RequestManagerDesk requestManagerDesk = new RequestManagerDesk(this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,7 +74,7 @@ public class DeskActivity extends AppCompatActivity implements ItemTouchHelperLi
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_layout_desk, new DeskFragment())
                 .commit();
-        //Truyen du lieu khi chon desk
+        // Nhan du lieu tu intent
         Intent intent = getIntent();
         if (intent != null) {
             Bundle extras = intent.getExtras();
@@ -87,8 +96,12 @@ public class DeskActivity extends AppCompatActivity implements ItemTouchHelperLi
             }
         }
         listCard = new ArrayList<Flashcard>();
+        //get list flashcard by desk id from api
+        requestManagerDesk.getAllFlashcardsByDeskId(listener,idDesk);
+
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            listCard = db.getAllFlashcardByDeskID(idDesk);
+//            listCard = db.getAllFlashcardByDeskID(idDesk);
         }
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         rcflashcard.setLayoutManager(layoutManager);
@@ -101,7 +114,11 @@ public class DeskActivity extends AppCompatActivity implements ItemTouchHelperLi
         if(nameDeskCreate!=null)
         {
             txtNameDeskSelected.setText(nameDeskCreate);
-            db.addDesk(new Desk(1,nameDeskCreate,false,LocalDateTime.parse(createdDay,formatter),"12",0));
+//            db.addDesk(new Desk(1,nameDeskCreate,false,LocalDateTime.parse(createdDay,formatter),"12",0));
+            Desk desk = new Desk(1,nameDeskCreate,false,LocalDateTime.parse(createdDay,formatter),"1",0);
+            // Call API to create desk
+            requestManagerDesk.addDesk(listener, desk);
+
         }
         btnMore.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,9 +132,9 @@ public class DeskActivity extends AppCompatActivity implements ItemTouchHelperLi
                 Intent intent = new Intent(DeskActivity.this, HomeActivity.class);
 
                 startActivity(intent);
-                Desk desk = db.getDesk(idDesk);
-                desk.setCreate_day(getCurrentTime());
-                db.updateDesk(idDesk,desk);
+//                Desk desk = db.getDesk(idDesk);
+//                desk.setCreate_day(getCurrentTime());
+//                db.updateDesk(idDesk,desk);
                 finish();
 
             }
@@ -167,8 +184,11 @@ public class DeskActivity extends AppCompatActivity implements ItemTouchHelperLi
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     Intent intent = new Intent(DeskActivity.this, HomeActivity.class);
-                                    db.deleteDesk(idDesk);
+//                                    db.deleteDesk(idDesk);
 
+                                    // Call API to delete desk
+                                    RequestManagerDesk requestManagerDesk = new RequestManagerDesk(DeskActivity.this);
+                                    requestManagerDesk.deleteDesk(listener, idDesk);
                                     startActivity(intent);
                                     finish();
 
@@ -263,4 +283,45 @@ public class DeskActivity extends AppCompatActivity implements ItemTouchHelperLi
     public LocalDateTime getCurrentTime(){
         return LocalDateTime.now();
     }
+
+    // Handle API response
+    private OnFetchDataListener listener = new OnFetchDataListener() {
+        @Override
+        public void onFetchData(WordItem wordItem, String message) {
+            // Handle WordItem data if needed
+        }
+
+        @Override
+        public void onFetchData(Desk Desk, int message) {
+            // Handle Desk data if needed
+        }
+
+        @Override
+        public void onFetchData(Flashcard flashcard, int flashcardMessage) {
+
+        }
+
+        @Override
+        public void onError(String message) {
+            Toast.makeText(DeskActivity.this, message, Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "onError: " + message);
+        }
+
+        @Override
+        public void onFetchDataList(List<Desk> ListDesk) {
+            // Handle List<Desk> data if needed
+        }
+
+        @Override
+        public void onFetchDataListFlashcard(List<Flashcard> ListFlashcard, int idDesk) {
+            if(ListFlashcard != null){
+                listCard.addAll(ListFlashcard);
+                idDesk = idDesk;
+            }
+            else{
+                Toast.makeText(DeskActivity.this, "List flashcard is empty", Toast.LENGTH_SHORT).show();
+            }
+
+        }
+    };
 }

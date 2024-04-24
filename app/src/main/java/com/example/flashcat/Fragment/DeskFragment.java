@@ -21,12 +21,17 @@ import android.widget.LinearLayout;
 
 import com.example.flashcat.Adapter.DeskFlashcardTopAdapter;
 import com.example.flashcat.Database.DatabaseApp;
+import com.example.flashcat.Model.Desk;
+import com.example.flashcat.Model.Dictionary.WordItem;
 import com.example.flashcat.Model.Flashcard;
 import com.example.flashcat.R;
+import com.example.flashcat.api.OnFetchDataListener;
+import com.example.flashcat.api.RequestManagerDesk;
 
 import org.threeten.bp.format.DateTimeFormatter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -99,9 +104,13 @@ public class DeskFragment extends Fragment {
             if (bundle != null) {
                 data = bundle.getInt("idDesk");
                 Log.d("data", "onCreate: " + data);
-                listFlashCard = db.getAllFlashcardByDeskID(data);
+//                listFlashCard = db.getAllFlashcardByDeskID(data);
+
+                // Call the API to get all flashcards by desk ID
+                RequestManagerDesk requestManagerDesk = new RequestManagerDesk(getContext());
+                requestManagerDesk.getAllFlashcardsByDeskId(listener, data);
             }
-            listFlashCard.add(new Flashcard());
+            listFlashCard.add(new Flashcard()); // for empty flashcard
 
         }
     }
@@ -165,5 +174,38 @@ public class DeskFragment extends Fragment {
         }
     }
 
+    // Handle the response from the API
+    OnFetchDataListener listener = new OnFetchDataListener() {
+        @Override
+        public void onFetchData(WordItem wordItem, String message) {
+
+        }
+
+        @Override
+        public void onFetchData(Desk Desk, int deskMessage) {
+
+        }
+
+        @Override
+        public void onFetchData(Flashcard flashcard, int flashcardMessage) {
+            listFlashCard.add(flashcard);
+            flashcardTopAdapter.notifyDataSetChanged();
+        }
+
+        @Override
+        public void onError(String message) {
+            Log.d("Error", "onError: " + message);
+        }
+
+        @Override
+        public void onFetchDataList(List<Desk> listDesk) {
+
+        }
+
+        @Override
+        public void onFetchDataListFlashcard(List<Flashcard> ListFlashcard, int idDesk) {
+            listFlashCard.addAll(ListFlashcard);
+        }
+    };
 
 }

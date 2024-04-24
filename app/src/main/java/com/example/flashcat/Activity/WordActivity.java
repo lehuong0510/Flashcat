@@ -24,6 +24,7 @@ import com.example.flashcat.Fragment.DictionaryFragment;
 import com.example.flashcat.Model.Desk;
 import com.example.flashcat.Model.Dictionary.Phonetics;
 import com.example.flashcat.Model.Dictionary.WordItem;
+import com.example.flashcat.Model.Flashcard;
 import com.example.flashcat.Model.Word;
 import com.example.flashcat.R;
 import com.example.flashcat.api.OnFetchDataListener;
@@ -124,7 +125,12 @@ public class WordActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onFetchData(Desk desk, int message) {
+        public void onFetchData(Desk Desk, int message) {
+
+        }
+
+        @Override
+        public void onFetchData(Flashcard flashcard, int flashcardMessage) {
 
         }
 
@@ -137,6 +143,13 @@ public class WordActivity extends AppCompatActivity {
         public void onFetchDataList(List<Desk> listDesk) {
 
         }
+
+        @Override
+        public void onFetchDataListFlashcard(List<Flashcard> ListFlashcard, int idDesk) {
+
+        }
+
+
     };
 
     private void showData(WordItem wordItem) {
